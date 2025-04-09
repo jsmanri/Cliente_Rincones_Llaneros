@@ -1,5 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { LoginComponent } from './app/pages/login/login.component';
+import { VistaComponent } from './app/pages/vista/vista.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@ bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([
             { path: '', redirectTo: 'login', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
+            { path: 'vista', component: VistaComponent },
           ]),
         provideHttpClient()
     ]

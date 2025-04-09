@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
+import { VistaComponent } from './pages/vista/vista.component';
 
 
 export const routes: Routes = [
-    {path: '', component:LoginComponent},
+    {path: '', component:VistaComponent},
 ];
