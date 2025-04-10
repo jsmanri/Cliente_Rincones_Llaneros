@@ -1,0 +1,72 @@
+/* Estilos generales */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* HEADER */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #00a3e0;
+    padding: 15px 30px;
+  }
+  
+  .logo {
+    width: 120px;
+  }
+  
+  .nav button {
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
+  .icons mat-icon {
+    color: white;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  /* CONTENIDO PRINCIPAL */
+  .content {
+    flex-grow: 1;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .featured-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  .caption {
+    font-style: italic;
+    color: gray;
+  }
+  
+  /* FOOTER */
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00a3e0;
+    padding: 10px 0;
+    color: white;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .social-icons mat-icon {
+    color: white;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
