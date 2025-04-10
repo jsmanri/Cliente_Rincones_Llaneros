@@ -1,0 +1,33 @@
+<div class="login-container">
+    <mat-card class="login-card">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Rincones Llaneros" class="logo">
+        </div>
+        <h1 class="title">BIENVENIDO A RINCONES LLANEROS</h1>
+        <p class="subtitle">Descubre los mejores sitios turísticos de Casanare</p>
+  
+        <!-- Campo de Usuario -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Usuario o correo</mat-label>
+            <input matInput placeholder="Ingrese su usuario">
+        </mat-form-field>
+  
+        <!-- Campo de Contraseña -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Ingrese su contraseña">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+  
+        <!-- Botón de Ingreso -->
+        <button mat-raised-button color="primary" class="full-width" (click)="login()">Iniciar Sesión</button>
+  
+        <!-- Enlaces para recuperar contraseña y crear cuenta -->
+        <div class="actions">
+            <button mat-button color="accent" (click)="recoverPassword()">¿Olvidaste tu contraseña?</button>
+            <button mat-button color="warn" (click)="goToRegister()">Crear cuenta nueva</button>
+        </div>
+    </mat-card>
+</div>

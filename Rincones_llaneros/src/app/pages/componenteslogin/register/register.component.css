@@ -1,0 +1,203 @@
+/* =============================================
+   ESTILOS PRINCIPALES DEL CONTENEDOR
+   ============================================= */
+   .register-container {
+    background: url('/loginimagen.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* =============================================
+   ESTILOS DE LA TARJETA DE REGISTRO
+   ============================================= */
+.register-card {
+    width: 100%;
+    max-width: 800px; /* Aumentado para dos columnas */
+    padding: 1px;
+    background: rgba(184, 177, 177, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.register-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* =============================================
+   CONTENEDOR DE DOS COLUMNAS
+   ============================================= */
+.form-columns-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.form-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* =============================================
+   ESTILOS DE TEXTO Y TÍTULOS
+   ============================================= */
+.register-title {
+    background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 33px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0 0 15px;
+}
+
+.register-subtitle {
+    color: #000000;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin-bottom: 30px;
+    padding-bottom: 8px;
+    position: relative;
+    display: inline-block;
+}
+
+/* =============================================
+   ESTILOS DE FORMULARIO
+   ============================================= */
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 4px;
+    opacity: 1;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #000000;
+    opacity: 1;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    background: rgb(0, 0, 0);
+    padding: 0.5em 0;
+    border-radius: 4px;
+}
+
+.mat-input-element {
+    color: #000000;
+    padding: 8px 0;
+}
+
+.mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.mat-focused .mat-form-field-label {
+    color: #000000;
+}
+
+.mat-input-element:focus {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+/* Selector de rol especial */
+.role-selector {
+    margin-bottom: 5px;
+}
+
+/* =============================================
+   ESTILOS DE BOTÓN
+   ============================================= */
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #718370 0%, #718370 100%);
+    color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(43, 255, 43, 0.3);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================================
+   ESTILOS DEL LOGO
+   ============================================= */
+.logo-container {
+    text-align: center;
+    margin-bottom: 1px;
+}
+
+.logo {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+/* =============================================
+   ESTILOS ADICIONALES
+   ============================================= */
+.terms-message {
+    font-size: 14px;
+    color: #0e0c38;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.terms-link {
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.terms-link:hover {
+    color: #28473c;
+    text-decoration: underline;
+}
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+@media (max-width: 768px) {
+    .form-columns-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .register-card {
+        padding: 30px 20px;
+        margin: 0 15px;
+        max-width: 500px;
+    }
+    
+    .register-title {
+        font-size: 28px;
+    }
+    
+    .register-subtitle {
+        font-size: 16px;
+    }
+}

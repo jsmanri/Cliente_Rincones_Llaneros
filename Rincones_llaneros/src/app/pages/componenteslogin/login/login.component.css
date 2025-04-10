@@ -1,0 +1,213 @@
+/* =============================================
+   ESTILOS PRINCIPALES DEL CONTENEDOR
+   ============================================= */
+
+/**
+ * Contenedor principal del formulario de login
+ * - Fondo con imagen que cubre toda la pantalla
+ * - Centrado vertical y horizontalmente
+ * - Responsivo para todos los dispositivos
+ */
+ .login-container {
+    /* Fondo */
+    background: url('/loginimagen.jpg') no-repeat center center fixed;
+    background-size: cover;
+    
+    /* Dimensiones */
+    height: 100vh;
+    padding: 20px;
+    
+    /* Flexbox para centrado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Tipografía base */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  }
+  
+  
+  /* =============================================
+     ESTILOS DE LA TARJETA DE LOGIN
+     ============================================= */
+  
+  .login-card {
+    /* Dimensiones y espaciado */
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    
+    /* Apariencia visual */
+    background: rgba(184, 177, 177, 0.75); /* Gris semi-transparente */
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    
+    /* Efectos de transición */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Alineación de contenido */
+    text-align: center;
+  }
+  
+  /* Efecto hover para la tarjeta */
+  .login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+  
+  
+  /* =============================================
+     ESTILOS DE TEXTO Y TÍTULOS
+     ============================================= */
+  
+  .title {
+    /* Texto con gradiente */
+    background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    
+    /* Tipografía */
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    
+    /* Espaciado */
+    margin: 0 0 5px;
+  }
+  
+  .subtitle {
+    /* Color y tipografía */
+    color: #0e0c38;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    
+    /* Espaciado y decoración */
+    margin-bottom: 30px;
+    padding-bottom: 8px;
+    position: relative;
+    display: inline-block;
+  }
+  
+/* =============================================
+   ESTILOS DE FORMULARIO MEJORADOS
+   ============================================= */
+
+/* Contenedor de campos del formulario */
+.mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Fondo blanco sólido para los campos */
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 4px;
+    opacity: 1; /* Aseguramos que no sea transparente */
+  }
+  
+  /* Color del borde cuando está enfocado */
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #000000;
+    opacity: 1;
+  }
+  
+  /* Estilo para el input */
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    background: rgb(0, 0, 0);
+    padding: 0.5em 0;
+    border-radius: 4px;
+  }
+  
+  /* Texto del input */
+  .mat-input-element {
+    color: #000000; /* Color oscuro para mejor legibilidad */
+    padding: 8px 0;
+  }
+  
+  /* Label flotante */
+  .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Label cuando está enfocado */
+  .mat-focused .mat-form-field-label {
+    color: #000000;
+  }
+  
+  /* Efecto de foco en el input */
+  .mat-input-element:focus {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+  
+  /* =============================================
+     ESTILOS DE BOTONES
+     ============================================= */
+  
+  /* Botón principal */
+  .mat-raised-button {
+    /* Dimensiones y espaciado */
+    width: 100%;
+    padding: 12px;
+    
+    /* Apariencia visual */
+    background: linear-gradient(90deg, #000000 0%, #000000 100%);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 123, 182, 0.3);
+    
+    /* Tipografía */
+    font-size: 16px;
+    font-weight: 600;
+    
+    /* Transiciones */
+    transition: all 0.3s ease;
+  }
+  
+  /* Efecto hover para botón principal */
+  .mat-raised-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Contenedor de acciones secundarias */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  /* Botones secundarios */
+  .mat-button {
+    color: #000000;
+    font-weight: 500;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+  
+  /* Efecto hover para botones secundarios */
+  .mat-button:hover {
+    color: #000000;
+    transform: translateY(-1px);
+  }
+  
+  
+  /* =============================================
+     ESTILOS DEL LOGO
+     ============================================= */
+  
+  .logo-container {
+    text-align: center;
+    margin-bottom: 1px;
+  }
+  
+  .logo {
+    max-width: 200px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+  }
