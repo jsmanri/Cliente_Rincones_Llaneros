@@ -1,5 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { VistaComponent } from './app/pages/vista/vista.component';
+import { VistaComponent } from './app/pages/componets/vista/vista.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
