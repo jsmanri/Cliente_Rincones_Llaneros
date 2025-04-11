@@ -1,80 +1,70 @@
 /* =============================================
-   CONTENEDOR PRINCIPAL
+   CONTENEDOR PRINCIPAL - RECUPERACIÓN
    ============================================= */
-   .register-container {
+   .recuperacion-container {
     background: url('/loginimagen.jpg') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
     padding: 30px 20px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* <- Cambiado para centrar verticalmente */
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
     overflow-y: auto;
     box-sizing: border-box;
 }
 
 /* =============================================
-   TARJETA DE REGISTRO
+   TARJETA DE RECUPERACIÓN
    ============================================= */
-.register-card {
+.recuperacion-card {
     width: 100%;
-    max-width: 850px;
-    padding: 2px 30px;
+    max-width: 500px;
+    padding: 30px;
     background: rgba(184, 177, 177, 0.85);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
     box-sizing: border-box;
 }
 
-/* Hover opcional */
-.register-card:hover {
+.recuperacion-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 /* =============================================
-   COLUMNA DEL FORMULARIO
+   TEXTOS
    ============================================= */
-.form-columns-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
-.form-column {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* =============================================
-   TEXTOS Y ESTILO VISUAL
-   ============================================= */
-.register-title {
+.title {
     background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: 33px;
+    font-size: 30px;
     font-weight: 800;
-    margin: 0 0 15px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.register-subtitle {
-    color: #000000;
+.description {
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 30px;
+    color: #000000;
+    text-align: center;
 }
 
 /* =============================================
-   CAMPOS DE FORMULARIO
+   FORMULARIO
    ============================================= */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Campo del formulario */
 .mat-form-field {
     width: 100%;
 }
@@ -83,10 +73,6 @@
     background-color: white;
     border-radius: 4px;
     opacity: 1;
-}
-
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: #000000;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -100,14 +86,10 @@
     padding: 8px 0;
 }
 
-.role-selector {
-    margin-bottom: 5px;
-}
-
 /* =============================================
    BOTÓN
    ============================================= */
-.submit-button {
+button {
     width: 100%;
     padding: 12px;
     background: linear-gradient(90deg, #718370 0%, #718370 100%);
@@ -120,47 +102,30 @@
     margin-top: 10px;
 }
 
-.submit-button:hover {
+button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* =============================================
-   LOGO
+   ENLACE VOLVER A LOGIN
    ============================================= */
-.logo-container {
-    text-align: center;
-    margin-bottom: 1px;
-}
-
-.logo {
-    max-width: 200px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
-}
-
-/* ============================================= 
-   TÉRMINOS 
-   ============================================= */
-   .terms-message {
+.volver-message {
     font-size: 14px;
     color: #0e0c38;
     margin-top: 20px;
     text-align: center;
 }
 
-.terms-link {
+.volver-link {
     color: #000000;
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
-    cursor: pointer;  /* Cambia el cursor a la manita */
+    cursor: pointer;
 }
 
-/* Efectos de hover */
-.terms-link:hover {
+.volver-link:hover {
     color: #358832;
     text-decoration: underline;
 }
@@ -169,52 +134,22 @@
    RESPONSIVE
    ============================================= */
 @media (max-width: 768px) {
-    .form-columns-container {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .register-card {
+    .recuperacion-card {
         padding: 25px 20px;
         max-width: 95vw;
     }
 
-    .register-title {
-        font-size: 28px;
+    .title {
+        font-size: 26px;
     }
 }
 
 @media (max-width: 400px) {
-    .register-card {
+    .recuperacion-card {
         padding: 20px 15px;
     }
 
-    .register-title {
-        font-size: 24px;
-    }
-
-    .logo {
-        max-width: 150px;
+    .title {
+        font-size: 22px;
     }
 }
-
-
-.login-message {
-    font-size: 14px;
-    color: #0e0c38;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .login-link {
-    color: #000000;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    cursor: pointer;
-  }
-  
-  .login-link:hover {
-    color: #358832;
-    text-decoration: underline;
-  }

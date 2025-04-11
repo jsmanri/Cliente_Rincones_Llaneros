@@ -76,4 +76,19 @@ export class RegisterComponent {
     console.log('Datos para registro:', formData);
     this.router.navigate(['/dashboard']);
   }
+
+
+  goToPolitica() {
+    console.log('Redirigiendo a Términos y Condiciones');
+    this.router.navigate(['/politica']);
+  }
+
+
+  goToLogin() {
+    console.log('Redirigiendo al login');
+    this.router.navigate(['/login']);
+  }
+  
+
+
 }

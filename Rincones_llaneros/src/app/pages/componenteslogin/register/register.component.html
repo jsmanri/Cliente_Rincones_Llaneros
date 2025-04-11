@@ -75,11 +75,14 @@
                 <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" class="submit-button">
                     Registrarme
                 </button>
-
-                <!-- Mensaje de términos -->
-                <p class="terms-message">
-                    Al registrarte aceptas nuestros <a href="#" class="terms-link">Términos y Condiciones</a>
+                <p class="login-message">
+                    ¿Ya tienes una cuenta?
+                    <a (click)="goToLogin()" class="login-link">Inicia sesión</a>
                 </p>
+                <p class="terms-message">
+                    Al registrarte aceptas nuestros 
+                    <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a>
+                  </p>                  
             </form>
         </mat-card-content>
     </mat-card>

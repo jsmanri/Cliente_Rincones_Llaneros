@@ -35,7 +35,8 @@ export class LoginComponent {
     alert('iniciando sessionStorage..')
   }
   recoverPassword(){
-    alert('Recuperar contraseña')
+    console.log('ingresando a recuperar contraseña')
+    this.router.navigate(['/recuperacion'])
   }
   createAccount(){
     alert('Crear nueva cuenta')
