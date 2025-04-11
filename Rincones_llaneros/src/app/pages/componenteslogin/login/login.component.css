@@ -1,21 +1,14 @@
 /* =============================================
    ESTILOS PRINCIPALES DEL CONTENEDOR
    ============================================= */
-
-/**
- * Contenedor principal del formulario de login
- * - Fondo con imagen que cubre toda la pantalla
- * - Centrado vertical y horizontalmente
- * - Responsivo para todos los dispositivos
- */
- .login-container {
+   .login-container {
     /* Fondo */
     background: url('/loginimagen.jpg') no-repeat center center fixed;
     background-size: cover;
     
     /* Dimensiones */
-    height: 100vh;
-    padding: 20px;
+    min-height: 100vh;
+    padding: 16px;
     
     /* Flexbox para centrado */
     display: flex;
@@ -24,21 +17,23 @@
     
     /* Tipografía base */
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  }
-  
-  
-  /* =============================================
-     ESTILOS DE LA TARJETA DE LOGIN
-     ============================================= */
-  
-  .login-card {
+    
+    /* Asegurar que el contenedor ocupe al menos el viewport */
+    box-sizing: border-box;
+}
+
+/* =============================================
+   ESTILOS DE LA TARJETA DE LOGIN
+   ============================================= */
+.login-card {
     /* Dimensiones y espaciado */
-    width: 100%;
+    width: 90%;
     max-width: 500px;
-    padding: 40px;
+    min-width: 280px;
+    padding: 24px;
     
     /* Apariencia visual */
-    background: rgba(184, 177, 177, 0.75); /* Gris semi-transparente */
+    background: rgba(184, 177, 177, 0.75);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     
@@ -47,20 +42,23 @@
     
     /* Alineación de contenido */
     text-align: center;
-  }
-  
-  /* Efecto hover para la tarjeta */
-  .login-card:hover {
+    
+    /* Asegurar que el padding no afecte el ancho total */
+    box-sizing: border-box;
+    
+    /* Margen para separación */
+    margin: 20px auto;
+}
+
+.login-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-  }
-  
-  
-  /* =============================================
-     ESTILOS DE TEXTO Y TÍTULOS
-     ============================================= */
-  
-  .title {
+}
+
+/* =============================================
+   ESTILOS DE TEXTO Y TÍTULOS
+   ============================================= */
+.title {
     /* Texto con gradiente */
     background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
     -webkit-background-clip: text;
@@ -73,10 +71,11 @@
     letter-spacing: -0.5px;
     
     /* Espaciado */
-    margin: 0 0 5px;
-  }
-  
-  .subtitle {
+    margin: 0 0 8px;
+    line-height: 1.2;
+}
+
+.subtitle {
     /* Color y tipografía */
     color: #0e0c38;
     font-size: 18px;
@@ -85,75 +84,65 @@
     
     /* Espaciado y decoración */
     margin-bottom: 30px;
-    padding-bottom: 8px;
-    position: relative;
-    display: inline-block;
-  }
-  
+    line-height: 1.4;
+}
+
 /* =============================================
    ESTILOS DE FORMULARIO MEJORADOS
    ============================================= */
-
-/* Contenedor de campos del formulario */
 .mat-form-field {
     width: 100%;
     margin-bottom: 20px;
-  }
-  
-  /* Fondo blanco sólido para los campos */
-  .mat-form-field-appearance-outline .mat-form-field-outline {
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: white;
     border-radius: 4px;
-    opacity: 1; /* Aseguramos que no sea transparente */
-  }
-  
-  /* Color del borde cuando está enfocado */
-  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    opacity: 1;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
     color: #000000;
     opacity: 1;
-  }
-  
-  /* Estilo para el input */
-  .mat-form-field-appearance-outline .mat-form-field-infix {
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
     background: rgb(0, 0, 0);
     padding: 0.5em 0;
     border-radius: 4px;
-  }
-  
-  /* Texto del input */
-  .mat-input-element {
-    color: #000000; /* Color oscuro para mejor legibilidad */
-    padding: 8px 0;
-  }
-  
-  /* Label flotante */
-  .mat-form-field-label {
-    color: rgba(0, 0, 0, 0.6);
-  }
-  
-  /* Label cuando está enfocado */
-  .mat-focused .mat-form-field-label {
+}
+
+.mat-input-element {
     color: #000000;
-  }
-  
-  /* Efecto de foco en el input */
-  .mat-input-element:focus {
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+.mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+}
+
+.mat-focused .mat-form-field-label {
+    color: #000000;
+}
+
+.mat-input-element:focus {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
     outline: none;
-  }
-  
-  /* =============================================
-     ESTILOS DE BOTONES
-     ============================================= */
-  
-  /* Botón principal */
-  .mat-raised-button {
+}
+
+/* =============================================
+   ESTILOS DE BOTONES
+   ============================================= */
+.mat-raised-button {
     /* Dimensiones y espaciado */
     width: 100%;
     padding: 12px;
+    min-height: 48px; /* Altura mínima para touch */
     
     /* Apariencia visual */
-    background: linear-gradient(90deg, #000000 0%, #000000 100%);
+    background: linear-gradient(90deg, #000000 0%, #333333 100%);
     color: white;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 123, 182, 0.3);
@@ -161,53 +150,154 @@
     /* Tipografía */
     font-size: 16px;
     font-weight: 600;
+    letter-spacing: 0.5px;
     
     /* Transiciones */
     transition: all 0.3s ease;
-  }
-  
-  /* Efecto hover para botón principal */
-  .mat-raised-button:hover {
+    
+    /* Para evitar desbordamiento en móviles */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mat-raised-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-  }
-  
-  /* Contenedor de acciones secundarias */
-  .actions {
+}
+
+.actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     gap: 10px;
-  }
-  
-  /* Botones secundarios */
-  .mat-button {
+    flex-wrap: wrap;
+}
+
+.mat-button {
     color: #000000;
     font-weight: 500;
-    padding: 0;
+    padding: 8px 0;
     transition: all 0.3s ease;
-  }
-  
-  /* Efecto hover para botones secundarios */
-  .mat-button:hover {
+    min-height: 48px; /* Altura mínima para touch */
+    flex: 1;
+    min-width: 120px;
+}
+
+.mat-button:hover {
     color: #000000;
     transform: translateY(-1px);
-  }
-  
-  
-  /* =============================================
-     ESTILOS DEL LOGO
-     ============================================= */
-  
-  .logo-container {
+}
+
+/* =============================================
+   ESTILOS DEL LOGO
+   ============================================= */
+.logo-container {
     text-align: center;
-    margin-bottom: 1px;
-  }
-  
-  .logo {
+    margin-bottom: 16px;
+}
+
+.logo {
     max-width: 200px;
+    width: 100%;
     height: auto;
     margin: 0 auto;
     display: block;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
-  }
+}
+
+/* =============================================
+   MEDIA QUERIES PARA RESPONSIVIDAD
+   ============================================= */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 20px;
+        width: 85%;
+    }
+    
+    .title {
+        font-size: 28px;
+    }
+    
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    
+    .logo {
+        max-width: 180px;
+    }
+    
+    .mat-button {
+        min-width: 100px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 16px;
+        width: 90%;
+        border-radius: 12px;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .subtitle {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .mat-form-field {
+        margin-bottom: 16px;
+    }
+    
+    .mat-raised-button {
+        padding: 10px;
+        font-size: 15px;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .mat-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .logo {
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 360px) {
+    .login-container {
+        padding: 12px;
+    }
+    
+    .login-card {
+        padding: 14px;
+        width: 95%;
+    }
+    
+    .title {
+        font-size: 22px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+    
+    .mat-input-element,
+    .mat-form-field-label {
+        font-size: 14px;
+    }
+    
+    .mat-raised-button {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,80 @@
+/* Contenedor principal centrado */
+.politica-container {
+    background: url('/loginimagen.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  }
+  
+  /* Estilo de la tarjeta */
+  .politica-card {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    background: rgba(184, 177, 177, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .politica-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Título */
+  .politica-title {
+    background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    padding: 20px 0 10px;
+    text-align: center;
+  }
+  
+  /* Contenido con scroll interno */
+  .politica-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    color: #000;
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: justify;
+  }
+  
+  /* Scroll estilizado opcional */
+  .politica-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .politica-content::-webkit-scrollbar-thumb {
+    background-color: #536e57;
+    border-radius: 3px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .politica-card {
+      max-width: 95%;
+      height: 90vh;
+    }
+  
+    .politica-title {
+      font-size: 25px;
+    }
+  
+    .politica-content {
+      font-size: 14px;
+    }
+  }
+  
