@@ -1,0 +1,108 @@
+/* Contenedor principal */
+.main-container {
+    background-image: url("/loginimagen.jpg");
+    height: 100vh;
+  }
+  
+  /* Toolbar */
+  .toolbar {
+    background-color: #1A1A1ABD;
+    position: sticky;
+    top: 0;
+    height: 100px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  
+  /* Logo */
+  .logo {
+    width: 100px;
+    margin-right: 20px;
+  }
+  
+  /* Botones de navegación */
+  .botones,
+  .sesion {
+    display: flex;
+    gap: 10px;
+  }
+  /* Barra de búsqueda */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1abd;
+    border-radius: 50px;
+    color: aliceblue;
+    padding: 0 16px;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-bar {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+    padding-left: 8px;
+  }
+  
+  .search-icon {
+    color: #fffafa;
+    font-size: 24px;
+  }
+  
+  /* Espaciador */
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  /* Hamburguesa (escondida en escritorio) */
+  .hamburger {
+    display: none;
+    color: rgb(255, 255, 255);
+    margin-left: 10px;
+  }
+  
+  /* Menú lateral */
+  .sidenav {
+    width: 250px;
+  }
+  
+  /* Estilo para búsqueda en móvil */
+  .mobile-search {
+    display: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 30px;
+    align-items: center;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none !important;
+    }
+  
+    .hamburger {
+      display: inline-flex;
+    }
+
+    .mobile-search {
+      background-color: #1a1a1abd;
+      color: #fffafa;
+      display: flex;
+    }
+  
+    .toolbar {
+      flex-wrap: nowrap;
+      padding: 10px;
+    }
+  
+    .logo {
+      margin-right: auto;
+    }
+  }

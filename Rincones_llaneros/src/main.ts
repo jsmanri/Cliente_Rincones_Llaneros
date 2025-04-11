@@ -1,6 +1,15 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
+import { HeadersinregistroComponent } from './app/pages/component/headersinregistro/headersinregistro.component';
 import { AppComponent } from './app/app.component';
+import { HeaderregistroComponent } from './app/pages/component/headerregistro/headerregistro.component';
+import { provideRouter } from '@angular/router';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent,{
+  providers:[
+    provideRouter([
+      { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
+      { path: 'headersinregistro', component: HeadersinregistroComponent },
+    ])
+  ]
+})
+  .catch(err => console.error(err));

@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="toolbar">
+    <mat-icon></mat-icon>
+    <img class="logo" src="logo.png" class="logo">
+    <div class="botones">
+        <button mat-raised-button routerLink="/dashboard" class="btninicio">INICIO</button>
+        <button mat-raised-button >MAPA</button>
+        <button mat-raised-button >MUNICIPIOS</button>
+        <button mat-raised-button >TENDENCIAS</button>
+    </div>
+    <div class="search-container">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" class="search-bar" placeholder="Buscar...">
+      </div>
+    <span class="spacer"></span>
+    <div class="sesion">
+    <button mat-raised-button routerLink="/login" color="accent">INICIAR SESIÓN</button>
+    <button mat-raised-button routerLink="/register" color="accent">REGISTRARSE</button>
+    </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
