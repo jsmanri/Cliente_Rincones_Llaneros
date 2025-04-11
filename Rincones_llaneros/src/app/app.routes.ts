@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
+import { HeadersinregistroComponent } from './pages/component/headersinregistro/headersinregistro.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'headerregistro', pathMatch: 'full' },
-    { path: 'headerregistro', component: HeaderregistroComponent },
+    { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
+    { path: 'headersinregistro', component: HeadersinregistroComponent },
 ];
