@@ -1,52 +1,70 @@
 <mat-sidenav-container class="main-container">
-    <!-- Sidenav Menú lateral en laderecha -->
-    <mat-sidenav #sidenav class="sidenav" mode="over" position="end" style="background-color: #1a1a1abd;">
-      <!-- Barra de búsqueda en móvil -->
-      <div class="search-container mobile-search">
-        <input type="text" class="search-bar" placeholder="Buscar...">
-      </div>
-  
-      <mat-nav-list >
-        <a mat-list-item routerLink="/dashboard" (click)="sidenav.close()">INICIO</a>
-        <a mat-list-item (click)="sidenav.close()">MAPA</a>
-        <a mat-list-item (click)="sidenav.close()">MUNICIPIOS</a>
-        <a mat-list-item (click)="sidenav.close()">TENDENCIAS</a>
-        <a mat-list-item routerLink="/login" (click)="sidenav.close()">INICIAR SESIÓN</a>
-        <a mat-list-item routerLink="/register" (click)="sidenav.close()">REGISTRARSE</a>
-      </mat-nav-list>
+    <mat-sidenav #sidenav class="sidenav" mode="over" position="end">
+        <div class="search-container mobile-search">
+            <input type="text" class="search-bar" placeholder="Buscar...">
+        </div>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/dashboard" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">INICIO</span>
+          </a>        
+          <a mat-list-item (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">MAPA</span>
+          </a>
+          <a mat-list-item (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">MUNICIPIOS</span>
+          </a>
+          <a mat-list-item (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">TENDENCIAS</span>
+          </a>
+          <a mat-list-item routerLink="/login" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">INICIAR SESIÓN</span>
+          </a>
+          <a mat-list-item routerLink="/register" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">REGISTRARSE</span>
+          </a>
+        </mat-nav-list>
     </mat-sidenav>
-  
-    <!-- toolbar -->
+
     <mat-toolbar color="primary" class="toolbar">
-      <img class="logo" src="logo.png" alt="Logo" />
-  
-      <!-- botones escritorio -->
-      <div class="botones desktop-only">
-        <button mat-raised-button style="background-color: transparent; color: white; margin: 15px;" routerLink="/dashboard" class="btninicio">INICIO</button>
-        <button mat-raised-button style="background-color: transparent; color: white; margin: 15px;">MAPA</button>
-        <button mat-raised-button style="background-color: transparent; color: white; margin: 15px;">MUNICIPIOS</button>
-        <button mat-raised-button style="background-color: transparent; color: white; margin: 15px;">TENDENCIAS</button>
-      </div>
-  
-      <span class="spacer"></span>
-  
-      <!-- Barra de búsqueda para escritorio -->
-      <div class="search-container desktop-only">
-        <mat-icon class="search-icon">search</mat-icon>
-        <input type="text" class="search-bar"  placeholder="Buscar..." />
-      </div>
-  
-      <!-- Botones sesión para escritorio -->
-      <div class="sesion desktop-only">
-        <button mat-raised-button routerLink="/login" style="background-color: transparent; color: white;">INICIAR SESIÓN</button>
-        <button mat-raised-button routerLink="/register" style="background-color: transparent; color: white;">REGISTRARSE</button>
-      </div>
-  
-      <!-- Botón hamburguesa para móvil -->
-      <button mat-icon-button (click)="sidenav.toggle()" class="hamburger">
-        <mat-icon>menu</mat-icon>
-      </button>
+        <img class="logo" src="logo.png" alt="Logo" />
+
+        <div class="botones desktop-only">
+            <button mat-raised-button style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;"
+                routerLink="/dashboard">INICIO</button>
+
+            <button mat-raised-button style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">
+                MAPA
+            </button>
+
+            <button mat-raised-button style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">
+                MUNICIPIOS
+            </button>
+
+            <button mat-raised-button style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">
+                TENDENCIAS
+            </button>
+        </div>
+
+        <span class="spacer"></span>
+
+        <div style="background-color: transparent; color: white; border:1px solid white; margin: 15px;"
+            class="search-container desktop-only">
+            <mat-icon class="search-icon">search</mat-icon>
+            <input type="text" class="search-bar" placeholder="Buscar..." />
+        </div>
+
+        <div class="sesion desktop-only">
+            <button mat-raised-button routerLink="/login"
+                style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">INICIAR
+                SESIÓN</button>
+            <button mat-raised-button routerLink="/register"
+                style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">REGISTRARSE</button>
+        </div>
+
+        <button mat-icon-button (click)="sidenav.toggle()" class="hamburger">
+            <mat-icon>menu</mat-icon>
+        </button>
     </mat-toolbar>
-  
+
     <router-outlet></router-outlet>
-  </mat-sidenav-container>
+</mat-sidenav-container>
