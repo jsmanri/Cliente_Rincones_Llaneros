@@ -1,0 +1,66 @@
+<div class="seccion-superior">
+    <div class="superior-overlay">
+      <h1 class="body-title">Registrar Sitio Turístico</h1>
+      <p class="body-subtitle">Comparte los paisajes y experiencias únicas de Casanare</p>
+    </div>
+  </div>
+  
+  <div class="seccion-inferior">
+    <form class="formulario-sitio">
+
+        <!-- Nombre del Sitio -->
+        <div class="form-group">
+          <label for="nombre">Nombre del Sitio</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+    
+        <!-- Descripción del Sitio -->
+        <div class="form-group">
+          <label for="descripcion">Descripción del Sitio</label>
+          <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+        </div>
+
+        <!-- Municipio -->
+       <div class="form-group">
+          <label for="municipio">Municipio</label>
+          <select id="municipio" [(ngModel)]="municipioSeleccionado" required>
+          <option value="" disabled selected>Selecciona un municipio</option>
+          <option *ngFor="let municipio of municipiosCasanare" [value]="municipio.nombre">
+            {{ municipio.nombre }}
+           </option>
+          </select>
+       </div>
+  
+    
+        <!-- Ubicación -->
+        <div class="form-group">
+          <label for="ubicacion">Ubicación</label>
+          <input type="text" id="ubicacion" name="ubicacion" required>
+        </div>
+
+        <!-- Dirección -->
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" name="direccion" required>
+        </div>
+
+        <!-- Horario -->
+        <div class="form-group">
+          <label for="horario">Horario</label>
+          <input type="text" id="horario" name="horario" placeholder="Ej: Lunes a Domingo, 8:00 am - 6:00 pm" required>
+        </div>
+    
+        <!-- Foto del sitio o fotos -->
+        <div class="form-group">
+          <label for="fotos">Foto del sitio (o varias)</label>
+          <input type="file" id="fotos" name="fotos" multiple accept="image/*">
+        </div>
+    
+        <!-- Botón de enviar (opcional por ahora) -->
+        <div class="form-group">
+          <button type="submit">Registrar Sitio</button>
+        </div>
+        
+      </form>
+  </div>
+  

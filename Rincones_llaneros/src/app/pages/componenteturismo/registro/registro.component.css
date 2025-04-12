@@ -1,0 +1,114 @@
+.seccion-superior {
+    height: 300px;
+    background: linear-gradient(
+        rgba(100, 81, 81, 0.6),
+        rgba(29, 28, 28, 0.788)
+      ),
+      url('https://www.viajescomfama.com/portals/1139/Images/Interna/canocristal.png') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+  
+  .superior-overlay {
+    text-align: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  
+  .body-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .body-subtitle {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    font-weight: 300;
+}
+  
+.seccion-inferior {
+    background-color: #f5f7fa;
+    height: calc(100vh - 300px); 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 2rem;
+  }
+
+.formulario-sitio {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; 
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    input,
+    textarea,
+    select {
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #1e88e5;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      padding: 0.3rem;
+    }
+  }
+
+  .form-group:last-child {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+
+    button {
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+    }
+  }
+}
