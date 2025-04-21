@@ -11,7 +11,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-
 @Component({
   selector: 'app-headerregistro',
   imports: [
@@ -31,5 +30,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './headerregistro.component.css'
 })
 export class HeaderregistroComponent {
+
+  nombreUsuario = 'Juan';
+  
+  logout() {
+    // Aquí va tu lógica para cerrar sesión: limpiar tokens, redireccionar, etc.
+    console.log('Sesión cerrada');
+  }
 
 }
