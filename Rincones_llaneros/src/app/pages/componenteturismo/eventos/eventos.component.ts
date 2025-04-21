@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-registro-evento',
   standalone: true,
   imports: [
     CommonModule,
@@ -15,34 +15,25 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatButtonModule
   ],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  templateUrl: './eventos.component.html',
+  styleUrl: './eventos.component.css'
 })
-export class RegistroComponent {
-  sitioForm: FormGroup;
+export class RegistroEventoComponent {
+  eventoForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.sitioForm = this.fb.group({
+    this.eventoForm = this.fb.group({
       nombre: [''],
       descripcion: [''],
-      direccion: [''],
-      horario: [''],
-      categoria: [''],
-      fotos: [null]
+      inicio: [''],
+      fin: ['']
     });
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.sitioForm.patchValue({ fotos: input.files });
-    }
-  }
-
   onSubmit(): void {
-    if (this.sitioForm.valid) {
-      console.log('Datos del formulario:', this.sitioForm.value);
-      // Aquí podrías enviar los datos al backend o hacer lo que necesites
+    if (this.eventoForm.valid) {
+      console.log('Datos del evento:', this.eventoForm.value);
+      // Aquí puedes enviar los datos a tu backend o servicio
     } else {
       console.log('Formulario inválido');
     }

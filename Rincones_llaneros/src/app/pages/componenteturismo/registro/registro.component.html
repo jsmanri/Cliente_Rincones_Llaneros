@@ -1,66 +1,47 @@
-<div class="seccion-superior">
-    <div class="superior-overlay">
-      <h1 class="body-title">Registrar Sitio Turístico</h1>
-      <p class="body-subtitle">Comparte los paisajes y experiencias únicas de Casanare</p>
+<body>
+    <div class="header-container">
+      <div class="header-image">
+        <h1>REGISTRA TU SITIO TURÍSTICO</h1>
+      </div>
+  
+      <!-- Aquí comienza el formulario -->
+      <div class="form-wrapper">
+        <div class="form-container">
+          <form [formGroup]="sitioForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nombre del Sitio</mat-label>
+              <input matInput formControlName="nombre" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Descripción</mat-label>
+              <textarea matInput rows="4" formControlName="descripcion" required></textarea>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direccion" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Horario</mat-label>
+              <input matInput formControlName="horario" placeholder="Ej. 8:00 AM - 5:00 PM" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Categoría</mat-label>
+              <input matInput formControlName="categoria" required>
+            </mat-form-field>
+  
+            <div class="file-input full-width">
+              <label>Fotos del Sitio:</label>
+              <input type="file" multiple (change)="onFileSelected($event)">
+            </div>
+  
+            <button mat-raised-button color="primary" type="submit">Registrar Sitio</button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-  
-  <div class="seccion-inferior">
-    <form class="formulario-sitio">
-
-        <!-- Nombre del Sitio -->
-        <div class="form-group">
-          <label for="nombre">Nombre del Sitio</label>
-          <input type="text" id="nombre" name="nombre" required>
-        </div>
-    
-        <!-- Descripción del Sitio -->
-        <div class="form-group">
-          <label for="descripcion">Descripción del Sitio</label>
-          <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
-        </div>
-
-        <!-- Municipio -->
-       <div class="form-group">
-          <label for="municipio">Municipio</label>
-          <select id="municipio" [(ngModel)]="municipioSeleccionado" required>
-          <option value="" disabled selected>Selecciona un municipio</option>
-          <option *ngFor="let municipio of municipiosCasanare" [value]="municipio.nombre">
-            {{ municipio.nombre }}
-           </option>
-          </select>
-       </div>
-  
-    
-        <!-- Ubicación -->
-        <div class="form-group">
-          <label for="ubicacion">Ubicación</label>
-          <input type="text" id="ubicacion" name="ubicacion" required>
-        </div>
-
-        <!-- Dirección -->
-        <div class="form-group">
-          <label for="direccion">Dirección</label>
-          <input type="text" id="direccion" name="direccion" required>
-        </div>
-
-        <!-- Horario -->
-        <div class="form-group">
-          <label for="horario">Horario</label>
-          <input type="text" id="horario" name="horario" placeholder="Ej: Lunes a Domingo, 8:00 am - 6:00 pm" required>
-        </div>
-    
-        <!-- Foto del sitio o fotos -->
-        <div class="form-group">
-          <label for="fotos">Foto del sitio (o varias)</label>
-          <input type="file" id="fotos" name="fotos" multiple accept="image/*">
-        </div>
-    
-        <!-- Botón de enviar (opcional por ahora) -->
-        <div class="form-group">
-          <button type="submit">Registrar Sitio</button>
-        </div>
-        
-      </form>
-  </div>
+  </body>
   

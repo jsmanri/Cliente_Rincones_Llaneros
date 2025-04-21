@@ -37,7 +37,6 @@
     color: rgb(199, 228, 207);
   }
   
-  /* Formulario */
   .form-wrapper {
     padding: 40px 20px;
     display: flex;
@@ -61,16 +60,6 @@
   
   .full-width {
     width: 100%;
-  }
-  
-  .file-input {
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-    color: #333;
-  }
-  
-  input[type="file"] {
-    margin-top: 8px;
   }
   
   button[type="submit"] {
