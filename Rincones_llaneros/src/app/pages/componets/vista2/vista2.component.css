@@ -58,13 +58,14 @@ body {
   
   .btn-reservar {
     display: inline-block;
-    margin-top: 30px;
+    margin: 20px auto 0 auto;
     background-color: #28a745;
     color: white;
     padding: 12px 20px;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1.1em;
+    text-align: center;
   }
   
   .btn-reservar:hover {
@@ -103,3 +104,130 @@ body {
     font-weight: bold;
     display: block;
   }
+
+/*tamaño movil*/
+@media (max-width: 768px) {
+  .detalle-container {
+    margin-top: 15px;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  .detalle-header img {
+    max-height: 300px;
+  }
+
+  .info {
+    font-size: 0.9em;
+  }
+
+  /* Datos */
+  .datos {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dato {
+    flex: 1 1 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .btn-reservar {
+    width: 90%;
+    padding: 15px;
+    font-size: 1.1em;
+  }
+
+  /* Actividades */
+  .actividades {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .columna li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .columna ul {
+    padding-left: 0;
+    margin: 0;
+  }
+
+  /* Ajustes visuales generales */
+  .columna li {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  /* Aseguramos que las columnas no se corten */
+  .columna a {
+    display: block;
+    padding: 10px;
+    font-size: 1.1em;
+  }
+
+  /* Mejorar los márgenes de las secciones */
+  .info, .datos {
+    margin-top: 15px;
+  }
+}
+.carrusel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.carrusel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(calc(-100% * var(--current-index)));
+}
+
+
+.carrusel-item {
+  min-width: 100%;
+  transition: opacity 0.5s ease;
+}
+
+.carrusel-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carrusel-item.active {
+  opacity: 1;
+}

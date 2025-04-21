@@ -8,7 +8,7 @@
       </head>
 <body>
 
-  <div class="detalle-container">
+  <div style="text-align: center;"class="detalle-container">
     <div class="detalle-header">
       <img src="elemento.jpg" alt="Paseo en Kayak">
     </div>
@@ -32,29 +32,50 @@
             <li><a >Safari Casanare</a></li>
           </ul>
         </div>
+        <h2>Eventos y ferias de Casanare </h2>
+
+
       </nav>
+      
       
 
     <div class="info">
       Experimenta una aventura por los hatos de Casanare conectandote con la naturaleza, montando a caballo o a pie para observar las distintas espcies que viven en ellas 
     </div>
+    
+    <div class="carrusel-container">
+      <div class="carrusel" [style.--current-index]="currentIndex">
+        <div class="carrusel-item" *ngFor="let image of images">
+          <img [src]="image" alt="Imagen carrusel">
+        </div>
+      </div>
+  
+      
+      
+    
+      <!-- Botones de navegación -->
+      <button class="prev-btn" (click)="prev()">&#10094;</button>
+      <button class="next-btn" (click)="next()">&#10095;</button>
+    </div>
+  
+
 
     <div class="datos">
       <div class="dato">
-        <strong>Duración</strong>
-        2 horas
+        <strong>Mani </strong>
+        Festival De La Bandola Llanera "Pedro Florez"
       </div>
       <div class="dato">
-        <strong>Precio</strong>
-        $20 USD por persona
+        <strong> Sabanalarga </strong>
+        Festival De La Naranja Y Feria Ganadera
       </div>
       <div class="dato">
-        <strong>Incluye</strong>
-        Guía, hospedaje, comidas
+        <strong>Tauramena </strong>
+        Festival Folklórico Internacional Del Rodeo
       </div>
       <div class="dato">
-        <strong>Contacatanos</strong>
-        +57 312038153
+        <strong>Festival Del Mango </strong>
+        Manì
         
       </div>
     </div>

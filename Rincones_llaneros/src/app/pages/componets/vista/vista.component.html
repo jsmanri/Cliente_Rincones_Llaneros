@@ -90,6 +90,25 @@
     </div>
   </section>
 
+  
+  <h3>Eventos mas destacados</h3>
+  <a>Disfruta de los eventos mejor calificados por el publico</a>
+  <div class="carrusel-container">
+    <div class="carrusel" [style.--current-index]="currentIndex">
+      <div class="carrusel-item" *ngFor="let image of images">
+        <img [src]="image" alt="Imagen carrusel">
+      </div>
+    </div>
+    <a (click)="goToPush()" class="btn-1">Explorar más</a>
+
+    
+    
+  
+    <!-- Botones de navegación -->
+    <button class="prev-btn" (click)="prev()">&#10094;</button>
+    <button class="next-btn" (click)="next()">&#10095;</button>
+  </div>
+
 
 
   <section class="general">
