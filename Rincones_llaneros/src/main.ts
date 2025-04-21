@@ -7,8 +7,8 @@ import { provideRouter } from '@angular/router';
 bootstrapApplication(AppComponent,{
   providers:[
     provideRouter([
-      { path: '', redirectTo: 'headerregistro', pathMatch: 'full' },
-      { path: 'headerregistro', component: HeaderregistroComponent },
+      { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
+      { path: 'headersinregistro', component: HeadersinregistroComponent },
     ])
   ]
 })
