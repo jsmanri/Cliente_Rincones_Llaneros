@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-registro-evento',
+  selector: 'app-eventos',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './eventos.component.html',
   styleUrl: './eventos.component.css'
 })
-export class RegistroEventoComponent {
+export class EventosComponent {
   eventoForm: FormGroup;
 
   constructor(private fb: FormBuilder) {

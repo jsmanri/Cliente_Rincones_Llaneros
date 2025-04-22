@@ -8,6 +8,7 @@ import { RegisterComponent } from './app/pages/componenteslogin/register/registe
 import { PoliticaComponent } from './app/pages/componenteslogin/politica/politica.component';
 import { RecuperacionComponent } from './app/pages/componenteslogin/recuperacion/recuperacion.component';
 import { RegistroComponent } from './app/pages/componenteturismo/registro/registro.component';
+import { EventosComponent } from './app/pages/componenteturismo/eventos/eventos.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -18,7 +19,8 @@ bootstrapApplication(AppComponent,{
             { path: 'register', component: RegisterComponent },
             { path: 'politica', component: PoliticaComponent },
             { path: 'recuperacion', component: RecuperacionComponent},
-            { path: 'registrositio', component: RegistroComponent}
+            { path: 'registrositio', component: RegistroComponent},
+            { path: 'registroeven', component: EventosComponent}
           ]),
         provideAnimations(),
         provideHttpClient()
