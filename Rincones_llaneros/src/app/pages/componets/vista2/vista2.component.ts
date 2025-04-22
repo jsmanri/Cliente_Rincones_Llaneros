@@ -10,21 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './vista2.component.css'
 })
 export class Vista2Component {
-  images: string[] = [
-    '/atardecer.jpg',
-    '/Casanare-3.jpg',
-    '/comida.jpg',
-    '/elemento.jpg'
-  ];
-
-  currentIndex: number = 0;
-
-  next(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  scrollTo(elementId: string) {
+    const el = document.getElementById(elementId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   }
+  
 
-  // Función para mover al anterior elemento
-  prev(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-  }
 }

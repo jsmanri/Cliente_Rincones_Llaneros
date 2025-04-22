@@ -16,26 +16,30 @@
     <h1>Que experiencias deseas probar en Casanare</h1>
 
     <nav class="actividades">
-        <div class="columna">
-          <ul>
-            <li><a >Paseo a Caballo</a></li>
-            <li><a >Restaurantes</a></li>
-            <li><a >Hoteles</a></li>
-            <li><a >Piscinas</a></li>
-          </ul>
-        </div>
-        <div class="columna">
-          <ul>
-            <li><a >Museos</a></li>
-            <li><a >Monumentos</a></li>
-            <li><a >Caminata ecológica</a></li>
-            <li><a >Safari Casanare</a></li>
-          </ul>
-        </div>
-        <h2>Eventos y ferias de Casanare </h2>
+      <div class="columna">
+        <ul>
+          <li><a (click)="scrollTo('caballo')">Paseo a Caballo</a></li>
+          <li><a (click)="scrollTo('restaurantes')">Restaurantes</a></li>
+          <li><a (click)="scrollTo('hoteles')">Hoteles</a></li>
+          <li><a (click)="scrollTo('piscinas')">Piscinas</a></li>
+        </ul>
+        
+      </div>
+      <div class="columna">
+        <ul>
+          <li><a (click)="scrollTo('museos')">Museos</a></li>
+          <li><a (click)="scrollTo('monumentos')">Monumentos</a></li>
+          <li><a (click)="scrollTo('caminata')">Caminata ecológica</a></li>
+          <li><a (click)="scrollTo('safari')">Safari Casanare</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+      
 
 
-      </nav>
+      
       
       
 
@@ -43,21 +47,8 @@
       Experimenta una aventura por los hatos de Casanare conectandote con la naturaleza, montando a caballo o a pie para observar las distintas espcies que viven en ellas 
     </div>
     
-    <div class="carrusel-container">
-      <div class="carrusel" [style.--current-index]="currentIndex">
-        <div class="carrusel-item" *ngFor="let image of images">
-          <img [src]="image" alt="Imagen carrusel">
-        </div>
-      </div>
-  
-      
-      
-    
-      <!-- Botones de navegación -->
-      <button class="prev-btn" (click)="prev()">&#10094;</button>
-      <button class="next-btn" (click)="next()">&#10095;</button>
-    </div>
-  
+
+    <h2>Eventos y ferias de Casanare </h2>
 
 
     <div class="datos">
@@ -74,13 +65,54 @@
         Festival Folklórico Internacional Del Rodeo
       </div>
       <div class="dato">
-        <strong>Festival Del Mango </strong>
-        Manì
+        <strong> Manì </strong>
+        Festival Del Mango
         
       </div>
     </div>
 
-    <a href="reserva.html" class="btn-reservar">Reservar ahora</a>
+    <a href="reserva.html" class="btn-reservar">Mas informacion</a>
+
+    <div id="caballo" class="actividad-info">
+      <h2>Paseo a Caballo</h2>
+      <p>Disfruta de un recorrido a caballo por los paisajes llaneros de Casanare.</p>
+    </div>
+    
+    <div id="restaurantes" class="actividad-info">
+      <h2>Restaurantes</h2>
+      <p>Saborea lo mejor de la cocina llanera en restaurantes típicos y modernos.</p>
+    </div>
+
+    <div id="museos" class="actividad-info">
+      <h2>Museos</h2>
+      <p>Descubre la historia y cultura de Casanare en sus museos más representativos.</p>
+    </div>
+    
+    <div id="monumentos" class="actividad-info">
+      <h2>Monumentos</h2>
+      <p>Conoce los monumentos emblemáticos que rinden homenaje a la tradición llanera.</p>
+    </div>
+    
+    <div id="caminata" class="actividad-info">
+      <h2>Caminata ecológica</h2>
+      <p>Explora senderos naturales mientras disfrutas del aire puro y la fauna local.</p>
+    </div>
+    
+    <div id="safari" class="actividad-info">
+      <h2>Safari Casanare</h2>
+      <p>Una experiencia única para observar animales en su hábitat natural.</p>
+    </div>
+    
+    
+    <!-- Agrega también para hoteles, piscinas, etc. -->
+    
+
+
+<!-- y así con cada actividad -->
+
+
+<!-- Repite para las demás actividades -->
+
   </div>
 
 </body>

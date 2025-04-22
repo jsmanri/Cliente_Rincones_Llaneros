@@ -177,57 +177,13 @@ body {
     margin-top: 15px;
   }
 }
-.carrusel-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
-  overflow: hidden;
-}
-
-.carrusel {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  transform: translateX(calc(-100% * var(--current-index)));
-}
-
-
-.carrusel-item {
-  min-width: 100%;
-  transition: opacity 0.5s ease;
-}
-
-.carrusel-item img {
-  width: 100%;
+.actividad-info {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff3e6;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 5px;
-  z-index: 1;
-}
-
-.prev-btn {
-  left: 10px;
-}
-
-.next-btn {
-  right: 10px;
-}
-
-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.carrusel-item.active {
-  opacity: 1;
+html {
+  scroll-behavior: smooth;
 }

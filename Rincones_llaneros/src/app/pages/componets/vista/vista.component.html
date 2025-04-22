@@ -93,21 +93,25 @@
   
   <h3>Eventos mas destacados</h3>
   <a>Disfruta de los eventos mejor calificados por el publico</a>
-  <div class="carrusel-container">
-    <div class="carrusel" [style.--current-index]="currentIndex">
-      <div class="carrusel-item" *ngFor="let image of images">
-        <img [src]="image" alt="Imagen carrusel">
+  <div class="carousel-container">
+    <div class="carousel-slide">
+      <img [src]="images[currentIndex].src" alt="{{ images[currentIndex].title }}">
+      <div class="caption">
+        <h3>{{ images[currentIndex].title }}</h3>
+        <p>{{ images[currentIndex].description }}</p>
+        <a (click)="goToPush()" class="btn-1">Explorar mas eventos</a>
       </div>
-    </div>
-    <a (click)="goToPush()" class="btn-1">Explorar más</a>
 
-    
+    </div>
     
   
     <!-- Botones de navegación -->
     <button class="prev-btn" (click)="prev()">&#10094;</button>
     <button class="next-btn" (click)="next()">&#10095;</button>
+
+
   </div>
+ 
 
 
 

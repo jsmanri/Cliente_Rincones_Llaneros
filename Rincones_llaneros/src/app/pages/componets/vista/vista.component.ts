@@ -20,11 +20,27 @@ export class VistaComponent {
   
   
    // Array de imágenes para el carrusel
-   images: string[] = [
-    '/atardecer.jpg',
-    '/Casanare-3.jpg',
-    '/comida.jpg',
-    '/elemento.jpg'
+   images = [
+    {
+      src: '/atardecer.jpg',
+      title: 'Atardecer increíble',
+      description: 'Disfruta de un paisaje inolvidable'
+    },
+    {
+      src: '/Casanare-3.jpg',
+      title: 'Naturaleza viva',
+      description: 'Explora la belleza de Casanare'
+    },
+    {
+      src: '/comida.jpg',
+      title: 'Delicias locales',
+      description: 'Sabores auténticos de la región'
+    },
+    {
+      src: '/elemento.jpg',
+      title: 'Aventura',
+      description: 'Emoción garantizada para todos'
+    }
   ];
 
   currentIndex: number = 0;

@@ -330,43 +330,53 @@ footer {
   }
   
 
-  .carrusel-container {
+  .carousel-container {
     position: relative;
-    width: 100%;
-    max-width: 600px;
+    width: 60%;
+    max-width: 650px;
+    height: 350px;
     margin: auto;
     overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
   
-  .carrusel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(calc(-100% * var(--current-index)));
-  }
-  
-  
-  .carrusel-item {
-    min-width: 100%;
-    transition: opacity 0.5s ease;
-  }
-  
-  .carrusel-item img {
+  .carousel-slide {
+    position: relative;
     width: 100%;
-    border-radius: 8px;
+    height: 100%;
   }
   
-  button {
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.536);
+    color: rgb(0, 0, 0);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 70%;
+  }
+  
+  .prev-btn,
+  .next-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    font-size: 2rem;
+    color: rgb(250, 250, 250);
+    background-color: rgba(0, 0, 0, 0.4);
     border: none;
-    padding: 10px;
     cursor: pointer;
-    font-size: 18px;
-    border-radius: 5px;
+    padding: 10px;
     z-index: 1;
+    border-radius: 50%;
   }
   
   .prev-btn {
@@ -377,11 +387,4 @@ footer {
     right: 10px;
   }
   
-  button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  
-  .carrusel-item.active {
-    opacity: 1;
-  }
   
