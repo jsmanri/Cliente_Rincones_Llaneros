@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-headersinregistro',
@@ -24,11 +25,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatListModule,
     MatDividerModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './headersinregistro.component.html',
   styleUrl: './headersinregistro.component.css'
 })
 export class HeadersinregistroComponent {
+  constructor(private router: Router) {}
+
+  goToRegister(){
+    console.log('Boton de tendencias clickeado');
+    this.router.navigate(['/register']);
+  }
 
 }

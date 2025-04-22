@@ -13,13 +13,13 @@
           <a mat-list-item (click)="sidenav.close()">
             <span class="mat-line" style="color: white;">MUNICIPIOS</span>
           </a>
-          <a mat-list-item (click)="sidenav.close()">
+          <a mat-list-item routerLink="/headersinregistro/tendencias" >
             <span class="mat-line" style="color: white;">TENDENCIAS</span>
           </a>
-          <a mat-list-item routerLink="/login" (click)="sidenav.close()">
+          <a mat-list-item (click)="sidenav.close()">
             <span class="mat-line" style="color: white;">INICIAR SESIÓN</span>
           </a>
-          <a mat-list-item routerLink="/register" (click)="sidenav.close()">
+          <a mat-list-item (click)="sidenav.close()">
             <span class="mat-line" style="color: white;">REGISTRARSE</span>
           </a>
         </mat-nav-list>
@@ -32,7 +32,7 @@
           <button mat-raised-button class="nav-btn" routerLink="/dashboard">INICIO</button>
           <button mat-raised-button class="nav-btn">MAPA</button>
           <button mat-raised-button class="nav-btn">MUNICIPIOS</button>
-          <button mat-raised-button class="nav-btn">TENDENCIAS</button>
+          <button mat-raised-button routerLink="/headersinregistro/tendencias" class="nav-btn">TENDENCIAS</button>
         </div>
 
         <span class="spacer"></span>
