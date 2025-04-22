@@ -47,40 +47,65 @@ export class RegistroComponent {
     const files = event.target.files;
     
     if (files && files.length > 0) {
-      // Limpiar vistas previas existentes
-      this.imagenesPreview = [];
-      
+      // Mantenemos las imágenes previas y agregamos las nuevas
+      const newPreviews: string[] = [...this.imagenesPreview];
+      const currentFiles: File[] = this.sitioForm.get('imagenes')?.value 
+        ? [...this.sitioForm.get('imagenes')?.value] 
+        : [];
+  
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
         
         reader.onload = (e: any) => {
-          this.imagenesPreview.push(e.target.result); // Eliminamos la verificación de duplicados
+          newPreviews.push(e.target.result);
+          // Actualizamos las vistas previas solo cuando todas se hayan procesado
+          if (i === files.length - 1) {
+            this.imagenesPreview = newPreviews;
+          }
         };
         
         reader.readAsDataURL(file);
+        currentFiles.push(file);
       }
   
-      // Actualizar el FormGroup con los nuevos archivos
+      // Actualizar el FormGroup con todos los archivos
       this.sitioForm.patchValue({
-        imagenes: files // Usamos directamente FileList
+        imagenes: currentFiles
       });
       this.sitioForm.get('imagenes')?.updateValueAndValidity();
     }
   }
 
+
   eliminarImagen(index: number): void {
     // Eliminar la imagen de la vista previa
     this.imagenesPreview.splice(index, 1);
   
-    // Actualizar los archivos seleccionados en el FormGroup
-    const updatedFiles = this.sitioForm.get('imagenes')?.value || [];
-    updatedFiles.splice(index, 1); // Eliminar también del FormGroup
+    // Obtener archivos actuales
+    const currentFiles: File[] = this.sitioForm.get('imagenes')?.value 
+      ? [...this.sitioForm.get('imagenes')?.value] 
+      : [];
   
+    // Eliminar el archivo correspondiente
+    if (index >= 0 && index < currentFiles.length) {
+      currentFiles.splice(index, 1);
+    }
+  
+    // Crear nuevo DataTransfer para actualizar FileList
+    const dataTransfer = new DataTransfer();
+    currentFiles.forEach(file => dataTransfer.items.add(file));
+  
+    // Actualizar FormGroup
     this.sitioForm.patchValue({
-      imagenes: updatedFiles
+      imagenes: dataTransfer.files.length > 0 ? dataTransfer.files : null
     });
-    this.sitioForm.get('imagenes')?.updateValueAndValidity();
+  
+    // Actualizar input físico
+    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.files = dataTransfer.files;
+    }
   }
 
 

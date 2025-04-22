@@ -95,6 +95,10 @@ mat-form-field {
   padding: 12px;
 }
 
+.file-upload-container input[type="file"] {
+  display: none; /* Esto oculta el input pero lo mantiene funcional */
+}
+
 .file-label {
   display: flex;
   flex-direction: column;
