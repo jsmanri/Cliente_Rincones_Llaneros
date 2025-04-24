@@ -1,0 +1,390 @@
+/* Reset y configuraciones generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    color: #333;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Centrar todo el contenido principal */
+.section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilos del Header */
+header {
+    background-image: url('https://fantasiasdeverano.com/wp-content/uploads/2019/02/LLANOS-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 60px 20px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    position: relative;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
+}
+
+.menu, .header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.header-content {
+    margin-top: 20px;
+}
+
+section, main {
+    padding: 40px 20px;
+}
+
+/* Estilos de los bloques Llanos */
+.llanos-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra los elementos horizontalmente */
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;  /* Ajusta este valor según necesites */
+    margin: 0 auto;
+}
+.llano {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+     margin-left: auto;
+    margin-right: auto;
+}
+
+/* Centrar los collages */
+.collage-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.collage img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Caja de texto debajo del collage */
+.text-container {
+    background-color: rgba(255, 255, 255, 0.85); 
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin: 10px auto 0 auto;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    color: #444;
+}
+
+/* Botón */
+.btn-1 {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #e76f51;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link ul {
+    list-style: none;
+    padding: 0;
+}
+
+.link ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+/* Para evitar superposición de texto sobre imágenes */
+.image-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-overlay {
+    position: absolute;
+    bottom: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80%;
+}
+
+/*tamaño movil*/
+@media (max-width: 768px) {
+    /* Menú de navegación */
+    .menu {
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .navbar ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    /* Encabezado */
+    .header-content h1 {
+      font-size: 28px;
+    }
+  
+    .header-content p {
+      font-size: 16px;
+    }
+  
+    /* Collages de imágenes */
+    .collage {
+      grid-template-columns: 1fr;
+    }
+  
+    .collage img {
+      height: 150px;
+    }
+  
+    .text-container {
+      width: 90%;
+      padding: 15px;
+      font-size: 14px;
+    }
+  
+    h3 {
+      font-size: 20px;
+    }
+  
+    p {
+      font-size: 14px;
+    }
+  
+    .btn-1 {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  
+    /* Sección general */
+    .general-1 {
+      padding: 10px;
+      text-align: center;
+    }
+  
+    .general-1 h2 {
+      font-size: 22px;
+    }
+  
+    .general-1 p {
+      font-size: 14px;
+    }
+  
+    /* Blog */
+    .blog-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .blog-1 {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+  
+    .blog-1 img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  
+    /* Footer */
+    .footer-content {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .link ul li {
+      display: block;
+      margin: 8px 0;
+    }
+  
+    .link h3 {
+      font-size: 18px;
+    }
+  
+    /* Correcciones generales */
+    section, main {
+      padding: 20px 10px;
+    }
+  
+    .llano {
+      margin-bottom: 30px;
+    }
+  
+    .llanos-group {
+      width: 100%;
+    }
+  
+    .llano-content-container h2 {
+      font-size: 24px;
+    }
+  
+    .txt-p {
+      font-size: 14px;
+    }
+  }
+  
+
+  .carousel-container {
+    position: relative;
+    width: 60%;
+    max-width: 650px;
+    height: 350px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .carousel-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.536);
+    color: rgb(0, 0, 0);
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 70%;
+  }
+  
+  .prev-btn,
+  .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: rgb(250, 250, 250);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 50%;
+  }
+  
+  .prev-btn {
+    left: 10px;
+  }
+  
+  .next-btn {
+    right: 10px;
+  }
+  
+  

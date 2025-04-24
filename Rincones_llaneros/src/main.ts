@@ -12,25 +12,33 @@ import { EventosComponent } from './app/pages/componenteturismo/eventos/eventos.
 import { HeadersinregistroComponent } from './app/pages/component/headersinregistro/headersinregistro.component';
 import { HeaderregistroComponent } from './app/pages/component/headerregistro/headerregistro.component';
 import { TendenciasComponent } from './app/pages/component/tendencias/tendencias.component';
+import { VistaComponent } from './app/pages/componets/vista/vista.component';
+import { Vista2Component } from './app/pages/componets/vista2/vista2.component';
 
 
 bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([
-            { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
-            { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
-            { path: 'politica', component: PoliticaComponent },
-            { path: 'recuperacion', component: RecuperacionComponent},
-            { path: 'registrositio', component: RegistroComponent},
-            { path: 'registroeven', component: EventosComponent},
+            { path: '', redirectTo: 'headersinregistro', pathMatch: 'full'},
             { path: 'headersinregistro', component: HeadersinregistroComponent,
               children: [
                 { 
                   path: 'tendencias', component: TendenciasComponent 
+                },
+                { 
+                  path: '', component: VistaComponent
+                },
+                { 
+                  path: 'vista2', component: Vista2Component 
                 }
               ]
              },
+             { path: 'login', component: LoginComponent },
+             { path: 'register', component: RegisterComponent },
+             { path: 'politica', component: PoliticaComponent },
+             { path: 'recuperacion', component: RecuperacionComponent},
+             { path: 'registrositio', component: RegistroComponent},
+             { path: 'registroeven', component: EventosComponent},
           ]),
         provideAnimations(),
         provideHttpClient()
