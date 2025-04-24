@@ -20,7 +20,7 @@ bootstrapApplication(AppComponent,{
             { path: 'politica', component: PoliticaComponent },
             { path: 'recuperacion', component: RecuperacionComponent},
             { path: 'registrositio', component: RegistroComponent},
-            { path: 'registroeven', component: EventosComponent}
+            { path: 'registroeven', component: EventosComponent},
           ]),
         provideAnimations(),
         provideHttpClient()
