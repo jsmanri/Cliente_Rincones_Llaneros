@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card'
 
 @Component({
   selector: 'app-vista',
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatCardModule
   ],
   templateUrl: './vista.component.html',
   styleUrl: './vista.component.css'
@@ -13,46 +17,142 @@ import { CommonModule } from '@angular/common';
 export class VistaComponent {
   constructor(private router:Router){}
   
-  goToPush(){
-    this.router.navigate(['/vista2'])
+  goToPush() {
+    this.router.navigate(['/vista2']).then(() => {
+      window.scrollTo(0, 0);
+    });
   }
 
+  currentIndex=0;
   
-  
-   // Array de imágenes para el carrusel
-   images = [
+
+
+  @ViewChild('scrollContainer',{static:true}) scrollContainer!: ElementRef;
+
+  sectionTitle='Eventos Destacados';
+  sectionDescription= 'Informate de los eventos que estan ocurrion en casanare';
+
+  selectedInfo:{title: string, description:string} |null= null;
+
+  cards =[
     {
-      src: '/atardecer.jpg',
-      title: 'Atardecer increíble',
-      description: 'Disfruta de un paisaje inolvidable'
+      title: 'Mani',
+      image: '/atardecer.jpg',
+      action:()=> this.goToPush(),
+      title_button:'Mas Informacion',
+      detailTitle: 'Titulo1',
+      detailDescription: 'dwkjbcdbcdwbccj',
+      mensaje: 'Este es un mensaje adicional sobre Mani.'
     },
     {
-      src: '/Casanare-3.jpg',
-      title: 'Naturaleza viva',
-      description: 'Explora la belleza de Casanare'
+      title: 'Sabana larga',
+      image: 'https://picsum.photos/300/200?random=2',
+      action:()=> this.goToPush(),
+      title_button:'boton 2',
+      detailTitle: 'Titulo2',
+      detailDescription: 'dwkjbcdbcdwbccj'
     },
     {
-      src: '/comida.jpg',
-      title: 'Delicias locales',
-      description: 'Sabores auténticos de la región'
+      title: 'Tauramena',
+      image: 'https://picsum.photos/300/200?random=3',
+      action:()=> this.goToPush(),
+      title_button:'boton 3',
+      detailTitle: 'Titulo3',
+      detailDescription: 'dwkjbcdbcdwbccj'
     },
     {
-      src: '/elemento.jpg',
-      title: 'Aventura',
-      description: 'Emoción garantizada para todos'
+      title: 'Mani',
+      image: 'https://picsum.photos/300/200?random=4',
+      action:()=> this.goToPush(),
+      title_button:'boton 4',
+      detailTitle: 'Titulo4',
+      detailDescription: 'dwkjbcdbcdwbccj'
+    },
+    {
+      title: 'Yopal',
+      image: 'https://picsum.photos/300/200?random=5',
+      action:()=> this.goToPush(),
+      title_button:'boton 5',
+      detailTitle: 'Titulo5',
+      detailDescription: 'dwkjbcdbcdwbccj'
+    },
+    {
+      title: 'Aguazul',
+      image: 'https://picsum.photos/300/200?random=5',
+      action:()=> this.goToPush(),
+      title_button:'boton 6',
+      detailTitle: 'Titulo6',
+      detailDescription: 'dwkjbcdbcdwbccj'
     }
-  ];
+  ]
 
-  currentIndex: number = 0;
 
-  // Función para mover al siguiente elemento
-  next(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+
+
+
+  goNext(){
+    if (this.currentIndex < this.cards.length -1) {
+      this.currentIndex++;
+    }
   }
 
-  // Función para mover al anterior elemento
-  prev(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  goPrevius(){
+    if(this.currentIndex>0){
+      this.currentIndex--;
+    }
   }
+
+  getTransform(){
+    return `translateX(-${this.currentIndex*100}%)`
+  }
+
+  mostrarDetalle(card:any){
+    this.selectedInfo={
+      title: card.detailTitle,
+      description: card.detailDescription
+    }
+  }
+
+  cerrarDetalle(){
+    this.selectedInfo=null;
+  }
+
+  
+  
+
+  //  images = [
+  //   {
+  //     src: '/atardecer.jpg',
+  //     title: 'Atardecer increíble',
+  //     description: 'Disfruta de un paisaje inolvidable'
+  //   },
+  //   {
+  //     src: '/Casanare-3.jpg',
+  //     title: 'Naturaleza viva',
+  //     description: 'Explora la belleza de Casanare'
+  //   },
+  //   {
+  //     src: '/comida.jpg',
+  //     title: 'Delicias locales',
+  //     description: 'Sabores auténticos de la región'
+  //   },
+  //   {
+  //     src: '/elemento.jpg',
+  //     title: 'Aventura',
+  //     description: 'Emoción garantizada para todos'
+  //   }
+  // ];
+
+  // // currentIndex: number = 0;
+
+  // // Función para mover al siguiente elemento
+  // next(): void {
+  //   this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  // }
+
+  // // Función para mover al anterior elemento
+  // prev(): void {
+  //   this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  // }
 }
 
