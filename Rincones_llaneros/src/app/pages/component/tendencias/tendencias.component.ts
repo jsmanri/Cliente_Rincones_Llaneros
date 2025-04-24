@@ -31,7 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class TendenciasComponent {
   // Número de sitios que se deben mostrar
-  sitiosAMostrar = 9;  // Cambia este valor para ver más o menos sitios
+  sitiosAMostrar = 10;  // Cambia este valor para ver más o menos sitios
 
   sitios = [
     {
