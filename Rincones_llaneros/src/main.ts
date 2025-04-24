@@ -14,6 +14,9 @@ import { HeaderregistroComponent } from './app/pages/component/headerregistro/he
 import { TendenciasComponent } from './app/pages/component/tendencias/tendencias.component';
 import { VistaComponent } from './app/pages/componets/vista/vista.component';
 import { Vista2Component } from './app/pages/componets/vista2/vista2.component';
+import { ClienteComponent } from './app/pages/component/perfil/cliente/cliente.component';
+import { VendedorComponent } from './app/pages/component/perfil/vendedor/vendedor.component';
+
 
 
 bootstrapApplication(AppComponent,{
@@ -33,12 +36,22 @@ bootstrapApplication(AppComponent,{
                 }
               ]
              },
+             { path: 'headerregistro', component: HeaderregistroComponent,
+              children: [
+                { 
+                  path: 'cliente', component: ClienteComponent
+                },
+                { 
+                  path: 'vendedor', component: VendedorComponent
+                }
+              ]
+              },
              { path: 'login', component: LoginComponent },
              { path: 'register', component: RegisterComponent },
              { path: 'politica', component: PoliticaComponent },
              { path: 'recuperacion', component: RecuperacionComponent},
              { path: 'registrositio', component: RegistroComponent},
-             { path: 'registroeven', component: EventosComponent},
+             { path: 'registroeven', component: EventosComponent}
           ]),
         provideAnimations(),
         provideHttpClient()

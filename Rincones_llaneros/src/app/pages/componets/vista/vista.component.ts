@@ -14,7 +14,7 @@ export class VistaComponent {
   constructor(private router:Router){}
   
   goToPush(){
-    this.router.navigate(['/vista2'])
+    this.router.navigate(['headersinregistro/vista2']);
   }
 
   
