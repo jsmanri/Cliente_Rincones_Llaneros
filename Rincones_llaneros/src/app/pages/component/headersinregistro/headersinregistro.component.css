@@ -1,0 +1,130 @@
+/* Contenedor principal */
+.main-container {
+  height: 100vh;
+}
+
+/* Toolbar */
+.toolbar {
+  background-color: #0202029f;
+  position: sticky;
+  top: 0;
+  height: 100px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+/* Logo */
+.logo {
+  width: 100px;
+  margin-right: 20px;
+}
+
+/* Botones de navegación */
+.botones,
+.sesion {
+  display: flex;
+  gap: 10px;
+}
+.desktop-only button {
+  background-color: transparent !important;
+  color: white !important;
+  border: 1px solid white !important;
+  margin: 15px;
+}
+
+/* Barra de búsqueda */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1abd;
+  border-radius: 50px;
+  color: aliceblue;
+  padding: 0 16px;
+  height: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #ffffff; /* Color blanco para la barra de búsqueda */
+  flex-grow: 1;
+  padding-left: 8px;
+}
+
+/* Espaciador */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Hamburguesa (escondida en escritorio) */
+.hamburger {
+  display: none;
+  color: rgb(255, 255, 255);
+  margin-left: 10px;
+}
+
+/* Menú lateral */
+.sidenav {
+  background-color: #0202029f;
+  width: 250px;
+  color: aliceblue;
+}
+
+/* Estilo para búsqueda en móvil */
+.mobile-search {
+  display: none;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 30px;
+  align-items: center;
+}
+
+/* Cambiar el color del texto en la barra de búsqueda */
+.search-bar::placeholder {
+  color: white;
+}
+
+.search-bar {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 912px) {
+  .desktop-only {
+      display: none !important;
+  }
+
+  .hamburger {
+      display: inline-flex;
+  }
+
+  .mobile-search {
+      background-color: #0202029f;
+      display: flex;
+  }
+
+  .toolbar {
+      flex-wrap: nowrap;
+      padding: 10px;
+      background-color: #0202029f;
+  }
+
+  .logo {
+      margin-right: auto;
+  }
+
+  .mat-line {
+      color: white !important; /* Color blanco para el texto de mat-list */
+  }
+
+  .mobile-search .search-bar{ /*color blanco para la barra de búsqueda en mobile*/
+      color: white;
+  }
+
+}
+

@@ -1,0 +1,38 @@
+<div class="container">
+    <!-- HEADER -->
+    <header class="header">
+      <img src="icono.png"/>
+      <nav class="nav">
+        <button mat-button>Inicio</button>
+        <button mat-button>Mapa</button>
+        <mat-menu #municipiosMenu="matMenu">
+          <button mat-menu-item>Municipio 1</button>
+          <button mat-menu-item>Municipio 2</button>
+          <button mat-menu-item>Municipio 3</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="municipiosMenu">Municipios</button>
+        <button mat-button>Tendencias</button>
+      </nav>
+      <div class="icons">
+        <mat-icon>search</mat-icon>
+        <mat-icon>account_circle</mat-icon>
+      </div>
+    </header>
+  
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="content">
+      <img src="assets/waterfall.jpg" alt="Imagen destacada" class="featured-image" />
+      <p class="caption">Visita los sitios más destacados de Monterrey</p>
+    </main>
+  
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="social-icons">
+        <mat-icon>facebook</mat-icon>
+        <mat-icon>instagram</mat-icon>
+        <mat-icon>twitter</mat-icon>
+      </div>
+      <p>XXX-XXX-XXX</p>
+    </footer>
+  </div>
+  
