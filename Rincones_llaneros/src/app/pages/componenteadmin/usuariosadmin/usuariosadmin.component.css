@@ -1,0 +1,61 @@
+.admin-container {
+    padding: 20px;
+  }
+  
+  .summary-cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-cards mat-card {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+  }
+  
+  .summary-cards mat-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .summary-cards mat-card p {
+    margin: 8px 0 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2196F3;
+  }
+  
+  .search-bar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th.mat-header-cell {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  td.mat-cell {
+    padding: 12px 16px;
+  }
+  
+  .active {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .spinner {
+    margin: 50px auto;
+  }
+  
+  mat-card {
+    margin-bottom: 20px;
+    padding: 20px;
+  }

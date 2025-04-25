@@ -7,6 +7,7 @@ import { PoliticaComponent } from './pages/componenteslogin/politica/politica.co
 import { RecuperacionComponent } from './pages/componenteslogin/recuperacion/recuperacion.component';
 import { RegistroComponent } from './pages/componenteturismo/registro/registro.component';
 import { EventosComponent } from './pages/componenteturismo/eventos/eventos.component';
+import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 
 export const routes: Routes = [
     { path: '', component:LoginComponent},
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
     { path: 'headersinregistro', component: HeadersinregistroComponent },
     { path: 'tendencias', component: TendenciasComponent },
+    { path: 'admin', component: UsuariosadminComponent}
 ];
 
 
