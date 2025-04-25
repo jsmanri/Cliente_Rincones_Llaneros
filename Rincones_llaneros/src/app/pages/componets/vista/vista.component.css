@@ -390,7 +390,7 @@ footer {
   
  .carousel-wrapper{
   text-align: center;
-  padding: 20px;
+  padding: 40px;
   max-width: 100%;
   margin: auto;
 }
@@ -405,7 +405,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 40px;
 }
 
 .carousel-track-container{
@@ -443,3 +443,60 @@ footer {
     flex: 0 0 calc(100% / 1); /* solo 1 tarjeta visible en pantallas pequeñas */
    }
  } 
+
+ .testimonios {
+  padding: 60px 30px;
+  background-color: #f0f8ff;
+  text-align: center;
+}
+
+.testimonios h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.carrusel-testimonios  {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+
+.testimonio {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonio.active {
+  opacity: 1;
+  position: relative;
+}
+
+.foto-testimonio {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #ccc;
+}
+
+.mensaje {
+  font-style: italic;
+  color: #555;
+  margin: 0 20px;
+  max-width: 600px;
+}
+
+.autor {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #777;
+}
+

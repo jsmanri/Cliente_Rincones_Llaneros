@@ -23,14 +23,14 @@ export class VistaComponent {
     });
   }
 
+  currentIndexTestimonios=0;
   currentIndex=0;
-  
 
 
   @ViewChild('scrollContainer',{static:true}) scrollContainer!: ElementRef;
 
   sectionTitle='Eventos Destacados';
-  sectionDescription= 'Informate de los eventos que estan ocurrion en casanare';
+  sectionDescription= 'No te pierdas nuestras actividades culturales y festivales tradicionales.';
 
   selectedInfo:{title: string, description:string} |null= null;
 
@@ -50,7 +50,8 @@ export class VistaComponent {
       action:()=> this.goToPush(),
       title_button:'boton 2',
       detailTitle: 'Titulo2',
-      detailDescription: 'dwkjbcdbcdwbccj'
+      detailDescription: 'dwkjbcdbcdwbccj',
+      mensaje: 'Este es un mensaje adicional sobre Mani.'
     },
     {
       title: 'Tauramena',
@@ -154,5 +155,34 @@ export class VistaComponent {
   // prev(): void {
   //   this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
   // }
+
+  testimonios = [
+    {
+      nombre: 'Mi amor platonico Scarllet',
+      ciudad: 'New York',
+      mensaje: 'Una experiencia maravillosa en los Llanos. ¡Muy recomendado!',
+      foto: '/Widow.jpg'
+    },
+    {
+      nombre: 'Juan',
+      ciudad: 'Bogotá',
+      mensaje: 'Los paseos a caballo y los atardeceres fueron lo mejor.',
+      foto: 'Juan.jpg'
+    },
+    {
+      nombre: 'Ana',
+      ciudad: 'Cali',
+      mensaje: 'Los paisajes, la comida y la gente son increíbles.',
+      foto: 'Ana.jpg'
+    }
+  ];
+
+  
+
+  ngOnInit(): void {
+    setInterval(() => {
+      this.currentIndexTestimonios = (this.currentIndexTestimonios + 1) % this.testimonios.length;
+    }, 6000); // cambia cada 5 segundos
+  }
 }
 

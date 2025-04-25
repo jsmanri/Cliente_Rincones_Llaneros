@@ -103,6 +103,7 @@
                 <mat-card class="carousel-card" *ngFor="let card of cards">
                     <img mat-card-image [src]="card.image" alt="Imagen de la tarjeta"/>
                     <mat-card-title>{{card.title}}</mat-card-title>
+                    <p *ngIf="card.mensaje">{{ card.mensaje }}</p>
                     <mat-card-actions>
                         <button mat-button color="accent" (click)="card.action()">{{card.title_button}}</button>
                     </mat-card-actions>
@@ -119,6 +120,17 @@
         <button mat-stroked-button color="warn" (click)="cerrarDetalle()">Cerrar</button>
     </div>
 </div>
+
+<section class="testimonios">
+  <h2>Lo que dicen nuestros visitantes</h2>
+  <div class="carrusel-testimonios">
+    <div class="testimonio" *ngFor="let testimonio of testimonios; let i = index" [class.active]="i === currentIndexTestimonios">
+      <img [src]="testimonio.foto" alt="Foto de {{testimonio.nombre}}" class="foto-testimonio">
+      <p class="mensaje">"{{testimonio.mensaje}}"</p>
+      <span class="autor">- {{testimonio.nombre}}, {{testimonio.ciudad}}</span>
+    </div>
+  </div>
+</section>
 
 
 
