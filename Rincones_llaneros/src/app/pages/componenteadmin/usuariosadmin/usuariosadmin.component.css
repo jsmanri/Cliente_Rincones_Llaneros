@@ -1,61 +1,109 @@
-.admin-container {
-    padding: 20px;
-  }
-  
-  .summary-cards {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .summary-cards mat-card {
-    flex: 1;
-    text-align: center;
-    padding: 16px;
-  }
-  
-  .summary-cards mat-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .summary-cards mat-card p {
-    margin: 8px 0 0;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #2196F3;
-  }
-  
-  .search-bar {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th.mat-header-cell {
-    background-color: #f5f5f5;
-    font-weight: bold;
-  }
-  
-  td.mat-cell {
-    padding: 12px 16px;
-  }
-  
-  .active {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .spinner {
-    margin: 50px auto;
-  }
-  
-  mat-card {
-    margin-bottom: 20px;
-    padding: 20px;
-  }
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Cada item (contenedor) */
+.item {
+  background: transparent;
+}
+
+/* Tamaños y proporciones personalizados */
+.item:nth-child(1) {
+  flex-grow: 1;
+  height: auto;
+  width: 40%;
+}
+
+.item:nth-child(2) {
+  flex-grow: 1;
+  height: auto;
+  width: 40%;
+}
+
+.item:nth-child(3) {
+  width: 70%;
+  height: auto;
+}
+
+.item:nth-child(4) {
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* Tarjeta contador */
+.counter-card {
+  text-align: center;
+  background: #e0f7fa;
+  padding: 20px;
+}
+
+/* Número contador */
+.counter-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #00796b;
+  margin-top: 10px;
+}
+
+/* Tarjetas de gráficas */
+.chart-card {
+  padding: 20px;
+}
+
+/* Tarjeta de usuarios */
+.usuarios-list-card {
+  padding: 20px;
+}
+
+.search-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Listado de usuarios */
+.usuarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.usuario-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #90caf9;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #e3f2fd;
+}
+
+.usuario-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foto-usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.nombre-usuario {
+  font-weight: bold;
+}
+
+.usuario-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

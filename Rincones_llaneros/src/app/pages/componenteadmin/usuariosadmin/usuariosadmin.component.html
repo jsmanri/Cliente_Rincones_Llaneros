@@ -1,56 +1,65 @@
-<div class="admin-container">
-    <!-- Tarjetas de resumen -->
-    <div class="summary-cards">
-      <mat-card>
-        <h3>Total Usuarios</h3>
-        <p>{{data?.TotalUsuarios || 0}}</p>
-      </mat-card>
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading" class="container">
   
-      <mat-card *ngFor="let role of data?.RolesCount">
-        <h3>{{role.Rol}}</h3>
-        <p>{{role.Count}}</p>
-      </mat-card>
-    </div>
-  
-    <!-- Buscador -->
-    <mat-form-field appearance="outline" class="search-bar">
-      <mat-label>Buscar usuario</mat-label>
-      <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
-    </mat-form-field>
-  
-    <!-- Tabla de usuarios -->
-    <mat-card>
-      <table mat-table [dataSource]="filteredUsuarios">
-        <!-- Columna Nombre -->
-        <ng-container matColumnDef="Nombre">
-          <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let user">{{user.Nombre}}</td>
-        </ng-container>
-  
-        <!-- Columna Estado -->
-        <ng-container matColumnDef="Activo">
-          <th mat-header-cell *matHeaderCellDef>Estado</th>
-          <td mat-cell *matCellDef="let user">
-            <span [class.active]="user.Activo">
-              {{user.Activo ? 'Activo' : 'Inactivo'}}
-            </span>
-          </td>
-        </ng-container>
-  
-        <!-- Columna Rol -->
-        <ng-container matColumnDef="Rol">
-          <th mat-header-cell *matHeaderCellDef>Rol</th>
-          <td mat-cell *matCellDef="let user">
-            {{user.Rol?.Nombre || 'Sin rol'}}
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+  <!-- Contador de Usuarios -->
+  <div class="item">
+    <mat-card class="counter-card">
+      <h2>Total de Usuarios Registrados</h2>
+      <div class="counter-number">{{ data?.TotalUsuarios }}</div>
     </mat-card>
-  
-    <!-- Spinner de carga -->
-    <mat-spinner *ngIf="loading" diameter="50" class="spinner"></mat-spinner>
   </div>
-  
+
+  <!-- Gráfica Circular - Roles -->
+  <div class="item">
+    <mat-card class="chart-card">
+      <h3>Usuarios por Rol</h3>
+      <canvas baseChart
+        [data]="rolesChartData"
+        [type]="'pie'">
+      </canvas>
+    </mat-card>
+  </div>
+
+  <!-- Gráfica de Columnas - Usuarios por Fecha -->
+  <div class="item">
+    <mat-card class="chart-card">
+      <h3>Usuarios Registrados por Mes</h3>
+      <canvas baseChart
+        [data]="usuariosPorFechaChartData"
+        [options]="barChartOptions"
+        [type]="'bar'">
+      </canvas>
+    </mat-card>
+  </div>
+
+  <!-- Lista de Usuarios + Buscador -->
+  <div class="item">
+    <mat-card class="usuarios-list-card">
+      <h3>Listado de Usuarios</h3>
+
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>Buscar usuario</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
+      </mat-form-field>
+
+      <div class="usuarios-list">
+        <div class="usuario-item" *ngFor="let usuario of filteredUsuarios">
+          <div class="usuario-info">
+            <img src="https://via.placeholder.com/40" alt="Foto de perfil" class="foto-usuario">
+            <span class="nombre-usuario">{{ usuario.Nombre }}</span>
+          </div>
+          <div class="usuario-actions">
+            <button mat-button color="primary">Revisar</button>
+            <mat-slide-toggle [checked]="usuario.Activo" (change)="toggleActivo(usuario)">
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+
+</div>
