@@ -1,109 +1,91 @@
-.loading-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
+/* Flexbox container original */
 .container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  padding: 20px;
 }
 
-/* Cada item (contenedor) */
-.item {
-  background: transparent;
-}
-
-/* Tamaños y proporciones personalizados */
+/* Tus items originales de Flexbox Labs */
 .item:nth-child(1) {
   flex-grow: 1;
-  height: auto;
+  flex-shrink: 1;
+  height: 50%;
   width: 40%;
 }
 
 .item:nth-child(2) {
   flex-grow: 1;
-  height: auto;
+  height: 50%;
   width: 40%;
 }
 
 .item:nth-child(3) {
   width: 70%;
-  height: auto;
+  flex-shrink: 1;
+  height: 50%;
 }
 
 .item:nth-child(4) {
   flex-grow: 1;
+  flex-shrink: 1;
+}
+
+/* --------------------------- */
+/* Estilos internos de contenido */
+
+.item {
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+}
+
+/* mat-card que ocupa toda la caja del flexbox */
+.content {
   width: 100%;
-}
-
-/* Tarjeta contador */
-.counter-card {
-  text-align: center;
-  background: #e0f7fa;
+  height: 100%;
   padding: 20px;
-}
-
-/* Número contador */
-.counter-number {
-  font-size: 48px;
-  font-weight: bold;
-  color: #00796b;
-  margin-top: 10px;
-}
-
-/* Tarjetas de gráficas */
-.chart-card {
-  padding: 20px;
-}
-
-/* Tarjeta de usuarios */
-.usuarios-list-card {
-  padding: 20px;
-}
-
-.search-field {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Listado de usuarios */
-.usuarios-list {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.usuario-item {
-  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid #90caf9;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: #e3f2fd;
 }
 
-.usuario-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Ajustar el canvas de las gráficas */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 250px; /* Para que no se salga del contenedor */
 }
 
-.foto-usuario {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.nombre-usuario {
+/* Contador de usuarios */
+.counter {
+  font-size: 48px;
   font-weight: bold;
+  color: #1976d2;
+  margin-top: 20px;
 }
 
-.usuario-actions {
+/* Buscador */
+.search-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Lista de usuarios */
+.user-list {
+  width: 100%;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.user {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  background: #e0e0e0;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
 }

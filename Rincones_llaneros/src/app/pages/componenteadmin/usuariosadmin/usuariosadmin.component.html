@@ -3,19 +3,19 @@
 </div>
 
 <div *ngIf="!loading" class="container">
-  
-  <!-- Contador de Usuarios -->
+
+  <!-- Contador de usuarios -->
   <div class="item">
-    <mat-card class="counter-card">
-      <h2>Total de Usuarios Registrados</h2>
-      <div class="counter-number">{{ data?.TotalUsuarios }}</div>
+    <mat-card class="content">
+      <h2>Total Usuarios</h2>
+      <div class="counter">{{ data?.TotalUsuarios }}</div>
     </mat-card>
   </div>
 
-  <!-- Gráfica Circular - Roles -->
+  <!-- Gráfica Pie (Roles) -->
   <div class="item">
-    <mat-card class="chart-card">
-      <h3>Usuarios por Rol</h3>
+    <mat-card class="content">
+      <h2>Usuarios por Rol</h2>
       <canvas baseChart
         [data]="rolesChartData"
         [type]="'pie'">
@@ -23,10 +23,10 @@
     </mat-card>
   </div>
 
-  <!-- Gráfica de Columnas - Usuarios por Fecha -->
+  <!-- Gráfica Barras (Usuarios por Fecha) -->
   <div class="item">
-    <mat-card class="chart-card">
-      <h3>Usuarios Registrados por Mes</h3>
+    <mat-card class="content">
+      <h2>Usuarios Registrados por Mes</h2>
       <canvas baseChart
         [data]="usuariosPorFechaChartData"
         [options]="barChartOptions"
@@ -35,27 +35,21 @@
     </mat-card>
   </div>
 
-  <!-- Lista de Usuarios + Buscador -->
+  <!-- Lista de Usuarios -->
   <div class="item">
-    <mat-card class="usuarios-list-card">
-      <h3>Listado de Usuarios</h3>
+    <mat-card class="content">
+      <h2>Lista de Usuarios</h2>
 
       <mat-form-field class="search-field" appearance="outline">
         <mat-label>Buscar usuario</mat-label>
         <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
       </mat-form-field>
 
-      <div class="usuarios-list">
-        <div class="usuario-item" *ngFor="let usuario of filteredUsuarios">
-          <div class="usuario-info">
-            <img src="https://via.placeholder.com/40" alt="Foto de perfil" class="foto-usuario">
-            <span class="nombre-usuario">{{ usuario.Nombre }}</span>
-          </div>
-          <div class="usuario-actions">
-            <button mat-button color="primary">Revisar</button>
-            <mat-slide-toggle [checked]="usuario.Activo" (change)="toggleActivo(usuario)">
-            </mat-slide-toggle>
-          </div>
+      <div class="user-list">
+        <div class="user" *ngFor="let usuario of filteredUsuarios">
+          <span>{{ usuario.Nombre }}</span>
+          <mat-slide-toggle [checked]="usuario.Activo" (change)="toggleActivo(usuario)">
+          </mat-slide-toggle>
         </div>
       </div>
 
