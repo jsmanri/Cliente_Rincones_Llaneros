@@ -158,7 +158,7 @@ export class VistaComponent {
 
   testimonios = [
     {
-      nombre: 'Mi amor platonico Scarllet',
+      nombre: 'Scarllet',
       ciudad: 'New York',
       mensaje: 'Una experiencia maravillosa en los Llanos. ¡Muy recomendado!',
       foto: '/Widow.jpg'

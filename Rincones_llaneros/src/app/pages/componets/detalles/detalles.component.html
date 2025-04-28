@@ -1,0 +1,25 @@
+<h1>{{ nombreActividad }}</h1>
+
+<p>{{ descripcionActividad }}</p>
+
+<div *ngIf="municipios.length > 0">
+  <h3>Municipios donde puedes hacer esta actividad:</h3>
+  <ul>
+    <li *ngFor="let municipio of municipios">
+      {{ municipio }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="horario">
+  <h3>Horario:</h3>
+  <p>{{ horario }}</p>
+</div>
+
+<div *ngIf="ubicacion">
+  <h3>Ubicación:</h3>
+  <p>{{ ubicacion }}</p>
+</div>
+
+<!-- Botón para volver -->
+<button routerLink="/casanare-actividades">Volver</button>
