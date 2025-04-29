@@ -3,7 +3,6 @@
 </div>
 
 <div *ngIf="!loading" class="container">
-
   <!-- Contador de usuarios -->
   <div class="item">
     <mat-card class="content">
@@ -27,6 +26,19 @@
   <div class="item">
     <mat-card class="content">
       <h2>Usuarios Registrados por Mes</h2>
+
+      <!-- Botones de navegación de años -->
+      <div class="year-selector">
+        <button mat-icon-button (click)="cambiarAnio(-1)" aria-label="Año anterior">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="year-label">{{ selectedYear }}</span>
+        <button mat-icon-button (click)="cambiarAnio(1)" aria-label="Año siguiente">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+
+      <!-- Gráfica -->
       <canvas baseChart
         [data]="usuariosPorFechaChartData"
         [options]="barChartOptions"
@@ -40,11 +52,13 @@
     <mat-card class="content">
       <h2>Lista de Usuarios</h2>
 
+      <!-- Filtro de búsqueda -->
       <mat-form-field class="search-field" appearance="outline">
         <mat-label>Buscar usuario</mat-label>
         <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
       </mat-form-field>
 
+      <!-- Lista de usuarios -->
       <div class="user-list">
         <div class="user" *ngFor="let usuario of filteredUsuarios">
           <span>{{ usuario.Nombre }}</span>
@@ -52,7 +66,6 @@
           </mat-slide-toggle>
         </div>
       </div>
-
     </mat-card>
   </div>
 

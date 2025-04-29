@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 // Chart.js
 import { NgChartsModule } from 'ng2-charts';
@@ -31,6 +32,7 @@ import { ChartData, ChartOptions } from 'chart.js';
     MatSlideToggleModule,
     MatButtonModule,
     NgChartsModule,
+    MatIconModule
   ],
   templateUrl: './usuariosadmin.component.html',
   styleUrls: ['./usuariosadmin.component.css']
@@ -39,7 +41,9 @@ export class UsuariosadminComponent implements OnInit {
   data: any;
   loading = true;
   searchText: string = '';
+  selectedYear = new Date().getFullYear();
 
+  // Definición de las columnas a mostrar en la tabla
   displayedColumns: string[] = ['Nombre', 'Activo', 'Rol'];
 
   // Gráfica Circular - Roles
@@ -53,7 +57,7 @@ export class UsuariosadminComponent implements OnInit {
     labels: [],
     datasets: [{ data: [], label: 'Usuarios Registrados', backgroundColor: '#42A5F5' }]
   };
-  
+
   barChartOptions: ChartOptions<'bar'> = {
     responsive: true,
     plugins: {
@@ -68,6 +72,7 @@ export class UsuariosadminComponent implements OnInit {
   }
 
   loadData() {
+    // Realiza la petición para obtener los datos
     this.api.get<any>(API_URLS.Mid.Api_mid).subscribe({
       next: (res) => {
         this.data = res;
@@ -82,18 +87,47 @@ export class UsuariosadminComponent implements OnInit {
     });
   }
 
+
   prepareCharts() {
+    // Preparar datos para la gráfica de roles
     if (this.data?.RolesCount) {
       this.rolesChartData.labels = this.data.RolesCount.map((r: any) => r.Rol);
       this.rolesChartData.datasets[0].data = this.data.RolesCount.map((r: any) => r.Count);
     }
-
+  
+    // Preparar datos para la gráfica de usuarios por fecha
     if (this.data?.UsuariosPorFecha) {
-      this.usuariosPorFechaChartData.labels = this.data.UsuariosPorFecha.map((r: any) => `${r.Mes}/${r.Año}`);
-      this.usuariosPorFechaChartData.datasets[0].data = this.data.UsuariosPorFecha.map((r: any) => r.UsuariosRegistrados);
+      const datosFiltrados = this.data.UsuariosPorFecha
+        .filter((r: any) => String(r['Año']).trim() === String(this.selectedYear))
+        .sort((a: any, b: any) => parseInt(a['Mes']) - parseInt(b['Mes']));
+  
+      if (datosFiltrados.length > 0) {
+        this.usuariosPorFechaChartData.labels = datosFiltrados.map((r: any) =>
+          this.nombreMes(parseInt(r['Mes']))
+        );
+        this.usuariosPorFechaChartData.datasets[0].data = datosFiltrados.map(
+          (r: any) => r.UsuariosRegistrados
+        );
+      } else {
+        this.usuariosPorFechaChartData.labels = [];
+        this.usuariosPorFechaChartData.datasets[0].data = [];
+      }
     }
   }
 
+  // Convertir número de mes en su nombre
+  nombreMes(mes: number): string {
+    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    return meses[mes - 1] || `Mes ${mes}`;
+  }
+
+  // Cambiar de año en las gráficas
+  cambiarAnio(valor: number) {
+    this.selectedYear += valor;
+    this.prepareCharts(); // Recargar las gráficas con el nuevo año
+  }
+
+  // Filtrar los usuarios según la búsqueda
   get filteredUsuarios() {
     if (!this.data?.Usuarios) return [];
     return this.data.Usuarios.filter((user: any) => 
@@ -101,6 +135,7 @@ export class UsuariosadminComponent implements OnInit {
     );
   }
 
+  // Cambiar el estado de "Activo" de un usuario
   toggleActivo(usuario: any) {
     usuario.Activo = !usuario.Activo;
     console.log(`Usuario ${usuario.Nombre} activo: ${usuario.Activo}`);
