@@ -21,7 +21,7 @@ export class ApiService{
     } 
 
     put<T> (url: string, data:any): Observable<T>{
-        return this.http.post<T>(url, data);
+        return this.http.put<T>(url, data);
 
     }
     delete<T> (url:string): Observable<T>{

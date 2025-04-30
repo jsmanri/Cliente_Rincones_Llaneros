@@ -71,13 +71,16 @@ export class UsuariosadminComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    // Realiza la petición para obtener los datos
-    this.api.get<any>(API_URLS.Mid.Api_mid).subscribe({
+
+  loadData(year: number = this.selectedYear) {
+    this.loading = true;
+  
+    // Suponiendo que puedes enviar el año como query param, ej. ?anio=2026
+    this.api.get<any>(`${API_URLS.Mid.Api_mid}?anio=${year}`).subscribe({
       next: (res) => {
+        console.log('✅ Datos recibidos del MID:', res);
         this.data = res;
         this.loading = false;
-        console.log('Datos recibidos:', this.data);
         this.prepareCharts();
       },
       error: (err) => {
@@ -123,9 +126,9 @@ export class UsuariosadminComponent implements OnInit {
 
   // Cambiar de año en las gráficas
   cambiarAnio(valor: number) {
-    this.selectedYear += valor;
-    this.prepareCharts(); // Recargar las gráficas con el nuevo año
-  }
+  this.selectedYear += valor;
+  this.loadData(this.selectedYear); // Pide al backend los datos del nuevo año
+ }
 
   // Filtrar los usuarios según la búsqueda
   get filteredUsuarios() {
@@ -137,7 +140,25 @@ export class UsuariosadminComponent implements OnInit {
 
   // Cambiar el estado de "Activo" de un usuario
   toggleActivo(usuario: any) {
+    // Invertir estado
     usuario.Activo = !usuario.Activo;
-    console.log(`Usuario ${usuario.Nombre} activo: ${usuario.Activo}`);
+  
+    // Armar la URL con el ID del usuario
+    const url = `${API_URLS.CRUD.Api_crudUsuarios}/${usuario.Id}`;
+    
+    // Solo enviar el campo Activo al backend si es necesario
+    const updatedUsuario = { Activo: usuario.Activo };
+  
+    // Hacer PUT al backend
+    this.api.put(url, updatedUsuario).subscribe({
+      next: () => {
+        console.log(`Usuario ${usuario.Nombre} actualizado correctamente`);
+      },
+      error: (err) => {
+        console.error('Error al actualizar usuario:', err);
+        // Revertir el estado si falla
+        usuario.Activo = !usuario.Activo;
+      }
+    });
   }
 }
