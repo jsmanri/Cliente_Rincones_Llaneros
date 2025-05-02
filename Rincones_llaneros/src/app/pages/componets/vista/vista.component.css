@@ -420,7 +420,7 @@ footer {
 .carousel-card{
 
   max-width: 250px;
-  min-width: 48%; /* opcional, por si interfiere */
+  min-width: 50px; /* opcional, por si interfiere */
    margin: 0 4px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }

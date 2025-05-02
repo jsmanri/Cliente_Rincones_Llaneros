@@ -79,73 +79,131 @@
         <div class="texto-actividad">
           <h2>Paseo a Caballo</h2>
           <p>"Descubre la belleza de los llanos a lomo de caballo. Vive una experiencia auténtica recorriendo paisajes inolvidables en Casanare, como un verdadero llanero. ¡Una aventura que conecta con la naturaleza y la cultura de nuestra tierra!</p>
-          <button class="btn-1" (click)="goToPush()">Explorar más </button>
+          <button class="btn-1" (click)="goToPushCaballo()">Explorar más </button>
         </div>
+      </div>
+    
+      <div class="municipios">
+        <h3>Disponible en:</h3>
+        <ul class="municipios-lista">
+          <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+          <li><i class="fas fa-map-marker-alt"></i> Maní</li>
+          <li><i class="fas fa-map-marker-alt"></i> Tauramena</li>
+        </ul>
       </div>
     </div>
     
-    <div id="restaurantes" class="actividad-info">
-      <div class="contenido-actividad">
-        <img src="/assets/restaurantes.jpg" alt="Restaurantes en Casanare" />
-        <div class="texto-actividad">
-          <h2>Restaurantes</h2>
-          <p>Saborea lo mejor de la cocina llanera en restaurantes típicos y modernos.</p>
-        </div>
-      </div>
+<!-- Restaurantes -->
+<div id="restaurantes" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/restaurantes.jpg" alt="Restaurantes en Casanare" />
+    <div class="texto-actividad">
+      <h2>Restaurantes</h2>
+      <p>Saborea lo mejor de la cocina llanera en restaurantes típicos y modernos.</p>
+      <button class="btn-1" (click)="goToPushRestaurantes()">Explorar más</button>
     </div>
-    
-    <div id="museos" class="actividad-info">
-      <div class="contenido-actividad">
-        <img src="/assets/museos.jpg" alt="Museos de Casanare" />
-        <div class="texto-actividad">
-          <h2>Museos</h2>
-          <p>Descubre la historia y cultura de Casanare en sus museos más representativos.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div id="monumentos" class="actividad-info">
-      <div class="contenido-actividad">
-        <img src="/assets/monumentos.jpg" alt="Monumentos en Casanare" />
-        <div class="texto-actividad">
-          <h2>Monumentos</h2>
-          <p>Conoce los monumentos emblemáticos que rinden homenaje a la tradición llanera.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div id="caminata" class="actividad-info">
-      <div class="contenido-actividad">
-        <img src="/assets/caminata.jpg" alt="Caminata ecológica Casanare" />
-        <div class="texto-actividad">
-          <h2>Caminata ecológica</h2>
-          <p>Explora senderos naturales mientras disfrutas del aire puro y la fauna local.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div id="safari" class="actividad-info">
-      <div class="contenido-actividad">
-        <img src="/assets/safari.jpg" alt="Safari Casanare" />
-        <div class="texto-actividad">
-          <h2>Safari Casanare</h2>
-          <p>Una experiencia única para observar animales en su hábitat natural.</p>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-
-    
-
-
-
-
-
-
-
   </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Paz de Ariporo</li>
+      <li><i class="fas fa-map-marker-alt"></i> Villanueva</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Museos -->
+<div id="museos" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/museos.jpg" alt="Museos de Casanare" />
+    <div class="texto-actividad">
+      <h2>Museos</h2>
+      <p>Descubre la historia y cultura de Casanare en sus museos más representativos.</p>
+      <button class="btn-1" (click)="goToPushMuseos()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Paz de Ariporo</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Monumentos -->
+<div id="monumentos" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/monumentos.jpg" alt="Monumentos en Casanare" />
+    <div class="texto-actividad">
+      <h2>Monumentos</h2>
+      <p>Conoce los monumentos emblemáticos que rinden homenaje a la tradición llanera.</p>
+      <button class="btn-1" (click)="goToPushMonumentos()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Aguazul</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Caminata Ecológica -->
+<div id="caminata" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/caminata.jpg" alt="Caminata ecológica Casanare" />
+    <div class="texto-actividad">
+      <h2>Caminata ecológica</h2>
+      <p>Explora senderos naturales mientras disfrutas del aire puro y la fauna local.</p>
+      <button class="btn-1" (click)="goToPushCaminata()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Villanueva</li>
+      <li><i class="fas fa-map-marker-alt"></i> Aguazul</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Safari -->
+<div id="safari" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/safari.jpg" alt="Safari Casanare" />
+    <div class="texto-actividad">
+      <h2>Safari Casanare</h2>
+      <p>Una experiencia única para observar animales en su hábitat natural.</p>
+      <button class="btn-1" (click)="goToPushSafari()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Hato Corozal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Paz de Ariporo</li>
+      <li><i class="fas fa-map-marker-alt"></i> Trinidad</li>
+    </ul>
+  </div>
+</div>
+</div>
+    
+    
+    
+
+    
+
+
+
+
+
+
+
+
 
 </body>
 </html>

@@ -213,3 +213,45 @@ html {
     max-height: 200px;
   }
 }
+
+
+.municipios {
+  margin-top: 10px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.municipios h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.municipios-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 🔸 Centra los ítems horizontalmente */
+  gap: 12px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.municipios-lista li {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.municipios-lista i {
+  color: #e74c3c;
+  margin-right: 6px;
+}
+
+/* RESPONSIVE: columna centrada en pantallas pequeñas */
+@media (max-width: 768px) {
+  .municipios-lista {
+    flex-direction: column;
+    align-items: center; /* 🔸 Centra ítems cuando están en columna */
+  }
+}

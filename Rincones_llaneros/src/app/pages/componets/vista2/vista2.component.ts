@@ -15,9 +15,30 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class Vista2Component {constructor(private router:Router){}
 
-goToPush() {
+goToPushCaballo() {
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'caballo' } });
 }
+
+goToPushRestaurantes() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'restaurantes' } });
+}
+
+goToPushMuseos() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'museos' } });
+}
+
+goToPushMonumentos() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'monumentos' } });
+}
+
+goToPushCaminata() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'caminata' } });
+}
+
+goToPushSafari() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'safari' } });
+}
+
 
 
   scrollTo(elementId: string) {

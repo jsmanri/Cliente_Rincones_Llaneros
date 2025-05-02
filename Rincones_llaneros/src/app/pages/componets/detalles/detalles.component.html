@@ -1,25 +1,43 @@
-<h1>{{ nombreActividad }}</h1>
+<div class="actividad-detalle">
+  <h1>{{ nombreActividad }}</h1>
 
-<p>{{ descripcionActividad }}</p>
+  <p class="descripcion">{{ descripcionActividad }}</p>
 
-<div *ngIf="municipios.length > 0">
-  <h3>Municipios donde puedes hacer esta actividad:</h3>
-  <ul>
-    <li *ngFor="let municipio of municipios">
-      {{ municipio }}
-    </li>
-  </ul>
+  <div *ngIf="municipios.length > 0" class="info-section">
+    <h3>Municipios donde puedes hacer esta actividad:</h3>
+    <ul class="municipios-lista">
+      <li *ngFor="let municipio of municipios">
+        {{ municipio }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="horario" class="info-section">
+    <h3>Horario:</h3>
+    <p>{{ horario }}</p>
+  </div>
+
+  <div *ngIf="ubicacion" class="info-section">
+    <h3>Ubicación:</h3>
+    <p>{{ ubicacion }}</p>
+  </div>
+
+  <!-- Sección de testimonios -->
+<!-- Sección de testimonios -->
+<div *ngIf="testimonios.length > 0" class="testimonios">
+  <h3>Testimonios de visitantes</h3>
+  <div class="testimonio" *ngFor="let t of testimonios">
+    <img [src]="t.imagen" alt="{{ t.autor }}" class="testimonio-img">
+    <div class="testimonio-texto">
+      <p>"{{ t.mensaje }}"</p>
+      <span>- {{ t.autor }}</span>
+      <div class="estrellas">
+        <span *ngFor="let _ of getEstrellas(t.calificacion)">★</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="horario">
-  <h3>Horario:</h3>
-  <p>{{ horario }}</p>
-</div>
 
-<div *ngIf="ubicacion">
-  <h3>Ubicación:</h3>
-  <p>{{ ubicacion }}</p>
+  <button routerLink="/casanare-actividades" class="btn-volver">Volver</button>
 </div>
-
-<!-- Botón para volver -->
-<button routerLink="/casanare-actividades">Volver</button>
