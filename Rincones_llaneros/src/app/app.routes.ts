@@ -8,6 +8,7 @@ import { RecuperacionComponent } from './pages/componenteslogin/recuperacion/rec
 import { RegistroComponent } from './pages/componenteturismo/registro/registro.component';
 import { EventosComponent } from './pages/componenteturismo/eventos/eventos.component';
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
+import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 
 export const routes: Routes = [
     { path: '', component:LoginComponent},
@@ -19,7 +20,8 @@ export const routes: Routes = [
     { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
     { path: 'headersinregistro', component: HeadersinregistroComponent },
     { path: 'tendencias', component: TendenciasComponent },
-    { path: 'admin', component: UsuariosadminComponent}
+    { path: 'usuadmin', component: UsuariosadminComponent},
+    { path: 'sitiosadmin', component: SitiosadminComponent}
 ];
 
 

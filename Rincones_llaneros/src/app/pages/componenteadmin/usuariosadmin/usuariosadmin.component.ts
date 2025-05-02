@@ -78,7 +78,7 @@ export class UsuariosadminComponent implements OnInit {
     // Suponiendo que puedes enviar el año como query param, ej. ?anio=2026
     this.api.get<any>(`${API_URLS.Mid.Api_mid}?anio=${year}`).subscribe({
       next: (res) => {
-        console.log('✅ Datos recibidos del MID:', res);
+        //console.log('✅ Datos recibidos del MID:', res);
         this.data = res;
         this.loading = false;
         this.prepareCharts();
@@ -145,14 +145,14 @@ export class UsuariosadminComponent implements OnInit {
   
     // Armar la URL con el ID del usuario
     const url = `${API_URLS.CRUD.Api_crudUsuarios}/${usuario.Id}`;
-    
-    // Solo enviar el campo Activo al backend si es necesario
+  
+    // Solo enviar el campo Activo al backend
     const updatedUsuario = { Activo: usuario.Activo };
   
-    // Hacer PUT al backend
-    this.api.put(url, updatedUsuario).subscribe({
+    // Hacer PATCH al backend
+    this.api.patch(url, updatedUsuario).subscribe({
       next: () => {
-        console.log(`Usuario ${usuario.Nombre} actualizado correctamente`);
+        //console.log(`Usuario ${usuario.Nombre} actualizado correctamente`);
       },
       error: (err) => {
         console.error('Error al actualizar usuario:', err);

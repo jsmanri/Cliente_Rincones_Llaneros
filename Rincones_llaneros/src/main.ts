@@ -10,6 +10,7 @@ import { EventosComponent } from './app/pages/componenteturismo/eventos/eventos.
 import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
+import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -22,7 +23,8 @@ bootstrapApplication(AppComponent,{
             { path: 'recuperacion', component: RecuperacionComponent},
             { path: 'registrositio', component: RegistroComponent},
             { path: 'registroeven', component: EventosComponent},
-            { path: 'admin', component: UsuariosadminComponent}
+            { path: 'usuadmin', component: UsuariosadminComponent},
+            { path: 'sitiosadmin',component: SitiosadminComponent}
           ]),
         provideAnimations(),
         provideHttpClient()

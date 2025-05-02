@@ -4,8 +4,8 @@
   flex-wrap: wrap;
   gap: 24px;
   justify-content: center;
-  padding: 40px;
-  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  padding: 80px;
+  background-color: #32abbb;
 }
 
 /* Cada bloque visual (tarjeta) */
@@ -109,7 +109,6 @@ canvas {
 .user:hover {
   background: #bbdefb;
 }
-
 
 
 /* Responsive */
