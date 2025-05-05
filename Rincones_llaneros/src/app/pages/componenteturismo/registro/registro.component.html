@@ -26,6 +26,44 @@
               <mat-label>Horario</mat-label>
               <input matInput formControlName="horario" required>
             </mat-form-field>
+
+            <!-- Selector de ubicación -->
+            <button mat-raised-button color="accent" type="button" (click)="abrirMapa()">
+              Seleccionar ubicación en el mapa
+            </button>
+
+            <!-- Mapa -->
+            <div *ngIf="mostrarMapa" class="map-container">
+              <!-- Botones por municipio -->
+              <div class="municipios-buttons">
+                <button *ngFor="let municipio of municipios"
+                        mat-stroked-button
+                        (click)="seleccionarMunicipio(municipio.lat, municipio.lng, municipio.nombre)">
+                  {{ municipio.nombre }}
+                </button>
+              </div>
+
+              <!-- Google Map -->
+              <google-map height="400px"
+                          width="100%"
+                          [center]="center"
+                          [zoom]="zoom"
+                          (mapClick)="marcarUbicacion($event)">
+                <map-marker *ngIf="markerPosition"
+                            [position]="markerPosition">
+                </map-marker>
+              </google-map>
+            </div>
+
+            <!-- Campos ocultos para coordenadas -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Latitud</mat-label>
+              <input matInput formControlName="latitud" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Longitud</mat-label>
+              <input matInput formControlName="longitud" readonly>
+            </mat-form-field>
           </div>
 
           <!-- Columna 2 -->
@@ -45,15 +83,20 @@
               <label for="file-upload" class="file-label">
                 <span class="upload-icon">📁</span>
                 <span class="upload-text">Subir imágenes</span>
-                <input id="file-upload" type="file" multiple (change)="onFileSelected($event)" accept="image/*">
+                <input id="file-upload"
+                       type="file"
+                       multiple
+                       (change)="onFileSelected($event)"
+                       accept="image/*">
               </label>
-            
-              <!-- Miniaturas de imágenes seleccionadas -->
+
+              <!-- Miniaturas -->
               <div class="image-preview" *ngIf="imagenesPreview.length > 0">
                 <div class="image-thumb" *ngFor="let img of imagenesPreview; let i = index">
-                  <img [src]="img" alt="Vista previa de imagen">
-                  <!-- Botón mejorado para eliminar imagen -->
-                  <button class="delete-btn" (click)="eliminarImagen(i)" mat-icon-button>
+                  <img [src]="img" alt="Vista previa">
+                  <button class="delete-btn"
+                          (click)="eliminarImagen(i)"
+                          mat-icon-button>
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
@@ -68,11 +111,10 @@
             </button>
           </div>
 
-          <!-- Mensaje de registro exitoso -->
+          <!-- Mensaje de éxito -->
           <div class="registro-exitoso" *ngIf="registroExitoso">
             ✅ ¡Sitio registrado exitosamente!
           </div>
-          
         </form>
       </div>
     </div>
@@ -83,7 +125,7 @@
     <div class="modal-content">
       <h2>Políticas de Privacidad</h2>
       <p>
-        Al registrar un sitio turístico, aceptas que la información proporcionada será utilizada 
+        Al registrar un sitio turístico, aceptas que la información proporcionada será utilizada
         únicamente con fines promocionales y de contacto. No compartiremos tus datos con terceros.
       </p>
       <div class="modal-actions">

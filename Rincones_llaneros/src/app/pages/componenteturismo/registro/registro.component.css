@@ -256,6 +256,61 @@ button[mat-raised-button]:hover {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+
+/* ------------------ MAPA Y MUNICIPIOS ------------------ */
+.map-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 15px;
+  background-color: #f1f4f8;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.map-container:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.municipios-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.municipios-buttons button {
+  border-radius: 20px !important;
+  text-transform: none;
+  font-weight: 500;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  border: 1px solid #1976d2;
+  color: #1976d2;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.municipios-buttons button:hover {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Estilo específico para el botón "Seleccionar ubicación" */
+button[mat-raised-button][color="accent"] {
+  background-color: #4caf50;
+  color: white;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button][color="accent"]:hover {
+  background-color: #388e3c;
+}
+
+
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
