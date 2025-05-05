@@ -15,8 +15,11 @@ export class DetallesComponent implements OnInit {
   descripcionActividad: string = '';
   municipios: string[] = [];
   horario: string = '';
-  ubicacion: string = '';
   testimonios: { mensaje: string, autor: string, imagen: string, calificacion: number }[] = [];
+  imagenActividad: string ='';
+  puntosmunicipios: {[municipio: string]: string[]}= {};
+  recomendaciones: string [] = [];
+  municipiosCasanare: string[] = [];
 
   private testimoniosActividad: { [key: string]: { mensaje: string, autor: string, imagen: string, calificacion: number }[] } = {
     caballo: [
@@ -48,44 +51,51 @@ export class DetallesComponent implements OnInit {
     if (actividad === 'caballo') {
       this.nombreActividad = 'Paseo a Caballo';
       this.descripcionActividad = 'Recorre los llanos montando a caballo como un verdadero llanero.';
-      this.municipios = ['Yopal', 'Maní', 'Aguazul'];
+      this.municipiosCasanare = ['Yopal', 'Maní', 'Aguazul'];
       this.horario = 'Todos los días de 7:00 am a 5:00 pm';
-      this.ubicacion = 'Salida desde el parque principal de cada municipio.';
+      this.imagenActividad = '/Casanare-3.jpg';
+      this.recomendaciones = ['llevar ropa comoda, protector solar'];
+
+      this.puntosmunicipios = {
+        Yopal: ['Finca el palmar','Hato la Candelaria']
+      }
     } 
     else if (actividad === 'restaurantes') {
       this.nombreActividad = 'Restaurantes';
       this.descripcionActividad = 'Deléitate con lo mejor de la gastronomía llanera.';
-      this.municipios = [];
+      this.municipios = [    'Yopal', 'Villanueva', 'Aguazul', 'Monterrey', 'Maní', 'Tauramena', 'Pore', 'Trinidad',
+        'San Luis de Palenque', 'Támara', 'Recetor', 'Hato Corozal', 'Nunchía', 'Paz de Ariporo'];
       this.horario = 'Todos los días de 11:00 am a 10:00 pm';
-      this.ubicacion = 'Centros urbanos principales.';
+      this.imagenActividad = '/comida.jpg';
+      this.recomendaciones = [];
     } 
     else if (actividad === 'museos') {
       this.nombreActividad = 'Museos';
       this.descripcionActividad = 'Descubre la historia y cultura de Casanare en sus museos más representativos.';
       this.municipios = ['Yopal', 'Tauramena', 'Villanueva'];
       this.horario = 'De lunes a viernes, 9:00 am a 5:00 pm';
-      this.ubicacion = 'Museos locales en cada municipio.';
+      this.imagenActividad = '';
     } 
     else if (actividad === 'monumentos') {
       this.nombreActividad = 'Monumentos';
       this.descripcionActividad = 'Conoce los monumentos emblemáticos que rinden homenaje a la tradición llanera.';
       this.municipios = ['Yopal', 'Hato Corozal', 'San Luis de Palenque'];
       this.horario = 'De lunes a domingo, 8:00 am a 6:00 pm';
-      this.ubicacion = 'Ubicados en parques y plazas principales.';
+      this.imagenActividad = '';
     } 
     else if (actividad === 'caminata') {
       this.nombreActividad = 'Caminata Ecológica';
       this.descripcionActividad = 'Explora senderos naturales mientras disfrutas del aire puro y la fauna local.';
       this.municipios = ['Yopal', 'Villanueva', 'Aguazul'];
       this.horario = 'De lunes a domingo, 6:00 am a 4:00 pm';
-      this.ubicacion = 'Senderos en zonas rurales y parques naturales.';
+      this.imagenActividad = '';
     } 
     else if (actividad === 'safari') {
       this.nombreActividad = 'Safari Casanare';
       this.descripcionActividad = 'Una experiencia única para observar animales en su hábitat natural.';
       this.municipios = ['Yopal', 'Recetor', 'Támara'];
       this.horario = 'Todos los días de 5:00 am a 5:00 pm';
-      this.ubicacion = 'Zonas rurales y reservas naturales.';
+      this.imagenActividad = '';
     }
     
     if (actividad) {
@@ -97,4 +107,11 @@ export class DetallesComponent implements OnInit {
   getEstrellas(calificacion: number): number[] {
     return Array(calificacion).fill(0);
   }
+  municipioSeleccionado: string | null = null;
+
+  seleccionarMunicipio(municipio: string): void {
+    this.municipioSeleccionado = municipio === this.municipioSeleccionado ? null : municipio;
+  }
+  
+
 }

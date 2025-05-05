@@ -90,6 +90,68 @@
     justify-content: center;
   }
   
+  .actividad-imagen {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
 
+  .municipio-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #e7f1ff;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .municipio-item:hover {
+    background-color: #d0e8ff;
+  }
+  
+  .municipio-item.active {
+    background-color: #007bff;
+    color: white;
+  }
 
+  .carrusel-container {
+    margin: 30px 0;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .carrusel-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .carrusel {
+    display: inline-flex;
+    gap: 12px;
+    padding: 10px 20px;
+  }
+  
+  .municipio-item {
+    flex: 0 0 auto;
+    min-width: 140px;
+    padding: 12px 20px;
+    background-color: #ffeeba;
+    border-radius: 30px;
+    font-size: 1rem;
+    color: #6c5100;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .municipio-item:hover {
+    transform: scale(1.05);
+  }
   
