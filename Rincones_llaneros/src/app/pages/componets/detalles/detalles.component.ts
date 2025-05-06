@@ -19,7 +19,9 @@ export class DetallesComponent implements OnInit {
   imagenActividad: string ='';
   puntosmunicipios: {[municipio: string]: string[]}= {};
   recomendaciones: string [] = [];
-  municipiosCasanare: string[] = [];
+  imagenescarrusel: string[] = [];
+  indiceimagenactual: number =0;
+
 
   private testimoniosActividad: { [key: string]: { mensaje: string, autor: string, imagen: string, calificacion: number }[] } = {
     caballo: [
@@ -51,23 +53,29 @@ export class DetallesComponent implements OnInit {
     if (actividad === 'caballo') {
       this.nombreActividad = 'Paseo a Caballo';
       this.descripcionActividad = 'Recorre los llanos montando a caballo como un verdadero llanero.';
-      this.municipiosCasanare = ['Yopal', 'Maní', 'Aguazul'];
+      this.municipios = ['Yopal', 'Maní', 'Aguazul'];
       this.horario = 'Todos los días de 7:00 am a 5:00 pm';
       this.imagenActividad = '/Casanare-3.jpg';
-      this.recomendaciones = ['llevar ropa comoda, protector solar'];
+      this.recomendaciones = ['llevar ropa comoda', 'protector solar','dhdh','sjdh','dndn'];
 
       this.puntosmunicipios = {
-        Yopal: ['Finca el palmar','Hato la Candelaria']
+        Yopal: ['Finca el palmar','Hato la Candelaria'],
+        Morichal: ['']
       }
+      this.imagenescarrusel =[
+        '/img3-jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     } 
     else if (actividad === 'restaurantes') {
       this.nombreActividad = 'Restaurantes';
       this.descripcionActividad = 'Deléitate con lo mejor de la gastronomía llanera.';
-      this.municipios = [    'Yopal', 'Villanueva', 'Aguazul', 'Monterrey', 'Maní', 'Tauramena', 'Pore', 'Trinidad',
-        'San Luis de Palenque', 'Támara', 'Recetor', 'Hato Corozal', 'Nunchía', 'Paz de Ariporo'];
+      this.municipios = ['yopal'];
       this.horario = 'Todos los días de 11:00 am a 10:00 pm';
       this.imagenActividad = '/comida.jpg';
-      this.recomendaciones = [];
+      this.recomendaciones = ['disfutra de la comida'];
     } 
     else if (actividad === 'museos') {
       this.nombreActividad = 'Museos';
@@ -111,6 +119,18 @@ export class DetallesComponent implements OnInit {
 
   seleccionarMunicipio(municipio: string): void {
     this.municipioSeleccionado = municipio === this.municipioSeleccionado ? null : municipio;
+
+  }
+
+  getMunicipios(): string[] {
+    return Object.keys(this.puntosmunicipios);
+  }
+  
+  siguienteimagen() {
+    this.indiceimagenactual = (this.indiceimagenactual + 1) % this.imagenescarrusel.length;
+  }
+  anteriorImagen() {
+    this.indiceimagenactual = (this.indiceimagenactual - 1 + this.imagenescarrusel.length) % this.imagenescarrusel.length;
   }
   
 

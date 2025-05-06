@@ -1,35 +1,34 @@
 <div class="actividad-detalle">
   <h1>{{ nombreActividad }}</h1>
-
-  <img *ngIf="imagenActividad" [src]="imagenActividad" alt="{{ nombreActividad }}" class="actividad-imagen">
-
+  
+  <div *ngIf="imagenescarrusel.length > 0" class="carrusel-container">
+    <button (click)="anteriorImagen()" class="carrusel-boton">←</button>
+  
+    <img 
+      [src]="imagenescarrusel[indiceimagenactual]"
+      
+  
+      class="carrusel-img"
+    />
+  
+    <button (click)="siguienteimagen()" class="carrusel-boton">→</button>
+  </div>
+  
 
   <p class="descripcion">{{ descripcionActividad }}</p>
 
-  <div *ngIf="municipios.length > 0" class="info-section">
-    <h3>Municipios donde puedes hacer esta actividad:</h3>
-    <ul class="municipios-lista">
-      <li *ngFor="let municipio of municipios" (click)="seleccionarMunicipio(municipio)" class="municipio-item">
-        {{ municipio }}
+  <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
+    <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
+      📍 {{ municipio }}
+    </div>
+  
+    <ul *ngIf="municipioSeleccionado === municipio">
+      <li *ngFor="let punto of puntosmunicipios[municipio]">
+        • {{ punto }}
       </li>
     </ul>
-
-    <div class="carrusel-container">
-      <h3>Municipios con oferta gastronómica</h3>
-      <div class="carrusel-wrapper">
-        <div class="carrusel">
-          <div class="municipio-item" *ngFor="let municipio of municipiosCasanare">
-            🍽️ {{ municipio }}
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-
-    
   </div>
+  
 
   <div *ngIf="horario" class="info-section">
     <h3>Horario:</h3>
@@ -38,10 +37,13 @@
 
   <div *ngIf="recomendaciones.length > 0" class="info-section">
     <h3>Recomendaciones:</h3>
-    <ul>
-      <li *ngFor="let r of recomendaciones">{{ r }}</li>
-    </ul>
+    <div class="recomendacion-card">
+      <div *ngFor="let r of recomendaciones" class="recomendacion-linea">
+        • {{ r }}
+      </div>
+    </div>
   </div>
+  
 
 
   
