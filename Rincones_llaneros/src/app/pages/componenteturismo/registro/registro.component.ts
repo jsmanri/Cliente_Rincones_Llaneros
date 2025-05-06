@@ -1,11 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MapaComponent } from '../mapa/mapa.component';
 
 @Component({
   selector: 'app-registro',
@@ -17,7 +18,7 @@ import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    GoogleMapsModule
+    MatDialogModule,
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
@@ -28,24 +29,9 @@ export class RegistroComponent {
   mostrarModal = false;
   politicasAceptadas = false;
   registroExitoso = false;
-  mostrarMapa = false;
-
   imagenesPreview: string[] = [];
 
-  center: google.maps.LatLngLiteral = { lat: 5.354, lng: -72.395 };
-  zoom = 8;
-  markerPosition: google.maps.LatLngLiteral | null = null;
-
-  municipios = [
-    { nombre: 'Yopal', lat: 5.3478, lng: -72.4064 },
-    { nombre: 'Aguazul', lat: 5.1726, lng: -72.5479 },
-    { nombre: 'Villanueva', lat: 4.5994, lng: -72.9711 },
-    { nombre: 'Monterrey', lat: 4.8837, lng: -73.0535 },
-  ];
-
-  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.sitioForm = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
@@ -128,41 +114,28 @@ export class RegistroComponent {
     this.sitioForm.reset();
     this.imagenesPreview = [];
     this.politicasAceptadas = false;
-    this.markerPosition = null;
 
     const fileInput = document.getElementById('file-upload') as HTMLInputElement;
     if (fileInput) fileInput.value = '';
   }
 
-  abrirMapa(): void {
-    this.mostrarMapa = true;
+  actualizarUbicacion(event: { latitud: number; longitud: number }): void {
+    this.sitioForm.patchValue({
+      latitud: event.latitud,
+      longitud: event.longitud
+    });
   }
 
-  seleccionarMunicipio(lat: number, lng: number, nombre: string): void {
-    this.center = { lat, lng };
-    this.zoom = 13;
-    this.markerPosition = { lat, lng };
-
-    this.sitioForm.patchValue({
-      latitud: lat,
-      longitud: lng
+  abrirMapa(): void {
+    const dialogRef = this.dialog.open(MapaComponent, {
+      width: '700px',
+      height: '500px',
+      disableClose: false,
     });
 
-    alert(`Municipio seleccionado: ${nombre}`);
-    this.mostrarMapa = true;
-  }
-
-  marcarUbicacion(event: google.maps.MapMouseEvent): void {
-    if (event.latLng) {
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
-
-      this.markerPosition = { lat, lng };
-
-      this.sitioForm.patchValue({
-        latitud: lat,
-        longitud: lng
-      });
-    }
+    dialogRef.componentInstance.ubicacionSeleccionada.subscribe((coords: { latitud: number; longitud: number }) => {
+      this.actualizarUbicacion(coords);
+      dialogRef.close();
+    });
   }
 }

@@ -27,33 +27,11 @@
               <input matInput formControlName="horario" required>
             </mat-form-field>
 
-            <!-- Selector de ubicación -->
-            <button mat-raised-button color="accent" type="button" (click)="abrirMapa()">
-              Seleccionar ubicación en el mapa
+            <button mat-raised-button color="primary" (click)="abrirMapa()">
+              Seleccionar ubicación
             </button>
-
-            <!-- Mapa -->
-            <div *ngIf="mostrarMapa" class="map-container">
-              <!-- Botones por municipio -->
-              <div class="municipios-buttons">
-                <button *ngFor="let municipio of municipios"
-                        mat-stroked-button
-                        (click)="seleccionarMunicipio(municipio.lat, municipio.lng, municipio.nombre)">
-                  {{ municipio.nombre }}
-                </button>
-              </div>
-
-              <!-- Google Map -->
-              <google-map height="400px"
-                          width="100%"
-                          [center]="center"
-                          [zoom]="zoom"
-                          (mapClick)="marcarUbicacion($event)">
-                <map-marker *ngIf="markerPosition"
-                            [position]="markerPosition">
-                </map-marker>
-              </google-map>
-            </div>
+            
+            
 
             <!-- Campos ocultos para coordenadas -->
             <mat-form-field appearance="outline" class="full-width">
