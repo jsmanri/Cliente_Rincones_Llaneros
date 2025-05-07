@@ -43,6 +43,34 @@ export class DetallesComponent implements OnInit {
     ],
     safari: [
       { mensaje: "Vi animales increíbles, inolvidable.", autor: "Pedro Vargas", imagen: "/assets/usuarios/usuario8.jpg", calificacion: 5 }
+    ],
+    Hoteles: [
+      {
+        mensaje: "Un lugar cómodo y limpio para descansar después de un día de aventura.",
+        autor: "Valentina Ríos",
+        imagen: "/assets/usuarios/usuario9.jpg",
+        calificacion: 4
+      },
+      {
+        mensaje: "El personal fue muy amable y la vista desde mi habitación era espectacular.",
+        autor: "Andrés Gómez",
+        imagen: "/assets/usuarios/usuario10.jpg",
+        calificacion: 5
+      }
+    ],
+    Pisicinas: [
+      {
+        mensaje: "Perfecto para relajarse bajo el sol, el agua estaba en excelente estado.",
+        autor: "Camila Duarte",
+        imagen: "/assets/usuarios/usuario11.jpg",
+        calificacion: 5
+      },
+      {
+        mensaje: "Ideal para ir en familia, mis hijos la pasaron increíble.",
+        autor: "Diego Suárez",
+        imagen: "/assets/usuarios/usuario12.jpg",
+        calificacion: 4
+      }
     ]
   };
   constructor(private route: ActivatedRoute) {}
@@ -53,7 +81,6 @@ export class DetallesComponent implements OnInit {
     if (actividad === 'caballo') {
       this.nombreActividad = 'Paseo a Caballo';
       this.descripcionActividad = 'Recorre los llanos montando a caballo como un verdadero llanero.';
-      this.municipios = ['Yopal', 'Maní', 'Aguazul'];
       this.horario = 'Todos los días de 7:00 am a 5:00 pm';
       this.imagenActividad = '/Casanare-3.jpg';
       this.recomendaciones = ['llevar ropa comoda', 'protector solar','dhdh','sjdh','dndn'];
@@ -72,10 +99,31 @@ export class DetallesComponent implements OnInit {
     else if (actividad === 'restaurantes') {
       this.nombreActividad = 'Restaurantes';
       this.descripcionActividad = 'Deléitate con lo mejor de la gastronomía llanera.';
-      this.municipios = ['yopal'];
+      this.municipios = ['Yopal', 'Medellín'];
       this.horario = 'Todos los días de 11:00 am a 10:00 pm';
       this.imagenActividad = '/comida.jpg';
-      this.recomendaciones = ['disfutra de la comida'];
+      this.recomendaciones = ['Disfruta de la comida'];
+      this.puntosmunicipios = {
+        Yopal: ['Restaurante El Llanero', 'Parrilla La Sabana'],
+        Aguazul: [],
+        Chámeza: [],
+        HatoCorozal: [],
+        LaSalina: [],
+        Maní: [],
+        Monterrey: [],
+        Nunchía: [],
+        Orocué: [],
+        PazdeAriporo: [],
+        Pore: [],
+        Recetor: [],
+        Sabanalarga: [],
+        Sácama: [],
+        SanLuisdePalenque: [],
+        Támara: [],
+        Tauramena: [],
+        Trinidad: [],
+        Villanueva: []
+      };
     } 
     else if (actividad === 'museos') {
       this.nombreActividad = 'Museos';
@@ -83,6 +131,11 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Tauramena', 'Villanueva'];
       this.horario = 'De lunes a viernes, 9:00 am a 5:00 pm';
       this.imagenActividad = '';
+      this.puntosmunicipios = {
+        Yopal: ['Museo del Hombre Llanero'],
+        Tauramena: ['Casa de la Cultura Tauramena'],
+        Villanueva: ['Centro Cultural Llanero']
+      };
     } 
     else if (actividad === 'monumentos') {
       this.nombreActividad = 'Monumentos';
@@ -90,6 +143,11 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Hato Corozal', 'San Luis de Palenque'];
       this.horario = 'De lunes a domingo, 8:00 am a 6:00 pm';
       this.imagenActividad = '';
+      this.puntosmunicipios = {
+        Yopal: ['Monumento al Centauro'],
+        'Hato Corozal': ['Estatua del Fundador'],
+        'San Luis de Palenque': ['Obelisco de la Llanura']
+      };
     } 
     else if (actividad === 'caminata') {
       this.nombreActividad = 'Caminata Ecológica';
@@ -97,6 +155,11 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Villanueva', 'Aguazul'];
       this.horario = 'De lunes a domingo, 6:00 am a 4:00 pm';
       this.imagenActividad = '';
+      this.puntosmunicipios = {
+        Yopal: ['Sendero La Aguatoca'],
+        Villanueva: ['Ruta Ecológica El Morro'],
+        Aguazul: ['Camino Verde Llanero']
+      };
     } 
     else if (actividad === 'safari') {
       this.nombreActividad = 'Safari Casanare';
@@ -104,11 +167,86 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Recetor', 'Támara'];
       this.horario = 'Todos los días de 5:00 am a 5:00 pm';
       this.imagenActividad = '';
+      this.puntosmunicipios = {
+        Yopal: ['Hato La Aurora'],
+        Recetor: ['Reserva Faunística El Tigre'],
+        Támara: ['Hato El Encanto']
+      };
     }
+    else if (actividad === 'Hoteles') {
+      this.nombreActividad = 'Hoteles';
+      this.descripcionActividad = 'Una experiencia única para observar animales en su hábitat natural.';
+      this.horario = 'Todos los días de 5:00 am a 12:00 pm';
+      this.imagenActividad = '';
+      this.puntosmunicipios = {
+        Yopal: ['Hato La Aurora'],
+        Aguazul: [],
+        Chámeza: [],
+        HatoCorozal: [],
+        LaSalina: [],
+        Maní: [],
+        Monterrey: [],
+        Nunchía: [],
+        Orocué: [],
+        PazdeAriporo: [],
+        Pore: [],
+        Recetor: [],
+        Sabanalarga: [],
+        Sácama: [],
+        SanLuisdePalenque: [],
+        Támara: [],
+        Tauramena: [],
+        Trinidad: [],
+        Villanueva: []
+      };
+    }
+    else if (actividad === 'Piscinas') {
+      this.nombreActividad = 'Piscinas';
+      this.descripcionActividad = 'Relájate y disfruta del agua en los mejores destinos de Casanare.';
+      this.municipios = ['Yopal', 'Aguazul', 'Paz de Ariporo', 'Monterrey', 'San Luis de Palenque', 'Orocué'];
+      this.horario = 'Varía según el establecimiento; se recomienda consultar directamente.';
+      this.imagenActividad = '/piscinas.jpg';
+      this.recomendaciones = [
+        'Lleva protector solar y ropa cómoda.',
+        'Consulta horarios de apertura y tarifas antes de visitar.',
+        'Respeta las normas de seguridad acuática.'
+      ];
+      this.puntosmunicipios = {
+        Yopal: [
+          'Parque Acuático Nacua',
+          'Piscina Natural La Aguatoca'
+        ],
+        Aguazul: [
+          'Parque del Arroz',
+          'Finca Turística Paisanare'
+        ],
+        PazdeAriporo: [
+          'Piscina Totumo',
+          'El Lago Azul',
+          'Hotel Pie De Monte',
+          'Parque Ecológico Juan Nepomuceno Moreno',
+          'Piscina Villa Rosita',
+          'Cabaña Campestre Villa Karol'
+        ],
+        Monterrey: [
+          'Hotel Los Lagos Centro Vacacional'
+        ],
+        SanLuisdePalenque: [
+          'Centro Recreacional y Balneario Carana'
+        ],
+        Orocué: [
+          'Hato San Pablo'
+        ]
+      };
+    }
+    
     
     if (actividad) {
       this.testimonios = this.testimoniosActividad[actividad] || [];
     }
+  
+
+
     
 
   }

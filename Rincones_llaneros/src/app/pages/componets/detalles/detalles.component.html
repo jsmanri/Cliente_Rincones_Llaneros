@@ -17,17 +17,42 @@
 
   <p class="descripcion">{{ descripcionActividad }}</p>
 
-  <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
-    <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
-      📍 {{ municipio }}
-    </div>
+<!-- Para Restaurantes y Hoteles: usar <select> -->
+  <div *ngIf="nombreActividad === 'Restaurantes' || nombreActividad === 'Hoteles' || nombreActividad === 'Piscinas'" class="select-container">
+    <label for="municipioSelect">Selecciona un municipio:</label>
+    <select id="municipioSelect" #selectMunicipio (change)="seleccionarMunicipio(selectMunicipio.value)">
+      <option value="" disabled selected>-- Elige un municipio --</option>
+      <option *ngFor="let municipio of getMunicipios()" [value]="municipio">
+        {{ municipio }}
+      </option>
+    </select>
   
-    <ul *ngIf="municipioSeleccionado === municipio">
-      <li *ngFor="let punto of puntosmunicipios[municipio]">
-        • {{ punto }}
-      </li>
-    </ul>
+    <div *ngIf="municipioSeleccionado">
+      <h4>Puntos en {{ municipioSeleccionado }}</h4>
+      <ul>
+        <li *ngFor="let punto of puntosmunicipios[municipioSeleccionado]">
+          • {{ punto }}
+        </li>
+      </ul>
+    </div>
   </div>
+  
+  <!-- Para las demás actividades: lista expandible -->
+  <div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad ! == 'piscinas'">
+    <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
+      <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
+        📍 {{ municipio }}
+      </div>
+  
+      <ul *ngIf="municipioSeleccionado === municipio">
+        <li *ngFor="let punto of puntosmunicipios[municipio]">
+          • {{ punto }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
   
 
   <div *ngIf="horario" class="info-section">

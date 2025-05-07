@@ -39,6 +39,13 @@ goToPushSafari() {
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'safari' } });
 }
 
+goToPushHoteles() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'Hoteles' } });
+}
+goToPushPiscinas() {
+  this.router.navigate(['/detalles'], { queryParams: { actividad: 'Piscinas' } });
+}
+
 
 
   scrollTo(elementId: string) {
