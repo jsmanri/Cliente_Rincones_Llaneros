@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MapaComponent } from '../mapa/mapa.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ApiService } from '../../../../services/api.services';
+import { API_URLS } from '../../../../config/api-config';
 
 @Component({
   selector: 'app-registro',
@@ -19,59 +22,92 @@ import { MapaComponent } from '../mapa/mapa.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatSelectModule,
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
 
   sitioForm: FormGroup;
   mostrarModal = false;
   politicasAceptadas = false;
   registroExitoso = false;
   imagenesPreview: string[] = [];
+  imagenesBase64: string[] = [];
+  categorias: any[] = [];
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private apiService: ApiService
+  ) {
     this.sitioForm = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
       horario: ['', Validators.required],
       descripcion: ['', Validators.required],
-      categoria: ['', Validators.required],
+      categoria: [null, Validators.required], // ← se guarda el ID directamente
       imagenes: [null],
       latitud: [''],
       longitud: ['']
     });
   }
 
+
+
+  ngOnInit(): void {
+  this.apiService.get<any>(API_URLS.CRUD.Api_crudCategorias).subscribe({
+    next: (data) => {
+      if (data && Array.isArray(data["categorias consultadas"])) {
+        this.categorias = data["categorias consultadas"];
+      } else {
+        this.categorias = [];
+        console.warn('La respuesta no contiene un arreglo de categorías:', data);
+      }
+    },
+    error: (err) => {
+      console.error('Error al cargar categorías:', err);
+    }
+  });
+  }
+
+
   onFileSelected(event: any): void {
     const files = event.target.files;
     if (files && files.length > 0) {
-      const newPreviews: string[] = [...this.imagenesPreview];
-      const currentFiles: File[] = this.sitioForm.get('imagenes')?.value ?? [];
+      const newPreviews: string[] = [];
+      const base64Array: string[] = [];
+      let filesProcessed = 0;
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
-          newPreviews.push(e.target.result);
-          if (i === files.length - 1) {
-            this.imagenesPreview = newPreviews;
+          const base64 = e.target.result;
+          newPreviews.push(base64);
+          base64Array.push(base64);
+          filesProcessed++;
+
+          if (filesProcessed === files.length) {
+            this.imagenesPreview = [...this.imagenesPreview, ...newPreviews];
+            this.imagenesBase64 = [...this.imagenesBase64, ...base64Array];
           }
         };
 
         reader.readAsDataURL(file);
-        currentFiles.push(file);
       }
 
-      this.sitioForm.patchValue({ imagenes: currentFiles });
+      this.sitioForm.patchValue({ imagenes: files });
       this.sitioForm.get('imagenes')?.updateValueAndValidity();
     }
   }
 
   eliminarImagen(index: number): void {
     this.imagenesPreview.splice(index, 1);
+    this.imagenesBase64.splice(index, 1);
+
     const currentFiles: File[] = this.sitioForm.get('imagenes')?.value ?? [];
     if (index >= 0 && index < currentFiles.length) {
       currentFiles.splice(index, 1);
@@ -79,6 +115,7 @@ export class RegistroComponent {
 
     const dataTransfer = new DataTransfer();
     currentFiles.forEach(file => dataTransfer.items.add(file));
+
     this.sitioForm.patchValue({
       imagenes: dataTransfer.files.length > 0 ? dataTransfer.files : null
     });
@@ -103,7 +140,24 @@ export class RegistroComponent {
 
   registrarSitio(): void {
     if (this.sitioForm.valid && this.politicasAceptadas) {
-      console.log('Datos del sitio:', this.sitioForm.value);
+      const datosSitio = {
+        NombreSitioTuristico: this.sitioForm.value.nombre,
+        DescripcionSitioTuristico: this.sitioForm.value.descripcion,
+        Ubicacion: this.sitioForm.value.direccion,
+        Horario: this.sitioForm.value.horario,
+        Latitud: Number(this.sitioForm.value.latitud),
+        Longitud: Number(this.sitioForm.value.longitud),
+        FotoSitio: JSON.stringify(this.imagenesBase64),
+        Activo: true,
+        IdCategoria: { Id: this.sitioForm.value.categoria },
+        IdUsuario: { Id: 24 } // puedes ajustar el ID del usuario según tu lógica
+      };
+
+      console.log('Datos del sitio (para enviar al backend):', datosSitio);
+
+      // Aquí iría tu servicio HTTP para enviar los datos al backend:
+      // this.apiService.post(...).subscribe(...)
+
       this.registroExitoso = true;
       this.resetFormulario();
       setTimeout(() => this.registroExitoso = false, 5000);
@@ -113,6 +167,7 @@ export class RegistroComponent {
   resetFormulario(): void {
     this.sitioForm.reset();
     this.imagenesPreview = [];
+    this.imagenesBase64 = [];
     this.politicasAceptadas = false;
 
     const fileInput = document.getElementById('file-upload') as HTMLInputElement;

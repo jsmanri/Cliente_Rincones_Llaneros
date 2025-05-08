@@ -4,6 +4,7 @@ export const API_URLS ={
     },
     CRUD:{
         Api_crud: 'http://localhost:8082/v1/Sitios_Turisticos',
-        Api_crudUsuarios:'http://localhost:8082/v1/Usuarios'
+        Api_crudUsuarios:'http://localhost:8082/v1/Usuarios',
+        Api_crudCategorias:'http://localhost:8082/v1/Categorias'
     }
 }
