@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-detalles',
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatCardModule
   ],
   templateUrl: './detalles.component.html',
   styleUrls: ['./detalles.component.css']
@@ -73,7 +77,7 @@ export class DetallesComponent implements OnInit {
       }
     ]
   };
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const actividad = this.route.snapshot.queryParamMap.get('actividad');
@@ -90,11 +94,12 @@ export class DetallesComponent implements OnInit {
         Morichal: ['']
       }
       this.imagenescarrusel =[
-        '/img3-jpg',
+        '/img3.jpg',
         '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
+    
     } 
     else if (actividad === 'restaurantes') {
       this.nombreActividad = 'Restaurantes';
@@ -124,6 +129,12 @@ export class DetallesComponent implements OnInit {
         Trinidad: [],
         Villanueva: []
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     } 
     else if (actividad === 'museos') {
       this.nombreActividad = 'Museos';
@@ -136,6 +147,12 @@ export class DetallesComponent implements OnInit {
         Tauramena: ['Casa de la Cultura Tauramena'],
         Villanueva: ['Centro Cultural Llanero']
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     } 
     else if (actividad === 'monumentos') {
       this.nombreActividad = 'Monumentos';
@@ -148,6 +165,12 @@ export class DetallesComponent implements OnInit {
         'Hato Corozal': ['Estatua del Fundador'],
         'San Luis de Palenque': ['Obelisco de la Llanura']
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     } 
     else if (actividad === 'caminata') {
       this.nombreActividad = 'Caminata Ecológica';
@@ -160,6 +183,12 @@ export class DetallesComponent implements OnInit {
         Villanueva: ['Ruta Ecológica El Morro'],
         Aguazul: ['Camino Verde Llanero']
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     } 
     else if (actividad === 'safari') {
       this.nombreActividad = 'Safari Casanare';
@@ -172,6 +201,12 @@ export class DetallesComponent implements OnInit {
         Recetor: ['Reserva Faunística El Tigre'],
         Támara: ['Hato El Encanto']
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     }
     else if (actividad === 'Hoteles') {
       this.nombreActividad = 'Hoteles';
@@ -199,6 +234,12 @@ export class DetallesComponent implements OnInit {
         Trinidad: [],
         Villanueva: []
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     }
     else if (actividad === 'Piscinas') {
       this.nombreActividad = 'Piscinas';
@@ -238,6 +279,12 @@ export class DetallesComponent implements OnInit {
           'Hato San Pablo'
         ]
       };
+      this.imagenescarrusel =[
+        '/img3.jpg',
+        '/rio.jpg',
+        '/comida.jpg',
+        '/elemento.jpg'
+      ]
     }
     
     
@@ -261,7 +308,7 @@ export class DetallesComponent implements OnInit {
   }
 
   getMunicipios(): string[] {
-    return Object.keys(this.puntosmunicipios);
+    return Object.keys(this.puntosmunicipios );
   }
   
   siguienteimagen() {
@@ -271,5 +318,9 @@ export class DetallesComponent implements OnInit {
     this.indiceimagenactual = (this.indiceimagenactual - 1 + this.imagenescarrusel.length) % this.imagenescarrusel.length;
   }
   
-
+  goToPusvolver() {
+    this.router.navigate(['/vista2']).then(() => {
+      window.scrollTo(0, 0);
+    });
+  }
 }

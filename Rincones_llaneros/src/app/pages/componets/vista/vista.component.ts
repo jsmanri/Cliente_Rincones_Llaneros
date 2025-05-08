@@ -38,7 +38,7 @@ export class VistaComponent {
     {
       title: 'Mani',
       image: '/atardecer.jpg',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'Mas Informacion',
       detailTitle: 'Titulo1',
       detailDescription: 'dwkjbcdbcdwbccj',
@@ -47,7 +47,7 @@ export class VistaComponent {
     {
       title: 'Sabana larga',
       image: 'https://picsum.photos/300/200?random=2',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'boton 2',
       detailTitle: 'Titulo2',
       detailDescription: 'dwkjbcdbcdwbccj',
@@ -56,7 +56,7 @@ export class VistaComponent {
     {
       title: 'Tauramena',
       image: 'https://picsum.photos/300/200?random=3',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'boton 3',
       detailTitle: 'Titulo3',
       detailDescription: 'dwkjbcdbcdwbccj'
@@ -64,7 +64,7 @@ export class VistaComponent {
     {
       title: 'Mani',
       image: 'https://picsum.photos/300/200?random=4',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'boton 4',
       detailTitle: 'Titulo4',
       detailDescription: 'dwkjbcdbcdwbccj'
@@ -72,7 +72,7 @@ export class VistaComponent {
     {
       title: 'Yopal',
       image: 'https://picsum.photos/300/200?random=5',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'boton 5',
       detailTitle: 'Titulo5',
       detailDescription: 'dwkjbcdbcdwbccj'
@@ -80,7 +80,7 @@ export class VistaComponent {
     {
       title: 'Aguazul',
       image: 'https://picsum.photos/300/200?random=5',
-      action:()=> this.goToPush(),
+      action:()=> this.goToPushEventos(),
       title_button:'boton 6',
       detailTitle: 'Titulo6',
       detailDescription: 'dwkjbcdbcdwbccj'
@@ -183,6 +183,12 @@ export class VistaComponent {
     setInterval(() => {
       this.currentIndexTestimonios = (this.currentIndexTestimonios + 1) % this.testimonios.length;
     }, 6000); // cambia cada 5 segundos
+  }
+
+  goToPushEventos() {
+    this.router.navigate(['/eventos']).then(() => {
+      window.scrollTo(0, 0);
+    });
   }
 }
 

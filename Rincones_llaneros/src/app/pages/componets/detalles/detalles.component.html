@@ -38,7 +38,7 @@
   </div>
   
   <!-- Para las demás actividades: lista expandible -->
-  <div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad ! == 'piscinas'">
+  <div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad !== 'Piscinas'">
     <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
       <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
         📍 {{ municipio }}
@@ -46,7 +46,7 @@
   
       <ul *ngIf="municipioSeleccionado === municipio">
         <li *ngFor="let punto of puntosmunicipios[municipio]">
-          • {{ punto }}
+           {{ punto }}
         </li>
       </ul>
     </div>
@@ -93,5 +93,5 @@
 </div>
 
 
-  <button routerLink="/casanare-actividades" class="btn-volver">Volver</button>
+  <button (click)="goToPusvolver()" class="btn-volver">Volver</button>
 </div>

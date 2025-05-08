@@ -1,0 +1,36 @@
+<header class="main-header">
+    <h2 class="logo">Eventos Casanare</h2>
+    <nav class="main-nav">
+      <a href="#">Inicio</a>
+      <a href="#">Eventos</a>
+      <a (click)="goToPushDeta()">Actividades</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+  
+
+<div class="filtro-container">
+    <label for="municipioSelect" class="filtro-label">Filtrar por municipio:</label>
+    <select id="municipioSelect" [(ngModel)]="municipioSeleccionado" (ngModelChange)="filtrarPorMunicipio()" class="filtro-select">
+      <option value=""> Selecciona municipio </option>
+      <option *ngFor="let m of municipios" [value]="m">{{ m }}</option>
+    </select>
+  </div>
+  
+  <div class="tarjetas-container">
+    <div *ngFor="let evento of eventosFiltrados" class="tarjeta-evento">
+      <img [src]="evento.imagen" alt="Imagen del evento" class="imagen-evento" />
+      <div class="contenido-evento">
+        <h3 class="titulo-evento">{{ evento.titulo }}</h3>
+        <p><strong>Municipio:</strong> {{ evento.municipio }}</p>
+        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+        <p><strong>Direccion:</strong> {{evento.direccion}}</p>
+        <p>{{ evento.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="main-footer">
+    <p>&copy; 2025 Casanare Turístico. Todos los derechos reservados.</p>
+  </footer>
+  
