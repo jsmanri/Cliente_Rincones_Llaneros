@@ -148,15 +148,25 @@ export class RegistroComponent implements OnInit {
         Latitud: Number(this.sitioForm.value.latitud),
         Longitud: Number(this.sitioForm.value.longitud),
         FotoSitio: JSON.stringify(this.imagenesBase64),
-        Activo: true,
         IdCategoria: { Id: this.sitioForm.value.categoria },
-        IdUsuario: { Id: 24 } // puedes ajustar el ID del usuario según tu lógica
+        IdUsuario: { Id: 4 } // puedes ajustar el ID del usuario según tu lógica
       };
 
       console.log('Datos del sitio (para enviar al backend):', datosSitio);
 
-      // Aquí iría tu servicio HTTP para enviar los datos al backend:
-      // this.apiService.post(...).subscribe(...)
+
+      this.apiService.post<any>(API_URLS.CRUD.Api_crudRegistrarSitio, datosSitio).subscribe({
+      next: (respuesta) => {
+      console.log('Registro exitoso:', respuesta);
+      this.registroExitoso = true;
+      this.resetFormulario();
+      setTimeout(() => this.registroExitoso = false, 5000);
+      },
+      error: (error) => {
+      console.error('Error al registrar sitio turístico:', error);
+      }
+      });
+
 
       this.registroExitoso = true;
       this.resetFormulario();
@@ -164,15 +174,21 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-  resetFormulario(): void {
-    this.sitioForm.reset();
-    this.imagenesPreview = [];
-    this.imagenesBase64 = [];
-    this.politicasAceptadas = false;
 
-    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
-    if (fileInput) fileInput.value = '';
+  resetFormulario(): void {
+  this.sitioForm.reset();
+  this.sitioForm.markAsPristine();
+  this.sitioForm.markAsUntouched();
+  this.sitioForm.updateValueAndValidity();
+
+  this.imagenesPreview = [];
+  this.imagenesBase64 = [];
+  this.politicasAceptadas = false;
+
+  const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+  if (fileInput) fileInput.value = '';
   }
+
 
   actualizarUbicacion(event: { latitud: number; longitud: number }): void {
     this.sitioForm.patchValue({
