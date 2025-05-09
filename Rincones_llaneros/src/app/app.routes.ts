@@ -10,17 +10,19 @@ import { VistaComponent } from './pages/componets/vista/vista.component';
 import { Vista2Component } from './pages/componets/vista2/vista2.component';
 import { ClienteComponent } from './pages/component/perfil/cliente/cliente.component';
 import { VendedorComponent } from './pages/component/perfil/vendedor/vendedor.component';
+import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
+    { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
     { path: 'vista', component:VistaComponent},
     { path: 'register', component:RegisterComponent},
     { path: 'politica', component:PoliticaComponent},
     { path: 'recuperacion', component:RecuperacionComponent },
     { path: 'registrossitio', component:RegistroComponent},
     { path: 'registroeven', component:EventosComponent},
-    { path: 'headersinregistro', component: HeadersinregistroComponent },
+    { path: 'home', component:HeaderregistroComponent},
+    { path: 'homesinregistro', component: HeadersinregistroComponent },
     { path: 'tendencias', component: TendenciasComponent },
     { path: 'vista2', component:Vista2Component},
     { path: 'cliente', component: ClienteComponent},

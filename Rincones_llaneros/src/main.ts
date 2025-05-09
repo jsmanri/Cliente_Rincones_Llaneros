@@ -22,8 +22,8 @@ import { VendedorComponent } from './app/pages/component/perfil/vendedor/vendedo
 bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([
-            { path: '', redirectTo: 'headersinregistro', pathMatch: 'full'},
-            { path: 'headersinregistro', component: HeadersinregistroComponent,
+            { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
+            { path: 'homesinregistro', component: HeadersinregistroComponent,
               children: [
                 { 
                   path: 'tendencias', component: TendenciasComponent 
@@ -36,13 +36,19 @@ bootstrapApplication(AppComponent,{
                 }
               ]
              },
-             { path: 'headerregistro', component: HeaderregistroComponent,
+             { path: 'home', component: HeaderregistroComponent,
               children: [
+                { 
+                  path: '', component: VistaComponent
+                },
                 { 
                   path: 'cliente', component: ClienteComponent
                 },
                 { 
                   path: 'vendedor', component: VendedorComponent
+                },
+                {
+                  path: 'tendencias', component: TendenciasComponent
                 }
               ]
               },

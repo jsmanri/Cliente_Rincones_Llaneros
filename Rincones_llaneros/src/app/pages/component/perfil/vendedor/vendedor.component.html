@@ -1,1 +1,41 @@
-<p>vendedor works!</p>
+<div class="contenedor-principal">
+  <mat-card class="perfil-container">
+    <mat-card-header>
+      <mat-card-avatar class="perfil" [matBadge]="'Agente de Turismo'" matBadgeColor="accent" matBadgePosition="above after">
+        <img src="https://via.placeholder.com/120" alt="Foto de perfil">
+      </mat-card-avatar>
+      <mat-card-title>Tom Cruise</mat-card-title>
+      <mat-card-subtitle>Agente de Turismo</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-tab-group>
+    <mat-tab label="Publicaciones">
+      <mat-card class="publicacion">
+        <img mat-card-image class="foto-publicacion" src="https://via.placeholder.com/400x200" alt="Lugar turístico" />
+        <mat-card-content>
+          <h3>Nombre del Sitio Turístico</h3>
+          <p>Una breve descripción del lugar turístico que ofrece información atractiva para los visitantes.</p>
+
+          <div class="info-extra">
+            <p><mat-icon>location_on</mat-icon>Dirección: Calle Falsa 123</p>
+            <p><mat-icon>phone</mat-icon>Teléfono: 555-1234</p>
+            <p><mat-icon>access_time</mat-icon>Horario: 8:00 AM - 6:00 PM</p>
+          </div>
+
+          <div class="valoracion">
+            <mat-icon>star</mat-icon> ★★★★☆
+            <span>(4.2)</span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" class="boton-vermas">Más...</button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Favoritos"></mat-tab>
+    <mat-tab label="Seguidores"></mat-tab>
+    <mat-tab label="Contactar"></mat-tab>
+  </mat-tab-group>
+</div>

@@ -33,6 +33,7 @@ export class LoginComponent {
 
   login(){
     alert('iniciando sessionStorage..')
+    this.router.navigate(['/home']);
   }
   recoverPassword(){
     console.log('ingresando a recuperar contraseña')

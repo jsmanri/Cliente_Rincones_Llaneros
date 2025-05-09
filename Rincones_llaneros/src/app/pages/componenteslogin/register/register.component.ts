@@ -34,8 +34,8 @@ export class RegisterComponent {
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
-      role: ['', Validators.required],
-      fullName: ['', [Validators.required, Validators.minLength(4)]],
+      Rol: ['', Validators.required],
+      Nombre: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       cedula: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -74,7 +74,7 @@ export class RegisterComponent {
     delete formData.confirmPassword;
 
     console.log('Datos para registro:', formData);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
   }
 
 
