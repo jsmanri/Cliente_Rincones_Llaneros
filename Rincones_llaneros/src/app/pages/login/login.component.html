@@ -1,38 +1,49 @@
-<div class="container">
-    <!-- HEADER -->
-    <header class="header">
-      <img src="icono.png"/>
-      <nav class="nav">
-        <button mat-button>Inicio</button>
-        <button mat-button>Mapa</button>
-        <mat-menu #municipiosMenu="matMenu">
-          <button mat-menu-item>Municipio 1</button>
-          <button mat-menu-item>Municipio 2</button>
-          <button mat-menu-item>Municipio 3</button>
-        </mat-menu>
-        <button mat-button [matMenuTriggerFor]="municipiosMenu">Municipios</button>
-        <button mat-button>Tendencias</button>
-      </nav>
-      <div class="icons">
-        <mat-icon>search</mat-icon>
+<div class="page-container">
+    <mat-toolbar color="primary" class="header">
+      <!-- Logo -->
+      <img src="Icono.png" alt="Logo" class="logo" />
+  
+      <!-- Botones de navegación -->
+      <div class="nav-buttons">
+        <button mat-button class="nav-button">INICIO</button>
+        <button mat-button class="nav-button">MAPA</button>
+        <button mat-button class="nav-button">MUNICIPIOS</button>
+        <button mat-button class="nav-button">FAVORITOS</button>
+      </div>
+  
+      <!-- Barra de búsqueda -->
+      <div class="search-box-container">
+        <div class="search-box">
+          <input type="text" placeholder="Buscar..." />
+          <button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Ícono de usuario -->
+      <button mat-icon-button class="user-icon">
         <mat-icon>account_circle</mat-icon>
-      </div>
-    </header>
+      </button>
+    </mat-toolbar>
   
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="content">
-      <img src="assets/waterfall.jpg" alt="Imagen destacada" class="featured-image" />
-      <p class="caption">Visita los sitios más destacados de Monterrey</p>
-    </main>
-  
-    <!-- FOOTER -->
     <footer class="footer">
-      <div class="social-icons">
-        <mat-icon>facebook</mat-icon>
-        <mat-icon>instagram</mat-icon>
-        <mat-icon>twitter</mat-icon>
+      <div class="footer-content">
+        <div class="footer-section">
+          <a href="#" class="footer-icon">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="footer-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="footer-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
+        <div class="footer-section">
+          <a href="tel:xxx-xxx-xxx" class="footer-phone">xxx-xxx-xxx</a>
+        </div>
       </div>
-      <p>XXX-XXX-XXX</p>
     </footer>
   </div>
   

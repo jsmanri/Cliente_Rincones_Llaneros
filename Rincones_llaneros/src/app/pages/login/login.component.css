@@ -1,72 +1,111 @@
-/* Estilos generales */
-.container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* HEADER */
-  .header {
+.header {
+    background-color: #4E9CBE;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #00a3e0;
-    padding: 15px 30px;
+    flex-shrink: 0;
+    padding: 50px 40px;
   }
   
   .logo {
-    width: 120px;
+    height: 100px;
+    width: 90px;
   }
   
-  .nav button {
-    color: white;
-    font-weight: bold;
-    margin: 0 10px;
+  .nav-buttons {
+    display: flex;
+    align-items: center;
   }
   
-  .icons mat-icon {
-    color: white;
-    cursor: pointer;
-    margin: 0 10px;
+  .nav-button {
+    background-color: beige;
+    margin-right: 50px;
   }
   
-  /* CONTENIDO PRINCIPAL */
-  .content {
-    flex-grow: 1;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .featured-image {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-  }
-  
-  .caption {
-    font-style: italic;
-    color: gray;
-  }
-  
-  /* FOOTER */
-  .footer {
+  .search-box-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #00a3e0;
-    padding: 10px 0;
-    color: white;
+    height: 40px;
   }
   
-  .social-icons {
+  .search-box {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 300px;
   }
   
-  .social-icons mat-icon {
-    color: white;
+  .search-box input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 5px;
+  }
+  
+  .search-box button {
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    font-size: 24px;
   }
   
+  .search-box button mat-icon {
+    color: #666;
+  }
+  
+  .user-icon {
+    width: 48px; /* Establecer el ancho del botón */
+    height: 48px; /* Establecer el alto del botón */
+    color: rgb(0, 0, 0);
+  }
+  
+  .footer {
+    background-color: #4E9CBE;
+    color: #fff;
+    padding: 20px 0;
+    margin-top: auto;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-icon {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-icon:hover {
+    color: #CCCCCC;
+  }
+  
+  .footer-phone {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-phone:hover {
+    color: #CCCCCC;
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    }

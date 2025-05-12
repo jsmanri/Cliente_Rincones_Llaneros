@@ -1,24 +1,30 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatToolbarModule,
+    MatDividerModule
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-
+  styleUrl: './login.component.css'
 })
-export class LoginComponent {}
+export class LoginComponent {
+ constructor(private router:Router){}
+}
