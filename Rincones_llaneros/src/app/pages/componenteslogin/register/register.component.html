@@ -4,20 +4,51 @@
         <div class="logo-container">
             <img src="/logo.png" alt="Logo" class="logo">
         </div>
-        
+
+        <!-- Título y Subtítulo -->
         <mat-card-title class="register-title">REGISTRATE</mat-card-title>
-        <p class="register-subtitle"> ¿Eres un viajero?
-            Descubre los mejores sitios turísticos de Casanare, encuentra promociones y planea tu aventura.
+        <p class="register-subtitle">
+            ¿Eres un viajero? Descubre los mejores sitios turísticos de Casanare, encuentra promociones y planea tu aventura.
             <br>
-             ¿Tienes un negocio turístico?
-            Regístrate como vendedor, publica tus servicios y llega a más clientes.
+            ¿Tienes un negocio turístico? Regístrate como vendedor, publica tus servicios y llega a más clientes.
             <br>
-            ¡Únete y vive la experiencia llanera! 
+            ¡Únete y vive la experiencia llanera!
             <br>
-            Regístrate ahora</p>
-        
+            Regístrate ahora
+        </p>
+
         <mat-card-content>
+            <!-- Formulario -->
             <form [formGroup]="registerForm" (ngSubmit)="register()">
+                <!-- Foto de Perfil -->
+                <div class="profile-pic-container">
+                    <!-- Contenedor de la Imagen -->
+                    <label for="profile-pic-input" class="profile-pic-label">
+                        <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" alt="Foto de Perfil" class="profile-pic-preview">
+                        <ng-template #placeholder>
+                            <div class="profile-pic-placeholder">+</div>
+                        </ng-template>
+                    </label>
+                    <input type="file" id="profile-pic-input" (change)="onFileSelected($event)" accept="image/*" hidden>
+
+                    <!-- Texto dinámico y botón de eliminar -->
+                    <div class="profile-actions">
+                        <p class="profile-pic-text">
+                            {{ previewUrl ? 'Eliminar imagen' : 'Haz clic para agregar una foto' }}
+                        </p>
+                        <button 
+                            *ngIf="previewUrl" 
+                            mat-icon-button 
+                            class="remove-pic-button" 
+                            (click)="removeProfilePicture()" 
+                            type="button" 
+                            aria-label="Eliminar foto">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Campos del Formulario -->
                 <div class="form-columns-container">
                     <!-- Columna Izquierda -->
                     <div class="form-column">
@@ -71,10 +102,17 @@
                     </div>
                 </div>
 
-                <!-- Botón de Registro (full width) -->
-                <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" class="submit-button">
+                <!-- Botón de Registro -->
+                <button 
+                    mat-raised-button 
+                    color="primary" 
+                    type="submit" 
+                    [disabled]="registerForm.invalid" 
+                    class="submit-button">
                     Registrarme
                 </button>
+
+                <!-- Mensajes Adicionales -->
                 <p class="login-message">
                     ¿Ya tienes una cuenta?
                     <a (click)="goToLogin()" class="login-link">Inicia sesión</a>
@@ -82,7 +120,7 @@
                 <p class="terms-message">
                     Al registrarte aceptas nuestros 
                     <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a>
-                  </p>                  
+                </p>
             </form>
         </mat-card-content>
     </mat-card>
