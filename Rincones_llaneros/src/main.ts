@@ -1,8 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { LoginComponent } from './app/pages/componenteslogin/login/login.component';
-import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { RegisterComponent } from './app/pages/componenteslogin/register/register.component';
 import { PoliticaComponent } from './app/pages/componenteslogin/politica/politica.component';
@@ -16,7 +14,11 @@ import { VistaComponent } from './app/pages/componets/vista/vista.component';
 import { Vista2Component } from './app/pages/componets/vista2/vista2.component';
 import { ClienteComponent } from './app/pages/component/perfil/cliente/cliente.component';
 import { VendedorComponent } from './app/pages/component/perfil/vendedor/vendedor.component';
-
+import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
+import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -57,7 +59,10 @@ bootstrapApplication(AppComponent,{
              { path: 'politica', component: PoliticaComponent },
              { path: 'recuperacion', component: RecuperacionComponent},
              { path: 'registrositio', component: RegistroComponent},
-             { path: 'registroeven', component: EventosComponent}
+             { path: 'registroeven', component: EventosComponent},
+             { path: 'usuadmin', component: UsuariosadminComponent},
+             { path: 'sitiosadmin',component: SitiosadminComponent},
+             { path: 'adminmapa', component: MapaComponent}
           ]),
         provideAnimations(),
         provideHttpClient()

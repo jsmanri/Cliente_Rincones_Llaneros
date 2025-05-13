@@ -1,0 +1,71 @@
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading" class="container">
+  <!-- Contador de usuarios -->
+  <div class="item">
+    <mat-card class="content">
+      <h2>Total Usuarios</h2>
+      <div class="counter">{{ data?.TotalUsuarios }}</div>
+    </mat-card>
+  </div>
+
+  <!-- Gráfica Pie (Roles) -->
+  <div class="item">
+    <mat-card class="content">
+      <h2>Usuarios por Rol</h2>
+      <canvas baseChart
+        [data]="rolesChartData"
+        [type]="'pie'">
+      </canvas>
+    </mat-card>
+  </div>
+
+  <!-- Gráfica Barras (Usuarios por Fecha) -->
+  <div class="item">
+    <mat-card class="content">
+      <h2>Usuarios Registrados por Mes</h2>
+
+      <!-- Botones de navegación de años -->
+      <div class="year-selector">
+        <button mat-icon-button (click)="cambiarAnio(-1)" aria-label="Año anterior">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="year-label">{{ selectedYear }}</span>
+        <button mat-icon-button (click)="cambiarAnio(1)" aria-label="Año siguiente">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+
+      <!-- Gráfica -->
+      <canvas baseChart
+        [data]="usuariosPorFechaChartData"
+        [options]="barChartOptions"
+        [type]="'bar'">
+      </canvas>
+    </mat-card>
+  </div>
+
+  <!-- Lista de Usuarios -->
+  <div class="item">
+    <mat-card class="content">
+      <h2>Lista de Usuarios</h2>
+
+      <!-- Filtro de búsqueda -->
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>Buscar usuario</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
+      </mat-form-field>
+
+      <!-- Lista de usuarios -->
+      <div class="user-list">
+        <div class="user" *ngFor="let usuario of filteredUsuarios">
+          <span>{{ usuario.Nombre }}</span>
+          <mat-slide-toggle [checked]="usuario.Activo" (change)="toggleActivo(usuario)">
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

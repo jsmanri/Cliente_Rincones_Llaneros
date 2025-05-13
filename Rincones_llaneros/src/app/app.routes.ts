@@ -11,7 +11,8 @@ import { Vista2Component } from './pages/componets/vista2/vista2.component';
 import { ClienteComponent } from './pages/component/perfil/cliente/cliente.component';
 import { VendedorComponent } from './pages/component/perfil/vendedor/vendedor.component';
 import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
-
+import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
+import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
@@ -26,7 +27,8 @@ export const routes: Routes = [
     { path: 'tendencias', component: TendenciasComponent },
     { path: 'vista2', component:Vista2Component},
     { path: 'cliente', component: ClienteComponent},
-    { path: 'vendedor', component: VendedorComponent}
-
+    { path: 'vendedor', component: VendedorComponent},
+    { path: 'usuadmin', component: UsuariosadminComponent},
+    { path: 'sitiosadmin', component: SitiosadminComponent}
 ];
 

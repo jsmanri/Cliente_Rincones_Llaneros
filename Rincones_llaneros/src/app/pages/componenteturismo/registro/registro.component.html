@@ -1,94 +1,116 @@
-<body>
-  <!-- Encabezado -->
-  <div class="header-container">
-    <div class="header-image">
-      <h1>REGISTRA TU SITIO TURÍSTICO</h1>
-    </div>
+  <body>
+    <!-- Encabezado -->
+    <div class="header-container">
+      <div class="header-image">
+        <h1>REGISTRA TU SITIO TURÍSTICO</h1>
+      </div>
 
-    <!-- Contenedor del formulario -->
-    <div class="form-wrapper">
-      <div class="form-container">
-        <form [formGroup]="sitioForm" class="form-grid">
+      <!-- Contenedor del formulario -->
+      <div class="form-wrapper">
+        <div class="form-container">
+          <form [formGroup]="sitioForm" class="form-grid">
 
-          <!-- Columna 1 -->
-          <div class="form-column">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombre del Sitio</mat-label>
-              <input matInput formControlName="nombre" required>
-            </mat-form-field>
+            <!-- Columna 1 -->
+            <div class="form-column">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nombre del Sitio</mat-label>
+                <input matInput formControlName="nombre" required>
+              </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Dirección</mat-label>
-              <input matInput formControlName="direccion" required>
-            </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="direccion" required>
+              </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Horario</mat-label>
-              <input matInput formControlName="horario" required>
-            </mat-form-field>
-          </div>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Horario</mat-label>
+                <input matInput formControlName="horario" required>
+              </mat-form-field>
 
-          <!-- Columna 2 -->
-          <div class="form-column">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Descripción</mat-label>
-              <textarea matInput rows="5" formControlName="descripcion" required></textarea>
-            </mat-form-field>
+              <button mat-raised-button color="primary" (click)="abrirMapa()">
+                Seleccionar ubicación
+              </button>
+              
+              
 
-            <mat-form-field appearance="outline" class="full-width">
+              <!-- Campos ocultos para coordenadas -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Latitud</mat-label>
+                <input matInput formControlName="latitud" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Longitud</mat-label>
+                <input matInput formControlName="longitud" readonly>
+              </mat-form-field>
+            </div>
+
+            <!-- Columna 2 -->
+            <div class="form-column">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput rows="5" formControlName="descripcion" required></textarea>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
               <mat-label>Categoría</mat-label>
-              <input matInput formControlName="categoria" required>
-            </mat-form-field>
+              <mat-select formControlName="categoria" required>
+              <mat-option *ngFor="let cat of categorias" [value]="cat.Id">{{ cat.Nombre }}</mat-option>
+              </mat-select>
+              </mat-form-field>
 
-            <!-- Subida de imágenes -->
-            <div class="file-upload-container small">
-              <label for="file-upload" class="file-label">
-                <span class="upload-icon">📁</span>
-                <span class="upload-text">Subir imágenes</span>
-                <input id="file-upload" type="file" multiple (change)="onFileSelected($event)" accept="image/*">
-              </label>
-            
-              <!-- Miniaturas de imágenes seleccionadas -->
-              <div class="image-preview" *ngIf="imagenesPreview.length > 0">
-                <div class="image-thumb" *ngFor="let img of imagenesPreview; let i = index">
-                  <img [src]="img" alt="Vista previa de imagen">
-                  <!-- Botón mejorado para eliminar imagen -->
-                  <button class="delete-btn" (click)="eliminarImagen(i)" mat-icon-button>
-                    <mat-icon>close</mat-icon>
-                  </button>
+              <!-- Subida de imágenes -->
+              <div class="file-upload-container small">
+                <label for="file-upload" class="file-label">
+                  <span class="upload-icon">📁</span>
+                  <span class="upload-text">Subir imágenes</span>
+                  <input id="file-upload"
+                        type="file"
+                        multiple
+                        (change)="onFileSelected($event)"
+                        accept="image/*">
+                </label>
+
+                <!-- Miniaturas -->
+                <div class="image-preview" *ngIf="imagenesPreview.length > 0">
+                  <div class="image-thumb" *ngFor="let img of imagenesPreview; let i = index">
+                    <img [src]="img" alt="Vista previa">
+                    <button class="delete-btn"
+                            (click)="eliminarImagen(i)"
+                            mat-icon-button>
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Botón de registro -->
-          <div class="submit-button-wrapper">
-            <button mat-raised-button color="primary" type="button" (click)="abrirModal()">
-              Registrar Sitio
-            </button>
-          </div>
+            <!-- Botón de registro -->
+            <div class="submit-button-wrapper">
+              <button mat-raised-button color="primary" type="button" (click)="abrirModal()">
+                Registrar Sitio
+              </button>
+            </div>
 
-          <!-- Mensaje de registro exitoso -->
-          <div class="registro-exitoso" *ngIf="registroExitoso">
-            ✅ ¡Sitio registrado exitosamente!
-          </div>
-          
-        </form>
+            <!-- Mensaje de éxito -->
+            <div class="registro-exitoso" *ngIf="registroExitoso">
+              ✅ ¡Sitio registrado exitosamente!
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal de Políticas -->
-  <div class="modal-backdrop" *ngIf="mostrarModal">
-    <div class="modal-content">
-      <h2>Políticas de Privacidad</h2>
-      <p>
-        Al registrar un sitio turístico, aceptas que la información proporcionada será utilizada 
-        únicamente con fines promocionales y de contacto. No compartiremos tus datos con terceros.
-      </p>
-      <div class="modal-actions">
-        <button mat-button color="primary" (click)="aceptarPoliticas()">Aceptar</button>
+    <!-- Modal de Políticas -->
+    <div class="modal-backdrop" *ngIf="mostrarModal">
+      <div class="modal-content">
+        <h2>Políticas de Privacidad</h2>
+        <p>
+          Al registrar un sitio turístico, aceptas que la información proporcionada será utilizada
+          únicamente con fines promocionales y de contacto. No compartiremos tus datos con terceros.
+        </p>
+        <div class="modal-actions">
+          <button mat-button color="primary" (click)="aceptarPoliticas()">Aceptar</button>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>

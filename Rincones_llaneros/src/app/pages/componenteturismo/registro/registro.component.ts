@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MapaComponent } from '../mapa/mapa.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ApiService } from '../../../../services/api.services';
+import { API_URLS } from '../../../../config/api-config';
 
 @Component({
   selector: 'app-registro',
@@ -15,148 +20,193 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatSelectModule,
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
 
   sitioForm: FormGroup;
-  mostrarModal: boolean = false;
-  politicasAceptadas: boolean = false;
-  registroExitoso: boolean = false;
+  mostrarModal = false;
+  politicasAceptadas = false;
+  registroExitoso = false;
+  imagenesPreview: string[] = [];
+  imagenesBase64: string[] = [];
+  categorias: any[] = [];
 
-  constructor(private fb: FormBuilder) {
-    // Inicialización del formulario reactivo
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private apiService: ApiService
+  ) {
     this.sitioForm = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
       horario: ['', Validators.required],
       descripcion: ['', Validators.required],
-      categoria: ['', Validators.required],
-      imagenes: [null]  // este campo no es visible, solo lo manejamos con lógica
+      categoria: [null, Validators.required], // ← se guarda el ID directamente
+      imagenes: [null],
+      latitud: [''],
+      longitud: ['']
     });
   }
 
 
-  imagenesPreview: string[] = [];
 
-  // Maneja los archivos seleccionados
+  ngOnInit(): void {
+  this.apiService.get<any>(API_URLS.CRUD.Api_crudCategorias).subscribe({
+    next: (data) => {
+      if (data && Array.isArray(data["categorias consultadas"])) {
+        this.categorias = data["categorias consultadas"];
+      } else {
+        this.categorias = [];
+        console.warn('La respuesta no contiene un arreglo de categorías:', data);
+      }
+    },
+    error: (err) => {
+      console.error('Error al cargar categorías:', err);
+    }
+  });
+  }
+
+
   onFileSelected(event: any): void {
     const files = event.target.files;
-    
     if (files && files.length > 0) {
-      // Mantenemos las imágenes previas y agregamos las nuevas
-      const newPreviews: string[] = [...this.imagenesPreview];
-      const currentFiles: File[] = this.sitioForm.get('imagenes')?.value 
-        ? [...this.sitioForm.get('imagenes')?.value] 
-        : [];
-  
+      const newPreviews: string[] = [];
+      const base64Array: string[] = [];
+      let filesProcessed = 0;
+
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
-        
+
         reader.onload = (e: any) => {
-          newPreviews.push(e.target.result);
-          // Actualizamos las vistas previas solo cuando todas se hayan procesado
-          if (i === files.length - 1) {
-            this.imagenesPreview = newPreviews;
+          const base64 = e.target.result;
+          newPreviews.push(base64);
+          base64Array.push(base64);
+          filesProcessed++;
+
+          if (filesProcessed === files.length) {
+            this.imagenesPreview = [...this.imagenesPreview, ...newPreviews];
+            this.imagenesBase64 = [...this.imagenesBase64, ...base64Array];
           }
         };
-        
+
         reader.readAsDataURL(file);
-        currentFiles.push(file);
       }
-  
-      // Actualizar el FormGroup con todos los archivos
-      this.sitioForm.patchValue({
-        imagenes: currentFiles
-      });
+
+      this.sitioForm.patchValue({ imagenes: files });
       this.sitioForm.get('imagenes')?.updateValueAndValidity();
     }
   }
 
-
   eliminarImagen(index: number): void {
-    // Eliminar la imagen de la vista previa
     this.imagenesPreview.splice(index, 1);
-  
-    // Obtener archivos actuales
-    const currentFiles: File[] = this.sitioForm.get('imagenes')?.value 
-      ? [...this.sitioForm.get('imagenes')?.value] 
-      : [];
-  
-    // Eliminar el archivo correspondiente
+    this.imagenesBase64.splice(index, 1);
+
+    const currentFiles: File[] = this.sitioForm.get('imagenes')?.value ?? [];
     if (index >= 0 && index < currentFiles.length) {
       currentFiles.splice(index, 1);
     }
-  
-    // Crear nuevo DataTransfer para actualizar FileList
+
     const dataTransfer = new DataTransfer();
     currentFiles.forEach(file => dataTransfer.items.add(file));
-  
-    // Actualizar FormGroup
+
     this.sitioForm.patchValue({
       imagenes: dataTransfer.files.length > 0 ? dataTransfer.files : null
     });
-  
-    // Actualizar input físico
+
     const fileInput = document.getElementById('file-upload') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.files = dataTransfer.files;
-    }
+    if (fileInput) fileInput.files = dataTransfer.files;
   }
 
-
-
-  // Abre el modal de políticas
   abrirModal(): void {
     if (this.sitioForm.valid) {
       this.mostrarModal = true;
     } else {
-      this.sitioForm.markAllAsTouched(); // marca todos los campos como "tocados" para mostrar errores si hay
+      this.sitioForm.markAllAsTouched();
     }
   }
 
-  // Acepta las políticas y registra el sitio
   aceptarPoliticas(): void {
     this.politicasAceptadas = true;
     this.mostrarModal = false;
-
-    this.registrarSitio(); // solo se ejecuta si se aceptaron las políticas
+    this.registrarSitio();
   }
 
-  // Registra el sitio (simulado)
   registrarSitio(): void {
     if (this.sitioForm.valid && this.politicasAceptadas) {
-      console.log('Datos del sitio:', this.sitioForm.value);
-      
-      // Mostrar mensaje de éxito
+      const datosSitio = {
+        NombreSitioTuristico: this.sitioForm.value.nombre,
+        DescripcionSitioTuristico: this.sitioForm.value.descripcion,
+        Ubicacion: this.sitioForm.value.direccion,
+        Horario: this.sitioForm.value.horario,
+        Latitud: Number(this.sitioForm.value.latitud),
+        Longitud: Number(this.sitioForm.value.longitud),
+        FotoSitio: JSON.stringify(this.imagenesBase64),
+        IdCategoria: { Id: this.sitioForm.value.categoria },
+        IdUsuario: { Id: 4 } // puedes ajustar el ID del usuario según tu lógica
+      };
+
+      console.log('Datos del sitio (para enviar al backend):', datosSitio);
+
+
+      this.apiService.post<any>(API_URLS.CRUD.Api_crudRegistrarSitio, datosSitio).subscribe({
+      next: (respuesta) => {
+      console.log('Registro exitoso:', respuesta);
       this.registroExitoso = true;
-  
-      // Limpiar formulario COMPLETO (incluyendo imágenes)
       this.resetFormulario();
-  
-      // Ocultar mensaje después de unos segundos
-      setTimeout(() => {
-        this.registroExitoso = false;
-      }, 5000);
+      setTimeout(() => this.registroExitoso = false, 5000);
+      },
+      error: (error) => {
+      console.error('Error al registrar sitio turístico:', error);
+      }
+      });
+
+
+      this.registroExitoso = true;
+      this.resetFormulario();
+      setTimeout(() => this.registroExitoso = false, 5000);
     }
   }
+
 
   resetFormulario(): void {
-    this.sitioForm.reset();
-    this.imagenesPreview = []; // Vaciar las vistas previas
-    this.politicasAceptadas = false;
-    
-    // Resetear específicamente el input de archivos
-    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = ''; // Esto permite volver a seleccionar las mismas imágenes
-    }
+  this.sitioForm.reset();
+  this.sitioForm.markAsPristine();
+  this.sitioForm.markAsUntouched();
+  this.sitioForm.updateValueAndValidity();
+
+  this.imagenesPreview = [];
+  this.imagenesBase64 = [];
+  this.politicasAceptadas = false;
+
+  const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+  if (fileInput) fileInput.value = '';
   }
 
 
+  actualizarUbicacion(event: { latitud: number; longitud: number }): void {
+    this.sitioForm.patchValue({
+      latitud: event.latitud,
+      longitud: event.longitud
+    });
+  }
 
+  abrirMapa(): void {
+    const dialogRef = this.dialog.open(MapaComponent, {
+      width: '700px',
+      height: '500px',
+      disableClose: false,
+    });
+
+    dialogRef.componentInstance.ubicacionSeleccionada.subscribe((coords: { latitud: number; longitud: number }) => {
+      this.actualizarUbicacion(coords);
+      dialogRef.close();
+    });
+  }
 }
