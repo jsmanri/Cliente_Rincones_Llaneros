@@ -3,7 +3,7 @@
 
   <mat-card class="tarjeta-sitio" *ngFor="let sitio of getSitiosAMostrar()" matRipple>
     <div class="contenido-card">
-      <img class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
+      <img mat-card-image class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
 
       <div class="contenido-sitio">
         <h3 class="nombre-sitio">{{ sitio.nombre }}</h3>

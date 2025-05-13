@@ -39,8 +39,8 @@ export interface TendenciasResponse {
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    MatFormFieldModule,
     FormsModule,
+    MatFormFieldModule,
     HttpClientModule
   ],
   templateUrl: './tendencias.component.html',
@@ -52,32 +52,36 @@ export class TendenciasComponent implements OnInit {
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {
-    this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias')
-      .subscribe(response => {
-        if (response.status === 200) {
-          this.sitios = response.resultado.map((sitio) => {
-            let imagen = 'loginimagen.jpg';
-            try {
-              const parsed = JSON.parse(sitio.Fotositio);
-              imagen = `data:image/png;base64,${parsed.imagen_base64}`;
-            } catch (e) {
-              console.error('Error parsing image base64:', e);
-            }
-
-            return {
-              nombre: sitio.Nombre,
-              descripcion: sitio.Descripcion,
-              imagen: imagen,
-              valoracion: sitio.Ponderacion,
-              comentarios: sitio.Cantidad_comentarios
-            };
-          });
+ngOnInit(): void {
+  this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
+    next: (response) => {
+      this.sitios = response.resultado.map(sitio => {
+        // Intenta parsear el string JSON
+        let imagen = '';
+        try {
+          const fotoObj = JSON.parse(sitio.Fotositio);
+          imagen = fotoObj.imagen_base64
+            ? `data:image/png;base64,${fotoObj.imagen_base64}`
+            : 'assets/default.png'; // Imagen por defecto si no hay base64
+        } catch (e) {
+          console.warn('Error al parsear la imagen:', sitio.Fotositio);
+          imagen = 'assets/default.png';
         }
-      }, error => {
-        console.error('Error al obtener tendencias:', error);
+
+        return {
+          nombre: sitio.Nombre,
+          descripcion: sitio.Descripcion,
+          imagen: imagen,
+          valoracion: Math.round(sitio.Ponderacion * 10) / 10,
+          comentarios: sitio.Cantidad_comentarios
+        };
       });
-  }
+    },
+    error: (err) => {
+      console.error('Error al cargar tendencias:', err);
+    }
+  });
+}
 
   // Obtener las estrellas según la valoración
   getEstrellasArray(puntaje: number): string[] {

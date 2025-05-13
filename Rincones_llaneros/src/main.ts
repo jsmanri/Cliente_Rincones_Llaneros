@@ -51,6 +51,9 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'tendencias', component: TendenciasComponent
+                },
+                { 
+                  path: 'registrositio', component: RegistroComponent
                 }
               ]
               },
@@ -58,7 +61,6 @@ bootstrapApplication(AppComponent,{
              { path: 'register', component: RegisterComponent },
              { path: 'politica', component: PoliticaComponent },
              { path: 'recuperacion', component: RecuperacionComponent},
-             { path: 'registrositio', component: RegistroComponent},
              { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
              { path: 'sitiosadmin',component: SitiosadminComponent},

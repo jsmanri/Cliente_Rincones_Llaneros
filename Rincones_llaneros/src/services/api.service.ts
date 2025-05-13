@@ -6,7 +6,6 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 
 })
-
 /*metodo get general*/
 
 export class ApiService{
