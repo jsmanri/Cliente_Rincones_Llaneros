@@ -46,6 +46,10 @@ goToPushPiscinas() {
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'Piscinas' } });
 }
 
+goToPushEventos() {
+  this.router.navigate(['/eventos'], { queryParams: { actividad: 'Piscinas' } });
+}
+
 
 
   scrollTo(elementId: string) {

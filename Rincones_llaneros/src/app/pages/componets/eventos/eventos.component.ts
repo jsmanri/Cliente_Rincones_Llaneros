@@ -13,6 +13,16 @@ interface Evento {
   direccion: string;
 }
 
+interface Sitio {
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  municipio: string;
+  imagen: string;
+  autor: string; // vendedor
+  direccion: string;
+}
+
 @Component({
   imports: [
     CommonModule,
@@ -24,15 +34,23 @@ interface Evento {
 })
 export class EventosComponent implements OnInit {
   municipios: string[] = ['Yopal', 'Aguazul', 'Villanueva', 'Tauramena', 'Paz de Ariporo'];
-  eventos: Evento[] = []; // Todos los eventos
+  eventos: Evento[] = [];
   eventosFiltrados: Evento[] = [];
   municipioSeleccionado: string = '';
+  sitios: Sitio[] = []; // Todos los sitios
+  sitiosFiltrados: Sitio[] = [];
+  tipoSeleccionado: string = 'evento'; // 'evento' o 'sitio'
+
+
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.cargarEventos(); // En un caso real, esto vendría de un servicio
+    this.cargarEventos();
+    this.cargarSitios();
   }
+
+
 
   cargarEventos() {
     this.eventos = [
@@ -94,18 +112,60 @@ export class EventosComponent implements OnInit {
     ];
     this.eventosFiltrados = [...this.eventos];
   }
-
-  filtrarPorMunicipio() {
-    if (this.municipioSeleccionado) {
-      this.eventosFiltrados = this.eventos.filter(e => e.municipio === this.municipioSeleccionado);
-    } else {
-      this.eventosFiltrados = [...this.eventos];
-    }
+    cargarSitios() {
+    this.sitios = [
+      {
+        titulo: 'Cascada La Calaboza',
+        descripcion: 'Hermosa cascada natural para caminatas y baños.',
+        fecha: '',
+        municipio: 'Tauramena',
+        imagen: '/assets/sitios/calaboza.jpg',
+        autor: 'admin',
+        direccion: 'Vereda El Triunfo, Tauramena'
+      },
+      {
+        titulo: 'Mirador Buenavista',
+        descripcion: 'Vista panorámica de todo Yopal.',
+        fecha: '',
+        municipio: 'Yopal',
+        imagen: '/assets/sitios/mirador.jpg',
+        autor: 'admin',
+        direccion: 'Km 5 vía al Morro, Yopal'
+      }
+      // más sitios...
+    ];
+    this.sitiosFiltrados = [...this.sitios];
   }
+
+filtrarPorMunicipio() {
+  if (this.tipoSeleccionado === 'eventos') {
+    this.eventosFiltrados = this.municipioSeleccionado
+      ? this.eventos.filter(e => e.municipio === this.municipioSeleccionado)
+      : [...this.eventos];
+  } else {
+    this.sitiosFiltrados = this.municipioSeleccionado
+      ? this.sitios.filter(s => s.municipio === this.municipioSeleccionado)
+      : [...this.sitios];
+  }
+}
+
+filtrarPorTipo() {
+  this.municipioSeleccionado = ''; // reinicia filtro de municipio al cambiar tipo
+
+  if (this.tipoSeleccionado === 'eventos') {
+    this.eventosFiltrados = [...this.eventos];
+  } else {
+    this.sitiosFiltrados = [...this.sitios];
+  }
+}
+
+
+
   goToPushDeta() {
-    this.router.navigate(['/vista2']).then(() => {
-      window.scrollTo(0, 0);
-    });
+    this.router.navigate(['/vista2']).then(() => window.scrollTo(0, 0));
   }
 
+  goToPushinicio() {
+    this.router.navigate(['/vista']).then(() => window.scrollTo(0, 0));
+  }
 }

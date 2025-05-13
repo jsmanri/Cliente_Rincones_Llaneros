@@ -330,7 +330,7 @@ footer {
   }
   
 
-  /* .carousel-container {
+   .carousel-container {
     position: relative;
     width: 60%;
     max-width: 650px;
@@ -386,9 +386,9 @@ footer {
   .next-btn {
     right: 10px;
   }
-   */
+   
   
- .carousel-wrapper{
+ /* .carousel-wrapper{
   text-align: center;
   padding: 40px;
   max-width: 100%;
@@ -417,10 +417,10 @@ footer {
     transition: transform 0.4s ease;
    
 }
-.carousel-card{
+ .carousel-card{
 
   max-width: 250px;
-  min-width: 50px; /* opcional, por si interfiere */
+  min-width: 50px; opcional, por si interfiere 
    margin: 0 4px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -432,7 +432,7 @@ footer {
     text-align: center;
     animation: fadeIn 0.3s ease-in-out;
 
-}
+} */
 
 @keyframes fadeIn{
     from {opacity: 0;}

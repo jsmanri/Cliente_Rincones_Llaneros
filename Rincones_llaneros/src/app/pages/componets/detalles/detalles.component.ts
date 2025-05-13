@@ -34,7 +34,7 @@ export class DetallesComponent implements OnInit {
     ],
     restaurantes: [
       { mensaje: "La mejor carne a la llanera que he probado.", autor: "Carlos Ramírez", imagen: "/Juan.jpg", calificacion: 5 },
-      { mensaje: "Comida deliciosa y excelente atención.", autor: "Laura Mendoza", imagen: "/Widow.jpg", calificacion: 5 }
+      { mensaje: "Comida deliciosa y excelente atención.", autor: "Laura Mendoza", imagen: "/Widow.jpg", calificacion: 4 }
     ],
     museos: [
       { mensaje: "Aprendí mucho sobre la historia llanera.", autor: "Mónica Díaz", imagen: "/assets/usuarios/usuario5.jpg", calificacion: 4 }
@@ -95,7 +95,6 @@ export class DetallesComponent implements OnInit {
       }
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -131,7 +130,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -149,7 +147,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -167,7 +164,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -185,7 +181,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -203,7 +198,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -236,7 +230,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
@@ -281,7 +274,6 @@ export class DetallesComponent implements OnInit {
       };
       this.imagenescarrusel =[
         '/img3.jpg',
-        '/rio.jpg',
         '/comida.jpg',
         '/elemento.jpg'
       ]
