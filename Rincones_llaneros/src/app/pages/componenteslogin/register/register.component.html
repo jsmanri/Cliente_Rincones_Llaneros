@@ -53,13 +53,15 @@
                     <!-- Columna Izquierda -->
                     <div class="form-column">
                         <!-- Selector de Rol -->
-                        <mat-form-field appearance="outline" class="role-selector">
-                            <mat-label>Rol</mat-label>
-                            <mat-select formControlName="role" required>
-                                <mat-option value="vendedor">Usuario Vendedor</mat-option>
-                                <mat-option value="cliente">Usuario Cliente</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+                         <mat-form-field appearance="outline" class="role-selector">
+                         <mat-label>Rol</mat-label>
+                         <mat-select formControlName="role" required>
+                         <!-- Iterar sobre los roles cargados -->
+                         <mat-option *ngFor="let rol of roles" [value]="rol.Id">
+                           {{ rol.Nombre }}
+                         </mat-option>
+                         </mat-select>
+                         </mat-form-field>
 
                         <!-- Nombre y Apellido -->
                         <mat-form-field appearance="outline">
