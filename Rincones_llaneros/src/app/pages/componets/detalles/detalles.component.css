@@ -47,22 +47,21 @@
 }
 
 .btn-volver {
-  padding: 10px 20px;
-  font-size: 1rem;
   background-color: #007bff;
   color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
-  text-decoration: none;
+  margin-top: 20px;
   transition: background-color 0.3s;
-  display: inline-block; /* Asegura que el botón se quede en su lugar */
-  margin-top: 20px; /* Da un poco de espacio arriba del botón */
 }
 
 .btn-volver:hover {
   background-color: #0056b3;
 }
+
 
 .testimonio {
   display: flex;
@@ -187,11 +186,13 @@
   background-color: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin-bottom: 0.75rem;
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
+  width: 150px;              /* O puedes usar 30%, 200px, etc. */
+  text-align: center;
 }
+
 
 .municipio-card:hover {
   background-color: #eafaf1;
@@ -199,32 +200,34 @@
 }
 
 .municipio-nombre {
-  font-weight: 600;
+  font-weight: 800;
   font-size: 1.1rem;
   display: flex;
-  align-items: center;
+  text-align: center;
+
+ 
   color: #333;
 }
-
-ul {
-  list-style: none;
-  padding-left: 1.5rem;
-  margin-top: 0.5rem;
+.municipios-wrapper {
+  display: flex;
+  flex-wrap: wrap;           /* ¡Clave! Para que salten a la siguiente fila */
+  justify-content: center;   /* Centra horizontalmente */
+  gap: 1rem;                 /* Espaciado entre tarjetas */
 }
 
-ul li {
-  padding: 0.4rem 0;
-  border-bottom: 1px solid #e0e0e0;
-  color: #444;
-  transition: color 0.2s;
-}
+
+
+
+
+
+
 
 ul li:last-child {
   border-bottom: none;
 }
 
 ul li:hover {
-  color: #2e7d32; /* verde oscuro */
+  color: #7d402e; /* verde oscuro */
 }
 
 
@@ -262,3 +265,22 @@ ul li:hover {
   background-color: #0056b3;
 }
 
+.select-container {
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.select-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.select-container select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}

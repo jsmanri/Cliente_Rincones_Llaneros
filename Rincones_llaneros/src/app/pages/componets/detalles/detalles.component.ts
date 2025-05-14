@@ -91,7 +91,9 @@ export class DetallesComponent implements OnInit {
 
       this.puntosmunicipios = {
         Yopal: ['Finca el palmar','Hato la Candelaria'],
-        Morichal: ['']
+        Morichal: [''],
+                Aguazul: [],
+
       }
       this.imagenescarrusel =[
         '/img3.jpg',

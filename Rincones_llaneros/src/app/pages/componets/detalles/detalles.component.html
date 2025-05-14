@@ -37,20 +37,23 @@
     </div>
   </div>
   
-  <!-- Para las demás actividades: lista expandible -->
-  <div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad !== 'Piscinas'">
+<!-- Para las demás actividades: lista expandible -->
+<div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad !== 'Piscinas'">
+  <div class="municipios-wrapper"> <!-- CONTENEDOR NUEVO -->
     <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
       <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
         📍 {{ municipio }}
       </div>
-  
+
       <ul *ngIf="municipioSeleccionado === municipio">
         <li *ngFor="let punto of puntosmunicipios[municipio]">
-           {{ punto }}
+          {{ punto }}
         </li>
       </ul>
     </div>
   </div>
+</div>
+
   
   
   
