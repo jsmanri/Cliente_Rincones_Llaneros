@@ -14,6 +14,7 @@ import { HeaderregistroComponent } from './pages/component/headerregistro/header
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 
+
 export const routes: Routes = [
     { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
     { path: 'vista', component:VistaComponent},
@@ -29,6 +30,7 @@ export const routes: Routes = [
     { path: 'cliente', component: ClienteComponent},
     { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
-    { path: 'sitiosadmin', component: SitiosadminComponent}
+    { path: 'sitiosadmin', component: SitiosadminComponent},
+
 ];
 

@@ -52,22 +52,27 @@ export class TendenciasComponent implements OnInit {
 
   constructor(private apiService: ApiService) {}
 
-ngOnInit(): void {
+ ngOnInit(): void {
   this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
     next: (response) => {
       this.sitios = response.resultado.map(sitio => {
-        // Intenta parsear el string JSON
-        let imagen = '';
+        // Procesa el campo Fotositio, que parece ser un string escapado
+        let imagen = 'default.png'; // Imagen predeterminada en caso de error
+
         try {
-          const fotoObj = JSON.parse(sitio.Fotositio);
-          imagen = fotoObj.imagen_base64
-            ? `data:image/png;base64,${fotoObj.imagen_base64}`
-            : 'assets/default.png'; // Imagen por defecto si no hay base64
+          // Primero, parsea la cadena escapada
+          const fotosArray = JSON.parse(JSON.parse(sitio.Fotositio));
+          
+          // Verifica si es un array y si tiene imágenes
+          if (Array.isArray(fotosArray) && fotosArray.length > 0) {
+            imagen = fotosArray[0]; // Usa la primera imagen
+          }
         } catch (e) {
-          console.warn('Error al parsear la imagen:', sitio.Fotositio);
-          imagen = 'assets/default.png';
+          console.warn('Error al parsear Fotositio:', sitio.Fotositio);
         }
 
+
+        // Devuelve un objeto con los datos procesados
         return {
           nombre: sitio.Nombre,
           descripcion: sitio.Descripcion,
@@ -75,14 +80,14 @@ ngOnInit(): void {
           valoracion: Math.round(sitio.Ponderacion * 10) / 10,
           comentarios: sitio.Cantidad_comentarios
         };
-      });
+      })
+      .sort((a, b) => b.valoracion - a.valoracion);
     },
     error: (err) => {
       console.error('Error al cargar tendencias:', err);
     }
   });
 }
-
   // Obtener las estrellas según la valoración
   getEstrellasArray(puntaje: number): string[] {
     const estrellas = [];

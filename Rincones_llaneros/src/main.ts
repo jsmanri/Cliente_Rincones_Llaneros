@@ -21,6 +21,7 @@ import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/si
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 
 
+
 bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([

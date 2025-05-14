@@ -36,6 +36,7 @@ export class RegistroComponent implements OnInit {
   imagenesPreview: string[] = [];
   imagenesBase64: string[] = [];
   categorias: any[] = [];
+  municipio: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +49,7 @@ export class RegistroComponent implements OnInit {
       horario: ['', Validators.required],
       descripcion: ['', Validators.required],
       categoria: [null, Validators.required], // ← se guarda el ID directamente
+      municipio: [null, Validators.required], // ← se guarda el ID directamente
       imagenes: [null],
       latitud: [''],
       longitud: ['']
@@ -68,6 +70,19 @@ export class RegistroComponent implements OnInit {
     },
     error: (err) => {
       console.error('Error al cargar categorías:', err);
+    }
+  });
+    this.apiService.get<any>(API_URLS.CRUD.Api_crudMunicipios).subscribe({
+    next: (data) => {
+      if (data && Array.isArray(data["municipios consultados"])) {
+        this.municipio = data["municipios consultados"];
+      } else {
+        this.municipio = [];
+        console.warn('La respuesta no contiene un arreglo de municipios:', data);
+      }
+    },
+    error: (err) => {
+      console.error('Error al cargar los municipios:', err);
     }
   });
   }
@@ -149,6 +164,7 @@ export class RegistroComponent implements OnInit {
         Longitud: Number(this.sitioForm.value.longitud),
         FotoSitio: JSON.stringify(this.imagenesBase64),
         IdCategoria: { Id: this.sitioForm.value.categoria },
+        IdMunicipio: { Id: this.sitioForm.value.municipio },
         IdUsuario: { Id: 4 } // puedes ajustar el ID del usuario según tu lógica
       };
 

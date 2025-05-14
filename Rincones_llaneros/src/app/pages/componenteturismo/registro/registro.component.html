@@ -57,6 +57,12 @@
               <mat-option *ngFor="let cat of categorias" [value]="cat.Id">{{ cat.Nombre }}</mat-option>
               </mat-select>
               </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Municipio</mat-label>
+              <mat-select formControlName="municipio" required>
+              <mat-option *ngFor="let cat of municipio" [value]="cat.Id">{{ cat.NombreMunicipio }}</mat-option>
+              </mat-select>
+              </mat-form-field>
 
               <!-- Subida de imágenes -->
               <div class="file-upload-container small">
