@@ -1,0 +1,100 @@
+<div class="actividad-detalle">
+  <h1>{{ nombreActividad }}</h1>
+  
+  <div *ngIf="imagenescarrusel.length > 0" class="carrusel-container">
+    <button (click)="anteriorImagen()" class="carrusel-boton">←</button>
+  
+    <img 
+      [src]="imagenescarrusel[indiceimagenactual]"
+      
+  
+      class="carrusel-img"
+    />
+  
+    <button (click)="siguienteimagen()" class="carrusel-boton">→</button>
+  </div>
+  
+
+  <p class="descripcion">{{ descripcionActividad }}</p>
+
+<!-- Para Restaurantes y Hoteles: usar <select> -->
+  <div *ngIf="nombreActividad === 'Restaurantes' || nombreActividad === 'Hoteles' || nombreActividad === 'Piscinas'" class="select-container">
+    <label for="municipioSelect">Selecciona un municipio:</label>
+    <select id="municipioSelect" #selectMunicipio (change)="seleccionarMunicipio(selectMunicipio.value)">
+      <option value="" disabled selected>-- Elige un municipio --</option>
+      <option *ngFor="let municipio of getMunicipios()" [value]="municipio">
+        {{ municipio }}
+      </option>
+    </select>
+  
+    <div *ngIf="municipioSeleccionado">
+      <h4>Puntos en {{ municipioSeleccionado }}</h4>
+      <ul>
+        <li *ngFor="let punto of puntosmunicipios[municipioSeleccionado]">
+          {{ punto }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+<!-- Para las demás actividades: lista expandible -->
+<div *ngIf="nombreActividad !== 'Restaurantes' && nombreActividad !== 'Hoteles' && nombreActividad !== 'Piscinas'">
+  <div class="municipios-wrapper"> <!-- CONTENEDOR NUEVO -->
+    <div *ngFor="let municipio of getMunicipios()" class="municipio-card">
+      <div (click)="seleccionarMunicipio(municipio)" class="municipio-nombre">
+        📍 {{ municipio }}
+      </div>
+
+      <ul *ngIf="municipioSeleccionado === municipio">
+        <li *ngFor="let punto of puntosmunicipios[municipio]">
+          {{ punto }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+  
+  
+
+  <div *ngIf="horario" class="info-section">
+    <h3>Horario:</h3>
+    <p>{{ horario }}</p>
+  </div>
+
+  <div *ngIf="recomendaciones.length > 0" class="info-section">
+    <h3>Recomendaciones:</h3>
+    <div class="recomendacion-card">
+      <div *ngFor="let r of recomendaciones" class="recomendacion-linea">
+        • {{ r }}
+      </div>
+    </div>
+  </div>
+  
+
+
+  
+  
+
+
+
+  <!-- Sección de testimonios -->
+<!-- Sección de testimonios -->
+<div *ngIf="testimonios.length > 0" class="testimonios">
+  <h3>Testimonios de visitantes</h3>
+  <div class="testimonio" *ngFor="let t of testimonios">
+    <img [src]="t.imagen" alt="{{ t.autor }}" class="testimonio-img">
+    <div class="testimonio-texto">
+      <p>"{{ t.mensaje }}"</p>
+      <span>- {{ t.autor }}</span>
+      <div class="estrellas">
+        <span *ngFor="let _ of getEstrellas(t.calificacion)">★</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <button (click)="goToPusvolver()" class="btn-volver">Volver</button>
+</div>

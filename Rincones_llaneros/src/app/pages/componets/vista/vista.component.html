@@ -83,7 +83,51 @@
     </div>
   </section>
 
-  
+
+  <!-- <div class="carousel-wrapper">
+    <h2>{{sectionTitle}}</h2>
+    <p class="description">{{sectionDescription}}</p>
+    
+    <div class="carousel-container">
+        <button mat-raised-button color="primary" (click)="goPrevius()" [disabled]="currentIndex === 0">Anterior</button>
+
+        <div class="carousel-track-container">
+            <div class="carousel-track" [style.transform]="getTransform()">
+                <mat-card class="carousel-card" *ngFor="let card of cards">
+                    <img mat-card-image [src]="card.image" alt="Imagen de la tarjeta"/>
+                    <mat-card-title>{{card.title}}</mat-card-title>
+                    <p *ngIf="card.mensaje">{{ card.mensaje }}</p>
+                    <mat-card-actions>
+                        <button mat-button color="accent" (click)="card.action()">{{card.title_button}}</button>
+                    </mat-card-actions>
+                </mat-card>
+
+            </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="goNext()" [disabled]="currentIndex === cards.length -1">Siguiente</button>
+    </div>
+    <div class="detalle-info" *ngIf="selectedInfo">
+      
+        <h3>{{selectedInfo.title}}</h3>
+        <p>{{selectedInfo.description}}</p>
+        <button mat-stroked-button color="warn" (click)="cerrarDetalle()">Cerrar</button>
+    </div>
+</div> -->
+
+<section class="testimonios">
+  <h2>Lo que dicen nuestros visitantes</h2>
+  <div class="carrusel-testimonios">
+    <div class="testimonio" *ngFor="let testimonio of testimonios; let i = index" [class.active]="i === currentIndexTestimonios">
+      <img [src]="testimonio.foto" alt="Foto de {{testimonio.nombre}}" class="foto-testimonio">
+      <p class="mensaje">"{{testimonio.mensaje}}"</p>
+      <span class="autor">- {{testimonio.nombre}}, {{testimonio.ciudad}}</span>
+    </div>
+  </div>
+</section>
+
+
+
+   
   <h3>Eventos mas destacados</h3>
   <a>Disfruta de los eventos mejor calificados por el publico</a>
   <div class="carousel-container">
@@ -92,18 +136,18 @@
       <div class="caption">
         <h3>{{ images[currentIndex].title }}</h3>
         <p>{{ images[currentIndex].description }}</p>
-        <a (click)="goToPush()" class="btn-1">Explorar mas eventos</a>
+        <button class="btn-1" (click)="goToPushEventos()">Explorar más eventos</button>
       </div>
 
     </div>
     
   
-    <!-- Botones de navegación -->
+    Botones de navegación
     <button class="prev-btn" (click)="prev()">&#10094;</button>
     <button class="next-btn" (click)="next()">&#10095;</button>
 
 
-  </div>
+  </div> 
  
 
 
@@ -117,8 +161,7 @@
   </section>
 
   <section class="blog-container">
-    <h2>Blog</h2>
-    <p>Artículos recientes sobre turismo, cultura y experiencias en los Llanos.</p>
+
 
     <div class="blog-content">
       <div class="blog-1">

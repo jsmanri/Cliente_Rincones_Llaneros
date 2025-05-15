@@ -19,7 +19,7 @@ import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
-
+import { DetallesComponent } from './app/pages/componets/detalles/detalles.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -65,7 +65,10 @@ bootstrapApplication(AppComponent,{
              { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
              { path: 'sitiosadmin',component: SitiosadminComponent},
-             { path: 'adminmapa', component: MapaComponent}
+             { path: 'adminmapa', component: MapaComponent},
+             { path: 'vista', component: VistaComponent },
+             { path: 'detalles', component: DetallesComponent },
+             { path: 'eventos', component: EventosComponent},
           ]),
         provideAnimations(),
         provideHttpClient()

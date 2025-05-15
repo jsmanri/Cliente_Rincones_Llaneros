@@ -1,0 +1,121 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor del filtro */
+  .filtro-container {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .filtro-label {
+    font-size: 1.2em;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .filtro-select {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    transition: all 0.3s ease;
+  }
+  
+  .filtro-select:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  /* Estilos de las tarjetas */
+  .tarjetas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .tarjeta-evento {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .tarjeta-evento:hover {
+    transform: scale(1.05);
+  }
+  
+  .imagen-evento {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #f1f1f1;
+  }
+  
+  .contenido-evento {
+    padding: 15px;
+  }
+  
+  .titulo-evento {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .contenido-evento p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+    margin: 5px 0;
+  }
+  
+  .contenido-evento strong {
+    color: #007BFF;
+  }
+
+ /* Header */
+.main-header {
+    background-color: #cf4218f3;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .main-nav a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .main-nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footer */
+  .main-footer {
+    background-color: #f1f1f1;
+    color: #555;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+  }

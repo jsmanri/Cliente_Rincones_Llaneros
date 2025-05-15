@@ -13,6 +13,7 @@ import { VendedorComponent } from './pages/component/perfil/vendedor/vendedor.co
 import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
+import { DetallesComponent } from './pages/componets/detalles/detalles.component';
 
 
 export const routes: Routes = [
@@ -31,6 +32,6 @@ export const routes: Routes = [
     { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
     { path: 'sitiosadmin', component: SitiosadminComponent},
-
+    { path: 'detalles', component:DetallesComponent}
 ];
 
