@@ -6,7 +6,7 @@
         </div>
 
         <!-- Título y Subtítulo -->
-        <mat-card-title class="register-title">REGISTRATE</mat-card-title>
+        <mat-card-title class="register-title">REGÍSTRATE</mat-card-title>
         <p class="register-subtitle">
             ¿Eres un viajero? Descubre los mejores sitios turísticos de Casanare, encuentra promociones y planea tu aventura.
             <br>
@@ -22,7 +22,6 @@
             <form [formGroup]="registerForm" (ngSubmit)="register()">
                 <!-- Foto de Perfil -->
                 <div class="profile-pic-container">
-                    <!-- Contenedor de la Imagen -->
                     <label for="profile-pic-input" class="profile-pic-label">
                         <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" alt="Foto de Perfil" class="profile-pic-preview">
                         <ng-template #placeholder>
@@ -30,8 +29,6 @@
                         </ng-template>
                     </label>
                     <input type="file" id="profile-pic-input" (change)="onFileSelected($event)" accept="image/*" hidden>
-
-                    <!-- Texto dinámico y botón de eliminar -->
                     <div class="profile-actions">
                         <p class="profile-pic-text">
                             {{ previewUrl ? 'Eliminar imagen' : 'Haz clic para agregar una foto' }}
@@ -50,59 +47,54 @@
 
                 <!-- Campos del Formulario -->
                 <div class="form-columns-container">
-                    <!-- Columna Izquierda -->
                     <div class="form-column">
-                        <!-- Selector de Rol -->
-                         <mat-form-field appearance="outline" class="role-selector">
-                         <mat-label>Rol</mat-label>
-                         <mat-select formControlName="role" required>
-                         <!-- Iterar sobre los roles cargados -->
-                         <mat-option *ngFor="let rol of roles" [value]="rol.Id">
-                           {{ rol.Nombre }}
-                         </mat-option>
-                         </mat-select>
-                         </mat-form-field>
-
-                        <!-- Nombre y Apellido -->
+                        <mat-form-field appearance="outline" class="role-selector">
+                            <mat-label>Rol</mat-label>
+                            <mat-select formControlName="role" required>
+                                <mat-option *ngFor="let rol of roles" [value]="rol.Id">
+                                    {{ rol.Nombre }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Nombre y Apellido</mat-label>
                             <input matInput formControlName="fullName" required>
                         </mat-form-field>
-
-                        <!-- Correo -->
                         <mat-form-field appearance="outline">
                             <mat-label>Correo</mat-label>
                             <input matInput formControlName="email" type="email" required>
                         </mat-form-field>
-
-                        <!-- Cédula -->
                         <mat-form-field appearance="outline">
                             <mat-label>Cédula</mat-label>
                             <input matInput formControlName="cedula" type="text" required>
                         </mat-form-field>
                     </div>
-
-                    <!-- Columna Derecha -->
                     <div class="form-column">
-                        <!-- Número Telefónico -->
                         <mat-form-field appearance="outline">
                             <mat-label>Número Telefónico</mat-label>
                             <input matInput formControlName="telefono" type="tel" required>
                         </mat-form-field>
-
-                        <!-- Contraseña -->
                         <mat-form-field appearance="outline">
                             <mat-label>Contraseña</mat-label>
                             <input matInput formControlName="password" type="password" required>
                         </mat-form-field>
-
-                        <!-- Confirmar Contraseña -->
                         <mat-form-field appearance="outline">
                             <mat-label>Confirmar Contraseña</mat-label>
                             <input matInput formControlName="confirmPassword" type="password" required>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Checkbox para aceptar políticas de privacidad -->
+                <mat-checkbox formControlName="acceptTerms" class="terms-checkbox">
+                    Acepto los <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a> y las políticas de privacidad.
+                </mat-checkbox>
+
+                <!-- Mensajes Adicionales -->
+                <p class="login-message">
+                    ¿Ya tienes una cuenta?
+                    <a (click)="goToLogin()" class="login-link">Inicia sesión</a>
+                </p>
 
                 <!-- Botón de Registro -->
                 <button 
@@ -114,15 +106,10 @@
                     Registrarme
                 </button>
 
-                <!-- Mensajes Adicionales -->
-                <p class="login-message">
-                    ¿Ya tienes una cuenta?
-                    <a (click)="goToLogin()" class="login-link">Inicia sesión</a>
-                </p>
-                <p class="terms-message">
-                    Al registrarte aceptas nuestros 
-                    <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a>
-                </p>
+                <!-- Mensaje de éxito -->
+                <div *ngIf="registrationSuccess" class="success-message">
+                    ¡Usuario registrado con éxito! Redirigiendo al inicio de sesión...
+                </div>
             </form>
         </mat-card-content>
     </mat-card>

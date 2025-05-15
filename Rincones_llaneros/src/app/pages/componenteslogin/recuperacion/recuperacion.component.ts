@@ -25,47 +25,63 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class RecuperacionComponent {
   paso: number = 1;
-  subtitulo: string = 'Ingrese su número telefónico y dale a Enviar código por SMS';
+  subtitulo: string = 'Ingrese su correo electrónico para recibir un código de verificación';
 
-  phoneForm: FormGroup;
-  codeForm: FormGroup;
+  emailForm: FormGroup;
+  codigoForm: FormGroup;
+  contrasenaForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router) {
-    // Paso 1: teléfono
-    this.phoneForm = this.fb.group({
-      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
+    this.emailForm = this.fb.group({
+      correo: ['', [Validators.required, Validators.email]]
     });
 
-    // Paso 2: código + contraseña
-    this.codeForm = this.fb.group({
-      codigo: ['', Validators.required],
+    this.codigoForm = this.fb.group({
+      codigo: ['', Validators.required]
+    });
+
+    this.contrasenaForm = this.fb.group({
       nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContrasena: ['', Validators.required]
-    });
+    }, { validators: this.passwordsIgualesValidator });
   }
 
   enviarCodigo() {
-    if (this.phoneForm.valid) {
-      console.log('Código enviado a:', this.phoneForm.value.telefono);
+    if (this.emailForm.valid) {
+      console.log('Código enviado a:', this.emailForm.value.correo);
       this.paso = 2;
-      this.subtitulo = 'Completa los campos para cambiar tu contraseña';
+      this.subtitulo = 'Ingresa el código que recibiste por correo';
+    }
+  }
+
+  verificarCodigo() {
+    if (this.codigoForm.valid) {
+      console.log('Código verificado:', this.codigoForm.value.codigo);
+      this.paso = 3;
+      this.subtitulo = 'Crea tu nueva contraseña';
     }
   }
 
   cambiarContrasena() {
-    const nueva = this.codeForm.value.nuevaContrasena;
-    const confirmar = this.codeForm.value.confirmarContrasena;
+    if (this.contrasenaForm.invalid) {
+      alert('Por favor completa todos los campos correctamente');
+      return;
+    }
 
-    if (nueva !== confirmar) {
+    if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
       alert('Las contraseñas no coinciden');
       return;
     }
 
-    if (this.codeForm.valid) {
-      console.log('Contraseña cambiada con éxito');
-      alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
-      this.router.navigate(['/login']);
-    }
+    console.log('Contraseña cambiada con éxito');
+    alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
+    this.router.navigate(['/login']);
+  }
+
+  passwordsIgualesValidator(form: FormGroup) {
+    const pass = form.get('nuevaContrasena')?.value;
+    const confirm = form.get('confirmarContrasena')?.value;
+    return pass === confirm ? null : { passwordsNoCoinciden: true };
   }
 
   volverALogin() {
