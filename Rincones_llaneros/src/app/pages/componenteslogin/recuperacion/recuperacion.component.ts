@@ -9,6 +9,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+// Importa ApiService y la configuración
+import { API_URLS } from '../../../../config/api-config';
+import { ApiService } from '../../../../services/api.services';
+
+// Importa EmailJS
+import emailjs from 'emailjs-com';
+
 @Component({
   selector: 'app-recuperacion',
   standalone: true,
@@ -31,34 +38,85 @@ export class RecuperacionComponent {
   codigoForm: FormGroup;
   contrasenaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  mensajeError: string = '';
+  codigoGenerado: string = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private apiService: ApiService
+  ) {
     this.emailForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]]
     });
-
     this.codigoForm = this.fb.group({
       codigo: ['', Validators.required]
     });
-
     this.contrasenaForm = this.fb.group({
       nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
       confirmarContrasena: ['', Validators.required]
     }, { validators: this.passwordsIgualesValidator });
   }
 
+  generarCodigo(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  }
+
   enviarCodigo() {
+    this.mensajeError = '';
     if (this.emailForm.valid) {
-      console.log('Código enviado a:', this.emailForm.value.correo);
-      this.paso = 2;
-      this.subtitulo = 'Ingresa el código que recibiste por correo';
+      const correo = this.emailForm.value.correo;
+      const url = `${API_URLS.CRUD.Api_crudUsuarios}?query=Correo:${correo}`;
+      this.apiService.get<any>(url).subscribe({
+        next: (respuesta) => {
+          const usuarios = respuesta['usuarios consultados'];
+          if (usuarios && usuarios.length > 0) {
+            // Genera el código
+            const codigo = this.generarCodigo();
+            this.codigoGenerado = codigo;
+
+            // EmailJS: cambia por tus IDs reales
+            const serviceID = 'service_d60ceh3';
+            const templateID = 'template_pgs65fn';
+            const userID = 'x_5b8255fdDxP4wts';
+
+            // Solo las variables de tu template
+            const templateParams = {
+              title: 'Recuperación de contraseña – Código de verificación',
+              email: correo,
+              message: codigo
+            };
+
+            emailjs.send(serviceID, templateID, templateParams, userID)
+              .then(() => {
+                this.paso = 2;
+                this.subtitulo = 'Ingresa el código que recibiste por correo';
+              }, (error) => {
+                this.mensajeError = 'Ocurrió un error al enviar el correo. Intenta nuevamente.';
+                console.error(error);
+              });
+
+          } else {
+            this.mensajeError = 'El correo ingresado no está registrado.';
+          }
+        },
+        error: (error) => {
+          this.mensajeError = 'Ocurrió un error al consultar el correo. Intenta nuevamente.';
+        }
+      });
     }
   }
 
   verificarCodigo() {
     if (this.codigoForm.valid) {
-      console.log('Código verificado:', this.codigoForm.value.codigo);
-      this.paso = 3;
-      this.subtitulo = 'Crea tu nueva contraseña';
+      const codigoIngresado = this.codigoForm.value.codigo;
+      if (codigoIngresado === this.codigoGenerado) {
+        this.paso = 3;
+        this.subtitulo = 'Crea tu nueva contraseña';
+        this.mensajeError = '';
+      } else {
+        this.mensajeError = 'El código ingresado no es correcto.';
+      }
     }
   }
 
@@ -73,7 +131,7 @@ export class RecuperacionComponent {
       return;
     }
 
-    console.log('Contraseña cambiada con éxito');
+    // Aquí deberías hacer el cambio de contraseña vía API
     alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
     this.router.navigate(['/login']);
   }
