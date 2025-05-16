@@ -20,6 +20,7 @@ import { AppComponent } from './app/app.component';
 import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 import { DetallesComponent } from './app/pages/componets/detalles/detalles.component';
+import { InfoSitioComponent } from './app/pages/component/info-sitio/info-sitio.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -36,6 +37,9 @@ bootstrapApplication(AppComponent,{
                 },
                 { 
                   path: 'vista2', component: Vista2Component 
+                },
+                {
+                  path: 'infositio', component: InfoSitioComponent
                 }
               ]
              },

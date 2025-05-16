@@ -14,6 +14,7 @@ import { HeaderregistroComponent } from './pages/component/headerregistro/header
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { DetallesComponent } from './pages/componets/detalles/detalles.component';
+import { InfoSitioComponent } from './pages/component/info-sitio/info-sitio.component';
 
 
 export const routes: Routes = [
@@ -32,6 +33,7 @@ export const routes: Routes = [
     { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
     { path: 'sitiosadmin', component: SitiosadminComponent},
-    { path: 'detalles', component:DetallesComponent}
+    { path: 'detalles', component:DetallesComponent},
+    { path: 'info-sitio', component:InfoSitioComponent},
 ];
 

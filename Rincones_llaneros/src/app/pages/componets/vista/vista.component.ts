@@ -17,12 +17,8 @@ import {MatCardModule} from '@angular/material/card'
 export class VistaComponent {
   constructor(private router:Router){}
   
-<<<<<<< HEAD
-  goToPush(){
-    this.router.navigate(['headersinregistro/vista2']);
-=======
   goToPush() {
-    this.router.navigate(['/vista2']).then(() => {
+    this.router.navigate(['headersinregistro/vista2']).then(() => {
       window.scrollTo(0, 0);
     });
   }
@@ -120,7 +116,6 @@ export class VistaComponent {
 
   cerrarDetalle(){
     this.selectedInfo=null;
->>>>>>> e4458b37ded8f3182a9dde0cb9956ac1b1327195
   }
 
   
@@ -191,7 +186,7 @@ export class VistaComponent {
   }
 
   goToPushEventos() {
-    this.router.navigate(['/eventos']).then(() => {
+    this.router.navigate(['/']).then(() => {
       window.scrollTo(0, 0);
     });
   }

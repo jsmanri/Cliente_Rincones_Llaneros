@@ -1,0 +1,69 @@
+<div class="contenedor">
+  <h2 class="titulo">{{ sitio?.NombreSitioTuristico }}</h2>
+</div>
+
+<mat-card class="card-completa">
+  <div class="info-completa">
+    <!-- Carrusel -->
+    <div class="carousel">
+      <img
+        *ngFor="let img of sitio?.imagenes; let i = index"
+        [src]="img"
+        [class.active]="i === imagenActual"
+        [class.inactive]="i !== imagenActual"
+        alt="Imagen del sitio"
+      />
+      <button class="btn izquierda" (click)="anteriorImagen()">&#10094;</button>
+      <button class="btn derecha" (click)="siguienteImagen()">&#10095;</button>
+    </div>
+
+    <!-- Secciones izquierda y derecha -->
+    <div class="info-secciones">
+      <div class="info">
+        <h3>Puntaje e información</h3>
+        <div class="valoracion">
+          <ng-container *ngFor="let estrella of getEstrellasArray(sitio?.valoracion)">
+            <mat-icon>{{ estrella }}</mat-icon>
+          </ng-container>
+          <span class="puntos">({{ sitio?.valoracion }})</span>
+        </div>
+        <p><mat-icon>access_time</mat-icon> {{ sitio?.horario }}</p>
+        <p><mat-icon>phone</mat-icon> {{ sitio?.telefono }}</p>
+        <p><mat-icon>location_on</mat-icon> LAT: {{ sitio?.lat }}, LNG: {{ sitio?.lng }}</p>
+        <p><mat-icon>directions_car</mat-icon> {{ sitio?.transporte?.recomendacion }}</p>
+      </div>
+
+      <div class="galeria">
+        <h3>Imágenes</h3>
+        <div class="imagenes">
+          <img
+            *ngFor="let img of sitio?.imagenes"
+            [src]="img"
+            alt="Imagen adicional"
+            (click)="abrirImagen(img)"
+            style="cursor: pointer"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="comentarios">
+      <h3>Comentarios</h3>
+      <div *ngFor="let comentario of sitio?.comentarios" class="comentario">
+        <div class="comentario-header">
+          <strong>{{ comentario.autor }}</strong>
+          <ng-container *ngFor="let estrella of getEstrellasArray(comentario.valoracion)">
+            <mat-icon>{{ estrella }}</mat-icon>
+          </ng-container>
+        </div>
+        <p>{{ comentario.texto }}</p>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<!-- Modal -->
+<div class="modal" [class.visible]="modalVisible" (click)="cerrarModal()">
+  <img [src]="imagenSeleccionada" class="imagen-completa" />
+</div>
