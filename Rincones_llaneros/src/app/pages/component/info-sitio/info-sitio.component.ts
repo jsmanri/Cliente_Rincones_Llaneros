@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-info-sitio',
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDividerModule,
     FormsModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule
   ],
   templateUrl: './info-sitio.component.html',
   styleUrl: './info-sitio.component.css'
@@ -78,6 +80,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
         }
       ]
     };
+    
 
     this.iniciarCarruselAutomatico();
   }
@@ -91,6 +94,32 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       this.siguienteImagen();
     }, 4000);
   }
+  nuevoComentario = {
+  texto: '',
+  valoracion: 0
+};
+
+seleccionarEstrellas(valor: number) {
+  this.nuevoComentario.valoracion = valor;
+}
+
+enviarComentario() {
+  if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
+    alert('Por favor, escribe un comentario y selecciona una puntuación.');
+    return;
+  }
+
+  const nuevo = {
+    autor: 'Usuario', // Aquí puedes poner el nombre real si tienes auth
+    texto: this.nuevoComentario.texto,
+    valoracion: this.nuevoComentario.valoracion
+  };
+
+  this.sitio.comentarios.push(nuevo);
+
+  // Reinicia el formulario
+  this.nuevoComentario = { texto: '', valoracion: 0 };
+}
 
   anteriorImagen() {
     if (this.sitio?.imagenes?.length > 0) {
@@ -138,4 +167,5 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     this.modalVisible = false;
     this.iniciarCarruselAutomatico(); // Reanudar carrusel
   }
+  
 }

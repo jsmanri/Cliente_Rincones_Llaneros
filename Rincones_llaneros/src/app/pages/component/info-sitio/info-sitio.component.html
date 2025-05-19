@@ -32,7 +32,6 @@
         <p><mat-icon>location_on</mat-icon> LAT: {{ sitio?.lat }}, LNG: {{ sitio?.lng }}</p>
         <p><mat-icon>directions_car</mat-icon> {{ sitio?.transporte?.recomendacion }}</p>
       </div>
-
       <div class="galeria">
         <h3>Imágenes</h3>
         <div class="imagenes">
@@ -47,15 +46,37 @@
       </div>
     </div>
 
+    <!-- Comentar -->
+     <div class="nuevo-comentario">
+  <h3>Agregar comentario</h3>
+  <mat-form-field appearance="outline" class="campo-comentario">
+    <mat-label>Tu comentario</mat-label>
+    <textarea matInput [(ngModel)]="nuevoComentario.texto" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="valoracion-nueva">
+    <span>Tu puntuación:</span>
+    <ng-container *ngFor="let estrella of [1, 2, 3, 4, 5]">
+      <mat-icon
+        (click)="seleccionarEstrellas(estrella)"
+        [ngClass]="{ activa: estrella <= nuevoComentario.valoracion }"
+        >{{ estrella <= nuevoComentario.valoracion ? 'star' : 'star_border' }}</mat-icon
+      >
+    </ng-container>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="enviarComentario()">Enviar</button>
+</div>
+
     <!-- Comentarios -->
     <div class="comentarios">
       <h3>Comentarios</h3>
       <div *ngFor="let comentario of sitio?.comentarios" class="comentario">
         <div class="comentario-header">
           <strong>{{ comentario.autor }}</strong>
-          <ng-container *ngFor="let estrella of getEstrellasArray(comentario.valoracion)">
-            <mat-icon>{{ estrella }}</mat-icon>
-          </ng-container>
+         <ng-container *ngFor="let estrella of getEstrellasArray(comentario.valoracion)">
+           <mat-icon class="estrella-comentario">{{ estrella }}</mat-icon>
+         </ng-container>
         </div>
         <p>{{ comentario.texto }}</p>
       </div>
