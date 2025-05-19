@@ -41,6 +41,10 @@ export class RecuperacionComponent {
   mensajeError: string = '';
   codigoGenerado: string = '';
 
+  // IDs para enviar al backend
+  idUsuario: number | null = null;
+  idCredenciales: number | null = null;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -71,6 +75,10 @@ export class RecuperacionComponent {
         next: (respuesta) => {
           const usuarios = respuesta['usuarios consultados'];
           if (usuarios && usuarios.length > 0) {
+            // Guarda los IDs necesarios
+            this.idUsuario = usuarios[0].Id;
+            this.idCredenciales = usuarios[0].IdCredencialesCredenciales?.Id || null;
+
             // Genera el código
             const codigo = this.generarCodigo();
             this.codigoGenerado = codigo;
@@ -131,9 +139,28 @@ export class RecuperacionComponent {
       return;
     }
 
-    // Aquí deberías hacer el cambio de contraseña vía API
-    alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
-    this.router.navigate(['/login']);
+    // Verifica que los IDs estén presentes
+    if (!this.idUsuario || !this.idCredenciales) {
+      this.mensajeError = 'No se pudo identificar el usuario. Intenta el proceso de nuevo.';
+      return;
+    }
+
+    // Prepara el JSON para el backend MID
+    const payload = {
+      idUsuario: this.idUsuario,
+      idCredenciales: this.idCredenciales,
+      nuevaContrasena: this.contrasenaForm.value.nuevaContrasena
+    };
+
+    this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
+      next: (respuesta) => {
+        alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        this.mensajeError = 'Ocurrió un error al actualizar la contraseña. Intenta nuevamente.';
+      }
+    });
   }
 
   passwordsIgualesValidator(form: FormGroup) {
