@@ -4,14 +4,14 @@
     <p class="description">{{ subtitulo }}</p>
 
     <form *ngIf="paso === 1" [formGroup]="emailForm" (ngSubmit)="enviarCodigo()">
-    <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Correo electrónico</mat-label>
-    <input matInput type="email" formControlName="correo" required>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="emailForm.invalid">
-    Enviar código
-    </button>
-    <div *ngIf="mensajeError" class="error-message">{{ mensajeError }}</div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="correo" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="emailForm.invalid">
+        Enviar código
+      </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <!-- Paso 2: Confirmar código -->
@@ -23,6 +23,7 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="codigoForm.invalid">
         Verificar código
       </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <!-- Paso 3: Cambiar contraseña -->
@@ -40,6 +41,7 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="contrasenaForm.invalid">
         Cambiar contraseña
       </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <p class="volver-message">

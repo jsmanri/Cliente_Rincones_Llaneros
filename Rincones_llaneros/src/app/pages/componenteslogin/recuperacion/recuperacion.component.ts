@@ -27,7 +27,7 @@ import emailjs from 'emailjs-com';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ]
 })
 export class RecuperacionComponent {
@@ -128,39 +128,45 @@ export class RecuperacionComponent {
     }
   }
 
+
   cambiarContrasena() {
-    if (this.contrasenaForm.invalid) {
-      alert('Por favor completa todos los campos correctamente');
-      return;
-    }
+  if (this.contrasenaForm.invalid) {
+    alert('Por favor completa todos los campos correctamente');
+    return;
+  }
 
-    if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
+  if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
+    alert('Las contraseñas no coinciden');
+    return;
+  }
 
-    // Verifica que los IDs estén presentes
-    if (!this.idUsuario || !this.idCredenciales) {
-      this.mensajeError = 'No se pudo identificar el usuario. Intenta el proceso de nuevo.';
-      return;
-    }
+  // Verifica que los IDs estén presentes
+  if (!this.idUsuario || !this.idCredenciales) {
+    this.mensajeError = 'No se pudo identificar el usuario. Intenta el proceso de nuevo.';
+    return;
+  }
 
-    // Prepara el JSON para el backend MID
-    const payload = {
-      idUsuario: this.idUsuario,
-      idCredenciales: this.idCredenciales,
-      nuevaContrasena: this.contrasenaForm.value.nuevaContrasena
-    };
+  // Prepara el JSON para el backend MID
+  const payload = {
+    idUsuario: this.idUsuario,
+    idCredenciales: this.idCredenciales,
+    nuevaContrasena: this.contrasenaForm.value.nuevaContrasena
+  };
 
-    this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
-      next: (respuesta) => {
+  this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
+    next: (respuesta) => {
+      if (respuesta && respuesta.success) {
         alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
         this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        this.mensajeError = 'Ocurrió un error al actualizar la contraseña. Intenta nuevamente.';
+      } else {
+        // Mostrar mensaje de error del backend si existe
+        this.mensajeError = respuesta?.message || 'No se pudo actualizar la contraseña. Intenta nuevamente.';
       }
-    });
+    },
+    error: (error) => {
+      this.mensajeError = 'Ocurrió un error al actualizar la contraseña. Intenta nuevamente.';
+    }
+  });
   }
 
   passwordsIgualesValidator(form: FormGroup) {
