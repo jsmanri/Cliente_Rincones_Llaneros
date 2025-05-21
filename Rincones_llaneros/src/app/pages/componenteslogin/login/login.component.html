@@ -9,14 +9,21 @@
         <!-- Campo de Usuario -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Usuario o correo</mat-label>
-            <input matInput placeholder="Ingrese su usuario">
+            <input matInput placeholder="Ingrese su usuario"
+                   [(ngModel)]="correo"
+                   name="correo"
+                   autocomplete="username">
         </mat-form-field>
   
         <!-- Campo de Contraseña -->
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>Contraseña</mat-label>
-            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Ingrese su contraseña">
-            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <input matInput [type]="hidePassword ? 'password' : 'text'"
+                   placeholder="Ingrese su contraseña"
+                   [(ngModel)]="contrasena"
+                   name="contrasena"
+                   autocomplete="current-password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
                 <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
         </mat-form-field>

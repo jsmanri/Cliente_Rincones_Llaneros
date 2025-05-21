@@ -117,6 +117,7 @@ export class RegisterComponent {
   register(): void {
     if (this.registerForm.invalid) {
       Object.values(this.registerForm.controls).forEach(control => control.markAsTouched());
+   
       return;
     }
 

@@ -2,7 +2,8 @@ export const API_URLS ={
     Mid:{
         Api_mid:'http://localhost:8084/v1/admin',
         Api_midCreacionUsuario: 'http://localhost:8084/v1/creacionusu',
-        Api_Newpassword:'http://localhost:8084/v1/newpassword'
+        Api_Newpassword:'http://localhost:8084/v1/newpassword',
+        Api_Sesion:'http://localhost:8084/v1/Sesion'
     },
     CRUD:{
         Api_crudRegistrarSitio: 'http://localhost:8082/v1/Sitios_Turisticos',
