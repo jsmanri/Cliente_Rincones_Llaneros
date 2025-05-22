@@ -7,7 +7,13 @@
 
       <div class="contenido-sitio">
         <h3 class="nombre-sitio">{{ sitio.nombre }}</h3>
-        <p class="descripcion-sitio">{{ sitio.descripcion }}</p>
+        
+        <!-- Descripción con opción de leer más -->
+        <p class="descripcion-sitio">
+          {{ sitio.descripcion.length > 100 ? sitio.descripcion.substring(0, 100) + '...' : sitio.descripcion }}
+          <span *ngIf="sitio.descripcion.length > 100" class="leer-mas" (click)="expandirDescripcion(sitio)">
+          </span>
+        </p>
 
         <div class="valoracion">
           <ng-container *ngFor="let estrella of getEstrellasArray(sitio.valoracion)">
@@ -19,7 +25,7 @@
         <p class="comentarios">{{ sitio.comentarios }} comentarios</p>
 
         <div class="boton-mas">
-          <button mat-stroked-button color="primary">Más...</button>
+          <button mat-stroked-button color="primary" [routerLink]="['/info-sitio', sitio.Id_Sitio]">Ver más...</button>
         </div>
       </div>
     </div>

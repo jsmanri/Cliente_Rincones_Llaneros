@@ -36,7 +36,7 @@
 
 .contenido-card {
   display: flex;
-  flex-wrap: wrap; /* Permite ajustar en pantallas pequeñas */
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -63,10 +63,22 @@
   color: #222;
 }
 
+/* Ajuste para descripción con "Leer más" */
 .descripcion-sitio {
   margin: 8px 0;
   font-size: 16px;
   color: #555;
+  max-height: 50px; /* Mantener altura uniforme */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita a 3 líneas */
+  -webkit-box-orient: vertical;
+}
+
+.leer-mas {
+  color: blue;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .valoracion {
@@ -106,7 +118,7 @@ button[mat-button], button[mat-stroked-button] {
   text-transform: none;
 }
 
-/* RESPONSIVE */
+/* 📌 RESPONSIVE */
 @media (max-width: 1024px) {
   .tarjeta-sitio {
     flex-direction: column;
@@ -120,26 +132,7 @@ button[mat-button], button[mat-stroked-button] {
 
   .contenido-sitio {
     padding: 12px;
-  }
-
-  .nombre-sitio {
-    font-size: 20px;
-  }
-
-  .descripcion-sitio {
-    font-size: 14px;
-  }
-
-  .valoracion mat-icon {
-    font-size: 18px;
-  }
-
-  .puntos {
-    font-size: 14px;
-  }
-
-  .comentarios {
-    font-size: 12px;
+    min-height: 190px;
   }
 }
 
@@ -156,31 +149,7 @@ button[mat-button], button[mat-stroked-button] {
 
   .contenido-sitio {
     padding: 10px;
-  }
-
-  .nombre-sitio {
-    font-size: 18px;
-  }
-
-  .descripcion-sitio {
-    font-size: 12px;
-  }
-
-  .valoracion mat-icon {
-    font-size: 16px;
-  }
-
-  .puntos {
-    font-size: 12px;
-  }
-
-  .comentarios {
-    font-size: 12px;
-  }
-
-  button[mat-stroked-button] {
-    font-size: 12px;
-    padding: 6px 16px;
+    min-height: 180px;
   }
 }
 
@@ -207,38 +176,6 @@ button[mat-button], button[mat-stroked-button] {
   .contenido-sitio {
     padding: 8px;
     text-align: center;
-  }
-
-  .nombre-sitio {
-    font-size: 16px;
-  }
-
-  .descripcion-sitio {
-    font-size: 12px;
-  }
-
-  .valoracion {
-    justify-content: center;
-  }
-
-  .valoracion mat-icon {
-    font-size: 14px;
-  }
-
-  .puntos {
-    font-size: 10px;
-  }
-
-  .comentarios {
-    font-size: 10px;
-  }
-
-  .boton-mas {
-    justify-content: center;
-  }
-
-  button[mat-stroked-button] {
-    font-size: 12px;
-    padding: 4px 12px;
+    min-height: 170px;
   }
 }

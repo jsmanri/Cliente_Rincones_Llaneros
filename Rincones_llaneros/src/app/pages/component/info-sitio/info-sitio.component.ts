@@ -40,6 +40,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   intervaloCarrusel: any;
   imagenSeleccionada: string = '';
    modalVisible: boolean = false;
+   modalTransporteVisible: boolean = false;
 
 
 
@@ -52,6 +53,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       telefono: '3001234567',
       lat: 5.389474042082158,
       lng: -72.31996782627014,
+      direccion: 'Calle 123, 123 123',
       transporte: {
         recomendacion: 'Recomendaciones de transporte'
       },
@@ -168,4 +170,11 @@ enviarComentario() {
     this.iniciarCarruselAutomatico(); // Reanudar carrusel
   }
   
+    abrirModalTransporte() {
+    this.modalTransporteVisible = true;
+  }
+
+  cerrarModalTransporte() {
+    this.modalTransporteVisible = false;
+  }
 }

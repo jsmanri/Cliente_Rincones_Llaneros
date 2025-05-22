@@ -52,43 +52,48 @@ export class TendenciasComponent implements OnInit {
 
   constructor(private apiService: ApiService) {}
 
- ngOnInit(): void {
-  this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
-    next: (response) => {
-      this.sitios = response.resultado.map(sitio => {
-        // Procesa el campo Fotositio, que parece ser un string escapado
-        let imagen = 'default.png'; // Imagen predeterminada en caso de error
+  ngOnInit(): void {
+    this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
+      next: (response) => {
+        this.sitios = response.resultado.map(sitio => {
+          let imagen = 'default.png'; // Imagen por defecto
+          try {
+            let fotos: string[] = [];
+            const contenido = sitio.Fotositio?.trim();
 
-        try {
-          // Primero, parsea la cadena escapada
-          const fotosArray = JSON.parse(JSON.parse(sitio.Fotositio));
-          
-          // Verifica si es un array y si tiene imágenes
-          if (Array.isArray(fotosArray) && fotosArray.length > 0) {
-            imagen = fotosArray[0]; // Usa la primera imagen
+            if (contenido?.startsWith('"[')) {
+              fotos = JSON.parse(JSON.parse(contenido));
+            } else if (contenido?.startsWith('[')) {
+              fotos = JSON.parse(contenido);
+            } else if (contenido?.startsWith('data:image')) {
+              fotos = [contenido];
+            }
+
+            if (fotos.length > 0) {
+              imagen = fotos[0];
+            }
+          } catch (e) {
+            console.warn('Error al procesar Fotositio:', sitio.Fotositio);
           }
-        } catch (e) {
-          console.warn('Error al parsear Fotositio:', sitio.Fotositio);
-        }
 
-
-        // Devuelve un objeto con los datos procesados
-        return {
-          nombre: sitio.Nombre,
-          descripcion: sitio.Descripcion,
-          imagen: imagen,
-          valoracion: Math.round(sitio.Ponderacion * 10) / 10,
-          comentarios: sitio.Cantidad_comentarios
-        };
-      })
-      .sort((a, b) => b.valoracion - a.valoracion);
-    },
-    error: (err) => {
-      console.error('Error al cargar tendencias:', err);
-    }
-  });
+          return {
+            nombre: sitio.Nombre,
+            descripcion: sitio.Descripcion,
+            imagen: imagen,
+            valoracion: Math.round(sitio.Ponderacion * 10) / 10,
+            comentarios: sitio.Cantidad_comentarios
+          };
+        }).sort((a, b) => b.valoracion - a.valoracion);
+      },
+      error: (err) => {
+        console.error('Error al cargar tendencias:', err);
+      }
+    });
+  }
+expandirDescripcion(sitio: any): void {
+  sitio.descripcionExpandida = !sitio.descripcionExpandida;
 }
-  // Obtener las estrellas según la valoración
+
   getEstrellasArray(puntaje: number): string[] {
     const estrellas = [];
     const llenas = Math.floor(puntaje);
@@ -107,8 +112,9 @@ export class TendenciasComponent implements OnInit {
     return estrellas;
   }
 
-  // Obtener los sitios que deben mostrarse en base a la variable 'sitiosAMostrar'
   getSitiosAMostrar() {
     return this.sitios.slice(0, this.sitiosAMostrar);
   }
+
+  
 }

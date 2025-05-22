@@ -34,6 +34,6 @@ export const routes: Routes = [
     { path: 'usuadmin', component: UsuariosadminComponent},
     { path: 'sitiosadmin', component: SitiosadminComponent},
     { path: 'detalles', component:DetallesComponent},
-    { path: 'info-sitio', component:InfoSitioComponent},
+    { path: 'info-sitio/:id',component: InfoSitioComponent }
 ];
 
