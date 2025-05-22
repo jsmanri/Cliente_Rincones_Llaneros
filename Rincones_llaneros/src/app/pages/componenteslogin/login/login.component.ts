@@ -37,6 +37,7 @@ export class LoginComponent {
   }
 
   private mostrarErrorLogin(errorCode: string) {
+    console.log('error que recibe', errorCode)
     if (errorCode === 'correo_no_encontrado') {
       alert('El correo no existe. Por favor, verifica tu correo.');
     } else if (errorCode === 'contrasena_incorrecta') {
@@ -54,6 +55,7 @@ export class LoginComponent {
 
     this.apiService.post(API_URLS.Mid.Api_Sesion, payload).subscribe(
       (response: any) => {
+        console.log('Respuesta del API Mid:', response);
         if (response.error) {
           this.mostrarErrorLogin(response.error);
         } else if (response.id_usuario && response.id_rol) {
