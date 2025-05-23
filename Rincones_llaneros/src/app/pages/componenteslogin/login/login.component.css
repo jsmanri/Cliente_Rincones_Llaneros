@@ -1,303 +1,167 @@
 /* =============================================
-   ESTILOS PRINCIPALES DEL CONTENEDOR
+   CONTENEDOR PRINCIPAL
    ============================================= */
-   .login-container {
-    /* Fondo */
-    background: url('/loginimagen.jpg') no-repeat center center fixed;
-    background-size: cover;
-    
-    /* Dimensiones */
-    min-height: 100vh;
-    padding: 16px;
-    
-    /* Flexbox para centrado */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* Tipografía base */
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    
-    /* Asegurar que el contenedor ocupe al menos el viewport */
-    box-sizing: border-box;
+.login-container {
+  background: url('/loginimagen.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 /* =============================================
-   ESTILOS DE LA TARJETA DE LOGIN
+   TARJETA DE LOGIN
    ============================================= */
 .login-card {
-    /* Dimensiones y espaciado */
-    width: 90%;
-    max-width: 500px;
-    min-width: 280px;
-    padding: 24px;
-    
-    /* Apariencia visual */
-    background: rgba(184, 177, 177, 0.75);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    
-    /* Efectos de transición */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* Alineación de contenido */
-    text-align: center;
-    
-    /* Asegurar que el padding no afecte el ancho total */
-    box-sizing: border-box;
-    
-    /* Margen para separación */
-    margin: 20px auto;
+  width: 100%;
+  max-width: 500px;
+  background: rgba(184, 177, 177, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 32px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 /* =============================================
-   ESTILOS DE TEXTO Y TÍTULOS
+   TÍTULOS
    ============================================= */
 .title {
-    /* Texto con gradiente */
-    background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    
-    /* Tipografía */
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    
-    /* Espaciado */
-    margin: 0 0 8px;
-    line-height: 1.2;
+  background: linear-gradient(90deg, #536e57 0%, #28473c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
 .subtitle {
-    /* Color y tipografía */
-    color: #0e0c38;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    
-    /* Espaciado y decoración */
-    margin-bottom: 30px;
-    line-height: 1.4;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 25px;
 }
 
 /* =============================================
-   ESTILOS DE FORMULARIO MEJORADOS
+   CAMPOS DEL FORMULARIO
    ============================================= */
-.mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-form-field {
+  width: 100%;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: white;
-    border-radius: 4px;
-    opacity: 1;
-}
-
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: #000000;
-    opacity: 1;
+  background-color: white;
+  border-radius: 4px;
+  opacity: 1;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
-    background: rgb(0, 0, 0);
-    padding: 0.5em 0;
-    border-radius: 4px;
+  background: #f7f7f7;
+  padding: 0.5em 0.75em;
+  border-radius: 4px;
 }
 
 .mat-input-element {
-    color: #000000;
-    padding: 8px 0;
-    font-size: 16px;
+  color: #000000;
+  padding: 8px 0;
 }
 
-.mat-form-field-label {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 16px;
-}
-
-.mat-focused .mat-form-field-label {
-    color: #000000;
-}
-
-.mat-input-element:focus {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
-    outline: none;
+mat-error {
+  font-size: 13px;
+  color: #c62828;
 }
 
 /* =============================================
-   ESTILOS DE BOTONES
+   BOTÓN DE LOGIN
    ============================================= */
-.mat-raised-button {
-    /* Dimensiones y espaciado */
-    width: 100%;
-    padding: 12px;
-    min-height: 48px; /* Altura mínima para touch */
-    
-    /* Apariencia visual */
-    background: linear-gradient(90deg, #000000 0%, #333333 100%);
-    color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 123, 182, 0.3);
-    
-    /* Tipografía */
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    
-    /* Transiciones */
-    transition: all 0.3s ease;
-    
-    /* Para evitar desbordamiento en móviles */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+button[mat-raised-button] {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #536e57 0%, #536e57 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-weight: 600;
+  transition: transform 0.2s ease;
 }
 
-.mat-raised-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-}
-
-.actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.mat-button {
-    color: #000000;
-    font-weight: 500;
-    padding: 8px 0;
-    transition: all 0.3s ease;
-    min-height: 48px; /* Altura mínima para touch */
-    flex: 1;
-    min-width: 120px;
-}
-
-.mat-button:hover {
-    color: #000000;
-    transform: translateY(-1px);
+button[mat-raised-button]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* =============================================
-   ESTILOS DEL LOGO
+   ACCIONES
+   ============================================= */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+button[mat-button] {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+/* =============================================
+   LOGO
    ============================================= */
 .logo-container {
-    text-align: center;
-    margin-bottom: 1px;
+  margin-bottom: 12px;
 }
 
 .logo {
-    max-width: 200px;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+  max-width: 180px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 /* =============================================
-   MEDIA QUERIES PARA RESPONSIVIDAD
+   RESPONSIVE
    ============================================= */
-@media (max-width: 768px) {
-    .login-card {
-        padding: 20px;
-        width: 85%;
-    }
-    
-    .title {
-        font-size: 28px;
-    }
-    
-    .subtitle {
-        font-size: 16px;
-        margin-bottom: 25px;
-    }
-    
-    .logo {
-        max-width: 180px;
-    }
-    
-    .mat-button {
-        min-width: 100px;
-        font-size: 14px;
-    }
-}
+@media (max-width: 600px) {
+  .login-card {
+    padding: 24px;
+  }
 
-@media (max-width: 480px) {
-    .login-card {
-        padding: 16px;
-        width: 90%;
-        border-radius: 12px;
-    }
-    
-    .title {
-        font-size: 24px;
-    }
-    
-    .subtitle {
-        font-size: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .mat-form-field {
-        margin-bottom: 16px;
-    }
-    
-    .mat-raised-button {
-        padding: 10px;
-        font-size: 15px;
-    }
-    
-    .actions {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .mat-button {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .logo {
-        max-width: 160px;
-    }
-}
+  .title {
+    font-size: 24px;
+  }
 
-@media (max-width: 360px) {
-    .login-container {
-        padding: 12px;
-    }
-    
-    .login-card {
-        padding: 14px;
-        width: 95%;
-    }
-    
-    .title {
-        font-size: 22px;
-    }
-    
-    .subtitle {
-        font-size: 14px;
-    }
-    
-    .mat-input-element,
-    .mat-form-field-label {
-        font-size: 14px;
-    }
-    
-    .mat-raised-button {
-        font-size: 14px;
-    }
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .logo {
+    max-width: 140px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
