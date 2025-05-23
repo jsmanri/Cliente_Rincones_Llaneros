@@ -231,3 +231,22 @@
 button {
   margin-top: 10px;
 }
+.descripcion-card {
+  margin: 20px 0;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.descripcion-card mat-card-title {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.descripcion-card mat-card-content p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}

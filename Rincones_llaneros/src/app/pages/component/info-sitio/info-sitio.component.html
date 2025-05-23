@@ -17,6 +17,15 @@
       <button class="btn derecha" (click)="siguienteImagen()">&#10095;</button>
     </div>
 
+    <mat-card class="descripcion-card">
+  <mat-card-header>
+    <mat-card-title>Descripción</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ sitio?.descripcion }}</p>
+  </mat-card-content>
+</mat-card>
+
     <!-- Secciones izquierda y derecha -->
     <div class="info-secciones">
       <div class="info">

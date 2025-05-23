@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface Sitio {
+  Id_Sitio: number;
   Cantidad_comentarios: number;
   Descripcion: string;
   Fotositio: string;
@@ -41,7 +43,10 @@ export interface TendenciasResponse {
     MatDividerModule,
     FormsModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    
+
+
   ],
   templateUrl: './tendencias.component.html',
   styleUrls: ['./tendencias.component.css']
@@ -50,7 +55,7 @@ export class TendenciasComponent implements OnInit {
   sitiosAMostrar = 10;
   sitios: any[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
@@ -77,6 +82,7 @@ export class TendenciasComponent implements OnInit {
           }
 
           return {
+            id: sitio.Id_Sitio,
             nombre: sitio.Nombre,
             descripcion: sitio.Descripcion,
             imagen: imagen,
@@ -116,5 +122,10 @@ expandirDescripcion(sitio: any): void {
     return this.sitios.slice(0, this.sitiosAMostrar);
   }
 
-  
+  verDetalle(id: string | number): void {
+  this.router.navigate(['/info-sitio', id]);
 }
+
+}
+
+  

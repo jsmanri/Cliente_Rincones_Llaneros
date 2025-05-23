@@ -13,6 +13,7 @@ import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-info-sitio',
@@ -39,52 +40,22 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   imagenActual: number = 0;
   intervaloCarrusel: any;
   imagenSeleccionada: string = '';
-   modalVisible: boolean = false;
-   modalTransporteVisible: boolean = false;
+  modalVisible: boolean = false;
+  modalTransporteVisible: boolean = false;
 
-
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
-    this.sitio = {
-      NombreSitioTuristico: 'Garcero del llano reserva natural',
-      FotoPrincipal: 'rio2.jpg',
-      valoracion: 3.5,
-      horario: '6:00am - 10:00pm',
-      telefono: '3001234567',
-      lat: 5.389474042082158,
-      lng: -72.31996782627014,
-      direccion: 'Calle 123, 123 123',
-      transporte: {
-        recomendacion: 'Recomendaciones de transporte'
-      },
-      imagenes: [
-        'comida.jpg',
-        'llanos.jpg',
-        'atardecer.jpg',
-        'Casanare-3.jpg',
-        'comida2.jpg',
-      ],
-      comentarios: [
-        {
-          autor: 'Yasith Salcedo',
-          valoracion: 2,
-          texto: 'Un lugar donde se respira vida, muy cerca a la capital del llano Yopal...'
-        },
-        {
-          autor: 'Carlos Pérez',
-          valoracion: 4,
-          texto: 'Ideal para avistamiento de aves. Muy tranquilo y bien organizado.'
-        },
-        {
-          autor: 'Ana Gómez',
-          valoracion: 2.5,
-          texto: 'Bonito lugar pero algo difícil de llegar sin guía.'
-        }
-      ]
-    };
-    
-
-    this.iniciarCarruselAutomatico();
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) {
+      this.apiService.obtenerSitioPorId(id).subscribe((data) => {
+        this.sitio = data;
+        this.iniciarCarruselAutomatico();
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -96,32 +67,31 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       this.siguienteImagen();
     }, 4000);
   }
+
   nuevoComentario = {
-  texto: '',
-  valoracion: 0
-};
-
-seleccionarEstrellas(valor: number) {
-  this.nuevoComentario.valoracion = valor;
-}
-
-enviarComentario() {
-  if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
-    alert('Por favor, escribe un comentario y selecciona una puntuación.');
-    return;
-  }
-
-  const nuevo = {
-    autor: 'Usuario', // Aquí puedes poner el nombre real si tienes auth
-    texto: this.nuevoComentario.texto,
-    valoracion: this.nuevoComentario.valoracion
+    texto: '',
+    valoracion: 0
   };
 
-  this.sitio.comentarios.push(nuevo);
+  seleccionarEstrellas(valor: number) {
+    this.nuevoComentario.valoracion = valor;
+  }
 
-  // Reinicia el formulario
-  this.nuevoComentario = { texto: '', valoracion: 0 };
-}
+  enviarComentario() {
+    if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
+      alert('Por favor, escribe un comentario y selecciona una puntuación.');
+      return;
+    }
+
+    const nuevo = {
+      autor: 'Usuario',
+      texto: this.nuevoComentario.texto,
+      valoracion: this.nuevoComentario.valoracion
+    };
+
+    this.sitio.comentarios.push(nuevo);
+    this.nuevoComentario = { texto: '', valoracion: 0 };
+  }
 
   anteriorImagen() {
     if (this.sitio?.imagenes?.length > 0) {
@@ -162,15 +132,15 @@ enviarComentario() {
   abrirImagen(imagen: string) {
     this.imagenSeleccionada = imagen;
     this.modalVisible = true;
-    clearInterval(this.intervaloCarrusel); // Detener carrusel
+    clearInterval(this.intervaloCarrusel);
   }
 
   cerrarModal() {
     this.modalVisible = false;
-    this.iniciarCarruselAutomatico(); // Reanudar carrusel
+    this.iniciarCarruselAutomatico();
   }
-  
-    abrirModalTransporte() {
+
+  abrirModalTransporte() {
     this.modalTransporteVisible = true;
   }
 
