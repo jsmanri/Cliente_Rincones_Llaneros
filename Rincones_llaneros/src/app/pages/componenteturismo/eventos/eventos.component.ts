@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { ApiService } from '../../../../services/api.services';
+import { API_URLS } from '../../../../config/api-config';
+
+interface SitioTuristico {
+  Id: number;
+  NombreSitioTuristico: string;
+}
 
 @Component({
   selector: 'app-eventos',
@@ -13,29 +22,134 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatIcon
   ],
   templateUrl: './eventos.component.html',
   styleUrl: './eventos.component.css'
 })
-export class EventosComponent {
+export class EventosComponent implements OnInit {
   eventoForm: FormGroup;
+  sitios: SitioTuristico[] = [];
+  userId: number = 18; // Cambia esto según tu lógica de usuario
+  imagenesPreview: string[] = [];
+  imagenesBase64: string[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.eventoForm = this.fb.group({
-      nombre: [''],
-      descripcion: [''],
-      inicio: [''],
-      fin: ['']
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      inicio: ['', Validators.required],
+      fin: ['', Validators.required],
+      sitio: ['', Validators.required], // Aquí se guarda el ID del sitio seleccionado
+      imagenes: [null]
     });
   }
 
+  ngOnInit(): void {
+    this.cargarSitiosTuristicos();
+  }
+
+  cargarSitiosTuristicos(): void {
+    const url = `${API_URLS.CRUD.Api_crudRegistrarSitio}?query=IdUsuario.Id:${this.userId}&limit=0`;
+    this.apiService.get<any>(url).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.sitios = (data['sitios consultados'] ?? []).map((sitio: any) => ({
+          Id: sitio.Id,
+          NombreSitioTuristico: sitio.NombreSitioTuristico
+        }));
+      },
+      error: (error) => {
+        console.error('Error al traer sitios turísticos', error);
+        this.sitios = [];
+      }
+    });
+  }
+
+
+onFileSelected(event: any): void {
+  const files = event.target.files;
+  const maxImagenes = 3;
+
+  if (files && files.length > 0) {
+    const disponibles = maxImagenes - this.imagenesPreview.length;
+
+    if (disponibles <= 0) {
+      return; // Ya tienes 3 imágenes, no se permite más
+    }
+
+    const filesToProcess: File[] = Array.from(files as FileList).slice(0, disponibles);
+    const newPreviews: string[] = [];
+    const base64Array: string[] = [];
+    let filesProcessed = 0;
+
+    filesToProcess.forEach((file, index) => {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        const base64 = e.target.result;
+        newPreviews.push(base64);
+        base64Array.push(base64);
+        filesProcessed++;
+
+        if (filesProcessed === filesToProcess.length) {
+          // Agrega y limita a máximo 3
+          this.imagenesPreview = [...this.imagenesPreview, ...newPreviews].slice(0, 3);
+          this.imagenesBase64 = [...this.imagenesBase64, ...base64Array].slice(0, 3);
+
+          // Construye el nuevo FileList limitado a 3
+          const dataTransfer = new DataTransfer();
+          for (let i = 0; i < filesToProcess.length && i < maxImagenes; i++) {
+            dataTransfer.items.add(filesToProcess[i]);
+          }
+
+          this.eventoForm.patchValue({
+            imagenes: dataTransfer.files
+          });
+          this.eventoForm.get('imagenes')?.updateValueAndValidity();
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+  }
+
+
+  eliminarImagen(index: number): void {
+    this.imagenesPreview.splice(index, 1);
+    this.imagenesBase64.splice(index, 1);
+
+    const currentFiles: File[] = this.eventoForm.get('imagenes')?.value ?? [];
+    if (index >= 0 && index < currentFiles.length) {
+      currentFiles.splice(index, 1);
+    }
+
+    const dataTransfer = new DataTransfer();
+    currentFiles.forEach(file => dataTransfer.items.add(file));
+
+    this.eventoForm.patchValue({
+      imagenes: dataTransfer.files.length > 0 ? dataTransfer.files : null
+    });
+
+    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
+    if (fileInput) fileInput.files = dataTransfer.files;
+  }
+
+
+
+
   onSubmit(): void {
     if (this.eventoForm.valid) {
-      console.log('Datos del evento:', this.eventoForm.value);
+      const datosEvento = this.eventoForm.value;
+      // El ID del sitio seleccionado está en datosEvento.sitio
+      console.log('Datos del evento:', datosEvento);
       // Aquí puedes enviar los datos a tu backend o servicio
     } else {
       console.log('Formulario inválido');
+      this.eventoForm.markAllAsTouched();
     }
   }
 }
