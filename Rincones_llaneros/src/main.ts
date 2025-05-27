@@ -39,7 +39,7 @@ bootstrapApplication(AppComponent,{
                   path: 'vista2', component: Vista2Component 
                 },
                 {
-                  path: 'infositio', component: InfoSitioComponent
+                  path: 'info-sitio/:id', component: InfoSitioComponent
                 }
               ]
              },

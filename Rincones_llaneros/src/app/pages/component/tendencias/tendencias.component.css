@@ -71,7 +71,6 @@
   max-height: 50px; /* Mantener altura uniforme */
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limita a 3 líneas */
   -webkit-box-orient: vertical;
 }
 

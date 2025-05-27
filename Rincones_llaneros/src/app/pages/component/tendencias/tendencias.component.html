@@ -10,7 +10,7 @@
         
         <!-- Descripción con opción de leer más -->
         <p class="descripcion-sitio">
-          {{ sitio.descripcion.length > 100 ? sitio.descripcion.substring(0, 100) + '...' : sitio.descripcion }}
+          {{ sitio.descripcion.length > 100 ? sitio.descripcion.substring(0, 50) + '...' : sitio.descripcion }}
           <span *ngIf="sitio.descripcion.length > 100" class="leer-mas">
           </span>
         </p>
@@ -25,7 +25,7 @@
         <p class="comentarios">{{ sitio.comentarios }} comentarios</p>
 
         <div class="boton-mas">
-          <button mat-stroked-button color="primary" (click)="verDetalle(sitio.Id_Sitio)">Ver más...</button>
+          <button mat-stroked-button color="primary" [routerLink]="['/homesinregistro/info-sitio', sitio.id]">Ver más...</button>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@
 .titulo {
   text-align: center;
   font-size: 1.5rem;
+  border-color: #ccc;
   margin-bottom: 20px;
 }
 
@@ -88,6 +89,9 @@
   height: 300px;
   overflow: hidden;
   border-radius: 8px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -231,12 +235,26 @@
 button {
   margin-top: 10px;
 }
+
 .descripcion-card {
+  max-width: 100%;
+  width: 100%;
   margin: 20px 0;
-  padding: 16px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  /* Ancho mínimo para evitar que sea muy angosta */
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.descripcion-card mat-card {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .descripcion-card mat-card-title {
@@ -245,8 +263,34 @@ button {
   font-weight: bold;
 }
 
+.descripcion-card mat-card-content {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  overflow-x: hidden;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Ancho mínimo para el contenido */
+  min-width: 320px;
+}
+
 .descripcion-card mat-card-content p {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
   font-size: 1rem;
   color: #555;
   line-height: 1.6;
+  margin: 0;
+}
+
+/* Media query para móviles, elimina el min-width para evitar scroll horizontal */
+@media (max-width: 480px) {
+  .descripcion-card,
+  .descripcion-card mat-card-content {
+    min-width: auto;
+    width: 100%;
+  }
 }

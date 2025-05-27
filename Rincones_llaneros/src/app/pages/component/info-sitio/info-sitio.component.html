@@ -1,5 +1,5 @@
 <div class="contenedor">
-  <h2 class="titulo">{{ sitio?.NombreSitioTuristico }}</h2>
+  <h2 class="titulo">{{ sitio?.nombre }}</h2>
 </div>
 
 <mat-card class="card-completa">
@@ -87,8 +87,8 @@
       <h3>Comentarios ({{ sitio?.comentarios?.length || 0 }})</h3>
       <div *ngFor="let comentario of sitio?.comentarios" class="comentario">
         <div class="comentario-header">
-          <strong>{{ comentario.autor }}</strong>
-         <ng-container *ngFor="let estrella of getEstrellasArray(comentario.valoracion)">
+          <strong>{{ comentario.Autor }}</strong>
+         <ng-container *ngFor="let estrella of getEstrellasArray(comentario.calificacion)">
            <mat-icon class="estrella-comentario">{{ estrella }}</mat-icon>
          </ng-container>
         </div>

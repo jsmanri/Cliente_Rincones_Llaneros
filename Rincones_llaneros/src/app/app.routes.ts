@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { HeadersinregistroComponent } from './pages/component/headersinregistro/headersinregistro.component';
 import { TendenciasComponent } from './pages/component/tendencias/tendencias.component';
 import { RegisterComponent } from './pages/componenteslogin/register/register.component';
@@ -34,6 +35,10 @@ export const routes: Routes = [
     { path: 'usuadmin', component: UsuariosadminComponent},
     { path: 'sitiosadmin', component: SitiosadminComponent},
     { path: 'detalles', component:DetallesComponent},
-    { path: 'info-sitio/:id',component: InfoSitioComponent }
+    { path: 'info-sitio/:id', component: InfoSitioComponent },
 ];
-
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}

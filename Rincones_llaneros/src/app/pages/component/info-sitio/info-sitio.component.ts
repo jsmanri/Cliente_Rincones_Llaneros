@@ -35,30 +35,67 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './info-sitio.component.html',
   styleUrl: './info-sitio.component.css'
 })
-export class InfoSitioComponent implements OnInit, OnDestroy {
+export class InfoSitioComponent implements OnInit {
   sitio: any;
-  imagenActual: number = 0;
   intervaloCarrusel: any;
-  imagenSeleccionada: string = '';
-  modalVisible: boolean = false;
-  modalTransporteVisible: boolean = false;
+  imagenActual = 0;
+  imagenSeleccionada: string | null = null;
+  modalVisible = false;
+  modalTransporteVisible = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private apiService: ApiService
-  ) {}
+  nuevoComentario = {
+    texto: '',
+    valoracion: 0
+  };
+
+  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.apiService.obtenerSitioPorId(id).subscribe((data) => {
-        this.sitio = data;
-        this.iniciarCarruselAutomatico();
+      this.apiService.get<any>(`http://localhost:8085/v1/Sitios_turisticos/${id}`).subscribe({
+        next: (response) => {
+          const datos = response.resultado;
+
+          // Procesar Fotositio
+          let imagenes: string[] = [];
+          try {
+            const contenido = datos.Fotositio?.trim();
+
+            if (contenido?.startsWith('"[')) {
+              imagenes = JSON.parse(JSON.parse(contenido));
+            } else if (contenido?.startsWith('[')) {
+              imagenes = JSON.parse(contenido);
+            } else if (contenido?.startsWith('data:image')) {
+              imagenes = [contenido];
+            }
+          } catch (e) {
+            console.warn('Error al procesar Fotositio:', datos.Fotositio);
+          }
+
+          this.sitio = {
+            id: datos.Id_Sitio,
+            nombre: datos.Nombre,
+            descripcion: datos.Descripcion,
+            valoracion: Math.round(datos.Ponderacion * 10) / 10,
+            comentarios: datos.Comentarios || [],
+            imagenes: imagenes,
+            lat: datos.Latitud,
+            lng: datos.Longitud,
+            direccion: datos.Ubicacion,
+            horario: datos.Horario,
+            telefono: datos.Telefono,
+            transporte: datos.Transporte || {}
+          };
+        },
+        error: (err) => {
+          console.error('Error al cargar el sitio:', err);
+        }
       });
     }
   }
 
-  ngOnDestroy(): void {
+    ngOnDestroy(): void {
     clearInterval(this.intervaloCarrusel);
   }
 
@@ -67,12 +104,6 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       this.siguienteImagen();
     }, 4000);
   }
-
-  nuevoComentario = {
-    texto: '',
-    valoracion: 0
-  };
-
   seleccionarEstrellas(valor: number) {
     this.nuevoComentario.valoracion = valor;
   }
