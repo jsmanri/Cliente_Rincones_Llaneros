@@ -1,0 +1,33 @@
+<div class="tendencias-container">
+  <h2 class="titulo-tendencias">Tendencias Turísticas</h2>
+
+  <mat-card class="tarjeta-sitio" *ngFor="let sitio of getSitiosAMostrar()" matRipple>
+    <div class="contenido-card">
+      <img mat-card-image class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
+
+      <div class="contenido-sitio">
+        <h3 class="nombre-sitio">{{ sitio.nombre }}</h3>
+        
+        <!-- Descripción con opción de leer más -->
+        <p class="descripcion-sitio">
+          {{ sitio.descripcion.length > 100 ? sitio.descripcion.substring(0, 50) + '...' : sitio.descripcion }}
+          <span *ngIf="sitio.descripcion.length > 100" class="leer-mas">
+          </span>
+        </p>
+
+        <div class="valoracion">
+          <ng-container *ngFor="let estrella of getEstrellasArray(sitio.valoracion)">
+            <mat-icon [ngClass]="estrella">{{ estrella }}</mat-icon>
+          </ng-container>
+          <span class="puntos">({{ sitio.valoracion }})</span>
+        </div>
+
+        <p class="comentarios">{{ sitio.comentarios }} comentarios</p>
+
+        <div class="boton-mas">
+          <button mat-stroked-button color="primary" [routerLink]="['/homesinregistro/info-sitio', sitio.id]">Ver más...</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

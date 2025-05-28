@@ -1,0 +1,48 @@
+<mat-sidenav-container class="main-container">
+    <mat-sidenav #sidenav class="sidenav" mode="over" position="start">
+        <mat-nav-list>
+          <a mat-list-item routerLink="/homesinregistro" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">INICIO</span>
+          </a>        
+          <a mat-list-item routerLink="/homesinregistro/tendencias" (click)="sidenav.close()" >
+            <span class="mat-line" style="color: white;">TENDENCIAS</span>
+          </a>
+          <a mat-list-item (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">BUSCAR</span>
+          </a>
+          <a mat-list-item routerLink="/login" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">INICIAR SESIÓN</span>
+          </a>
+          <a mat-list-item routerLink="/register" (click)="sidenav.close()">
+            <span class="mat-line" style="color: white;">REGISTRARSE</span>
+          </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-toolbar color="primary" class="toolbar">
+        <img class="logo" routerLink="/homesinregistro" src="logo.png" alt="Logo" />
+
+        <div class="botones desktop-only">
+          <button mat-raised-button class="nav-btn" routerLink="/homesinregistro">INICIO</button>
+          <button mat-raised-button routerLink="/homesinregistro/tendencias" class="nav-btn">TENDENCIAS</button>
+          <button mat-raised-button class="nav-btn">BUSCAR</button>
+        </div>
+
+        <span class="spacer"></span>
+ 
+
+        <div class="sesion desktop-only">
+            <button mat-raised-button routerLink="/login"
+                style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">INICIAR
+                SESIÓN</button>
+            <button mat-raised-button routerLink="/register"
+                style="background-color: transparent; color: white; border: 1px solid white; margin: 15px;">REGISTRARSE</button>
+        </div>
+
+        <button mat-icon-button (click)="sidenav.toggle()" class="hamburger">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+</mat-sidenav-container>

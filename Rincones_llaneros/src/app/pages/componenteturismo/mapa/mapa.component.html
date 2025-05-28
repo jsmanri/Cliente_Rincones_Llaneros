@@ -1,0 +1,15 @@
+<div class="map-container">
+  <google-map
+    height="400px"
+    width="100%"
+    [center]="center"
+    [zoom]="zoom"
+    (mapClick)="marcarUbicacion($event)">
+    <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+  </google-map>
+
+  <!-- Botón para confirmar la ubicación -->
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="confirmarUbicacion()">Aceptar</button>
+  </div>
+</div>

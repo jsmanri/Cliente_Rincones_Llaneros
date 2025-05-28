@@ -18,7 +18,7 @@ export class VistaComponent {
   constructor(private router:Router){}
   
   goToPush() {
-    this.router.navigate(['/vista2']).then(() => {
+    this.router.navigate(['headersinregistro/vista2']).then(() => {
       window.scrollTo(0, 0);
     });
   }
@@ -186,7 +186,7 @@ export class VistaComponent {
   }
 
   goToPushEventos() {
-    this.router.navigate(['/eventosv2']).then(() => {
+    this.router.navigate(['/']).then(() => {
       window.scrollTo(0, 0);
     });
   }

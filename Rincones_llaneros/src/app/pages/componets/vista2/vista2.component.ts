@@ -16,8 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 export class Vista2Component {constructor(private router:Router){}
 
 goToPushCaballo() {
-  /*window para comenzar desde arriba del todo */
-   window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'caballo' } });
 }
 

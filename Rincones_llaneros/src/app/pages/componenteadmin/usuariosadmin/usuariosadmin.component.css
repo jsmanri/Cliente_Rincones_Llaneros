@@ -1,0 +1,119 @@
+/* Fondo general del componente */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 80px;
+  background-color: #32abbb;
+}
+
+/* Cada bloque visual (tarjeta) */
+.item {
+  flex: 1 1 calc(50% - 24px);
+  min-width: 320px;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+} 
+
+/* Tarjeta interior */
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Estilo para los títulos */
+.content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
+
+/* Contador destacado */
+.counter {
+  font-size: 54px;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(to right, #42a5f5, #478ed1);
+  padding: 14px 28px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(66, 165, 245, 0.4);
+}
+
+/* Ajuste para las gráficas */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 260px;
+}
+
+/* Selector de año */
+.year-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.year-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0d47a1;
+}
+
+/* Campo de búsqueda */
+.search-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Lista de usuarios */
+.user-list {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 220px;
+  padding-right: 8px;
+}
+
+/* Usuario individual */
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e3f2fd;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  color: #0d47a1;
+  transition: background 0.2s;
+}
+
+.user:hover {
+  background: #bbdefb;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .item {
+    flex: 1 1 100%;
+  }
+}

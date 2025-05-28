@@ -1,0 +1,37 @@
+<body>
+    <div class="header-container">
+      <div class="header-image">
+        <h1>REGISTRA TU EVENTO</h1>
+      </div>
+  
+      <!-- Formulario de Evento -->
+      <div class="form-wrapper">
+        <div class="form-container">
+          <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nombre del Evento</mat-label>
+              <input matInput formControlName="nombre" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Descripción</mat-label>
+              <textarea matInput rows="4" formControlName="descripcion" required></textarea>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Fecha y Hora de Inicio</mat-label>
+              <input matInput type="datetime-local" formControlName="inicio" required>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Fecha y Hora de Finalización</mat-label>
+              <input matInput type="datetime-local" formControlName="fin" required>
+            </mat-form-field>
+  
+            <button mat-raised-button color="primary" type="submit">Registrar Evento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  

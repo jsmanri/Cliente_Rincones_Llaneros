@@ -4,9 +4,10 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`
+  imports: [RouterOutlet], // Permite que las rutas carguen los componentes correctos
+  template: `<router-outlet></router-outlet>`, // Aquí se renderizan los componentes según la ruta
 })
 export class AppComponent {
-  title = 'Rincones_llaneros';
+  title = 'Rincones llaneros';
 }
+
