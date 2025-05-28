@@ -1,0 +1,49 @@
+<div class="profile-container">
+  <!-- Portada -->
+  <div class="cover-photo">
+    <img src="rio.jpg" alt="Cover Photo">
+  </div>
+
+  <!-- Información principal -->
+  <div class="profile-main">
+    <div class="profile-picture">
+      <img src="Widow.jpg" alt="Profile Picture">
+    </div>
+    <div class="profile-info">
+      <h1>{{ nombre }}</h1>
+      <p>Vendedora destacada | Casanare</p>
+      <p><i class="fas fa-map-marker-alt"></i> Casanare, Colombia</p>
+    </div>
+  </div>
+
+  <!-- Navegación estilo Facebook -->
+  <nav class="profile-nav">
+    <ul>
+      <li><a href="#" [class.active]="tabActivo === 'publicaciones'" (click)="cambiarTab('publicaciones')">Publicaciones</a></li>
+      <li><a href="#" [class.active]="tabActivo === 'informacion'" (click)="cambiarTab('informacion')">Información</a></li>
+      <li><a href="#" [class.active]="tabActivo === 'eventos'" (click)="cambiarTab('eventos')">Eventos</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contenido dinámico -->
+  <div class="profile-content">
+    <ng-container [ngSwitch]="tabActivo">
+      <div *ngSwitchCase="'publicaciones'">
+        <h2>Publicaciones</h2>
+        <p>Aquí aparecerán las publicaciones del vendedor.</p>
+      </div>
+      <div *ngSwitchCase="'fotos'">
+        <h2>Fotos</h2>
+        <p>Galería de fotos del vendedor.</p>
+      </div>
+      <div *ngSwitchCase="'informacion'">
+        <h2>Información</h2>
+        <p>Detalles sobre el vendedor.</p>
+      </div>
+      <div *ngSwitchCase="'eventos'">
+        <h2>Eventos</h2>
+        <p>Eventos organizados por el vendedor.</p>
+      </div>
+    </ng-container>
+  </div>
+</div>

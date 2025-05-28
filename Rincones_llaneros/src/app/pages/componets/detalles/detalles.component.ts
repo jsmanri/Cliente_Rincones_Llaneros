@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-detalles',
   imports: [
     CommonModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
   ],
   templateUrl: './detalles.component.html',
   styleUrls: ['./detalles.component.css']
@@ -27,6 +28,12 @@ export class DetallesComponent implements OnInit {
   indiceimagenactual: number =0;
 
 
+
+
+
+  
+
+
   private testimoniosActividad: { [key: string]: { mensaje: string, autor: string, imagen: string, calificacion: number }[] } = {
     caballo: [
       { mensaje: "Una experiencia inolvidable montando a caballo.", autor: "Luis Fernández", imagen: "/assets/usuarios/usuario1.jpg", calificacion: 5 },
@@ -34,7 +41,8 @@ export class DetallesComponent implements OnInit {
     ],
     restaurantes: [
       { mensaje: "La mejor carne a la llanera que he probado.", autor: "Carlos Ramírez", imagen: "/Juan.jpg", calificacion: 5 },
-      { mensaje: "Comida deliciosa y excelente atención.", autor: "Laura Mendoza", imagen: "/Widow.jpg", calificacion: 4 }
+      { mensaje: "Comida deliciosa y excelente atención.", autor: "Laura Mendoza", imagen: "/Widow.jpg", calificacion: 4 },
+      
     ],
     museos: [
       { mensaje: "Aprendí mucho sobre la historia llanera.", autor: "Mónica Díaz", imagen: "/assets/usuarios/usuario5.jpg", calificacion: 4 }
@@ -87,6 +95,7 @@ export class DetallesComponent implements OnInit {
       this.descripcionActividad = 'Recorre los llanos montando a caballo como un verdadero llanero.';
       this.horario = 'Todos los días de 7:00 am a 5:00 pm';
       this.imagenActividad = '/Casanare-3.jpg';
+       this.cargarTestimonios(actividad);
       this.recomendaciones = ['llevar ropa comoda', 'protector solar','dhdh','sjdh','dndn'];
 
       this.puntosmunicipios = {
@@ -108,6 +117,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Medellín'];
       this.horario = 'Todos los días de 11:00 am a 10:00 pm';
       this.imagenActividad = '/comida.jpg';
+       this.cargarTestimonios(actividad);
       this.recomendaciones = ['Disfruta de la comida'];
       this.puntosmunicipios = {
         Yopal: ['Restaurante El Llanero', 'Parrilla La Sabana'],
@@ -142,6 +152,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Tauramena', 'Villanueva'];
       this.horario = 'De lunes a viernes, 9:00 am a 5:00 pm';
       this.imagenActividad = '';
+       this.cargarTestimonios(actividad);
       this.puntosmunicipios = {
         Yopal: ['Museo del Hombre Llanero'],
         Tauramena: ['Casa de la Cultura Tauramena'],
@@ -159,6 +170,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Hato Corozal', 'San Luis de Palenque'];
       this.horario = 'De lunes a domingo, 8:00 am a 6:00 pm';
       this.imagenActividad = '';
+       this.cargarTestimonios(actividad);
       this.puntosmunicipios = {
         Yopal: ['Monumento al Centauro'],
         'Hato Corozal': ['Estatua del Fundador'],
@@ -176,6 +188,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Villanueva', 'Aguazul'];
       this.horario = 'De lunes a domingo, 6:00 am a 4:00 pm';
       this.imagenActividad = '';
+       this.cargarTestimonios(actividad);
       this.puntosmunicipios = {
         Yopal: ['Sendero La Aguatoca'],
         Villanueva: ['Ruta Ecológica El Morro'],
@@ -193,6 +206,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Recetor', 'Támara'];
       this.horario = 'Todos los días de 5:00 am a 5:00 pm';
       this.imagenActividad = '';
+       this.cargarTestimonios(actividad);
       this.puntosmunicipios = {
         Yopal: ['Hato La Aurora'],
         Recetor: ['Reserva Faunística El Tigre'],
@@ -209,6 +223,7 @@ export class DetallesComponent implements OnInit {
       this.descripcionActividad = 'Una experiencia única para observar animales en su hábitat natural.';
       this.horario = 'Todos los días de 5:00 am a 12:00 pm';
       this.imagenActividad = '';
+       this.cargarTestimonios(actividad);
       this.puntosmunicipios = {
         Yopal: ['Hato La Aurora'],
         Aguazul: [],
@@ -242,6 +257,7 @@ export class DetallesComponent implements OnInit {
       this.municipios = ['Yopal', 'Aguazul', 'Paz de Ariporo', 'Monterrey', 'San Luis de Palenque', 'Orocué'];
       this.horario = 'Varía según el establecimiento; se recomienda consultar directamente.';
       this.imagenActividad = '/piscinas.jpg';
+       this.cargarTestimonios(actividad);
       this.recomendaciones = [
         'Lleva protector solar y ropa cómoda.',
         'Consulta horarios de apertura y tarifas antes de visitar.',
@@ -282,9 +298,8 @@ export class DetallesComponent implements OnInit {
     }
     
     
-    if (actividad) {
-      this.testimonios = this.testimoniosActividad[actividad] || [];
-    }
+   
+
   
 
 
@@ -317,4 +332,38 @@ export class DetallesComponent implements OnInit {
       window.scrollTo(0, 0);
     });
   }
+
+  cargarTestimonios(actividad: string) {
+  this.testimonios = this.testimoniosActividad[actividad] || [];
+}
+
+usuarioActual = {
+  nombre: 'Yamithsito Salcedo', // o el que venga del sistema
+  imagen: '/yam.jpeg' // o un avatar por defecto
+};
+
+
+nuevoComentario = {
+  mensaje: '',
+  calificacion: 5
+};
+agregarComentario() {
+  if (this.nuevoComentario.mensaje.trim()) {
+    const comentario = {
+      autor: this.usuarioActual.nombre,
+      imagen: this.usuarioActual.imagen,
+      mensaje: this.nuevoComentario.mensaje,
+      calificacion: this.nuevoComentario.calificacion
+    };
+
+    this.testimonios.push(comentario);
+
+    // Limpiar solo el mensaje y calificación, no el autor
+    this.nuevoComentario = {
+      mensaje: '',
+      calificacion: 5
+    };
+  }
+}
+  
 }

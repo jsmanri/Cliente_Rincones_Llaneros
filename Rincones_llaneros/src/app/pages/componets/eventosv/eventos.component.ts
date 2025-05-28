@@ -11,6 +11,7 @@ interface Evento {
   imagen: string;
   autor: string; // vendedor
   direccion: string;
+  categoria: string;
 }
 
 interface Sitio {
@@ -21,6 +22,7 @@ interface Sitio {
   imagen: string;
   autor: string; // vendedor
   direccion: string;
+  categoria: string;
 }
 
 @Component({
@@ -33,13 +35,20 @@ interface Sitio {
   styleUrls: ['./eventos.component.css']
 })
 export class EventosComponent implements OnInit {
-  municipios: string[] = ['Yopal', 'Aguazul', 'Villanueva', 'Tauramena', 'Paz de Ariporo'];
+  municipios: string[] = ['Yopal','guazul','Maní','Villanueva','Monterrey',
+    'Tauramena','Paz de Ariporo','Pore','Trinidad','Hato Corozal',
+    'Nunchía','Támara','San Luis de Palenque','Orocué',
+    'Recetor','Sabanalarga','Chámeza','La Salina','Sácama'];
   eventos: Evento[] = [];
   eventosFiltrados: Evento[] = [];
   municipioSeleccionado: string = '';
   sitios: Sitio[] = []; // Todos los sitios
   sitiosFiltrados: Sitio[] = [];
   tipoSeleccionado: string = 'evento'; // 'evento' o 'sitio'
+  categoria:string[] = ['Cultural', 'Miradores','safari '];
+  categoriaSeleccionado: string ='';
+  textoBusqueda: string = '';
+
 
 
 
@@ -48,6 +57,7 @@ export class EventosComponent implements OnInit {
   ngOnInit() {
     this.cargarEventos();
     this.cargarSitios();
+    
   }
 
 
@@ -61,7 +71,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Aguazul',
         imagen: '/rio.jpg',
         autor: 'vendedor1',
-        direccion: 'Parque Central de Aguazul, Cra 15 #12-34'
+        direccion: 'Parque Central de Aguazul, Cra 15 #12-34',
+        categoria:'Cultural'
       },
       {
         titulo: 'Carnaval Llanero',
@@ -70,7 +81,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Yopal',
         imagen: '/R.jpg',
         autor: 'vendedor2',
-        direccion: 'Avenida 20 con calle 10, Yopal'
+        direccion: 'Avenida 20 con calle 10, Yopal',
+        categoria:'Miradores'
       },
       {
         titulo: 'Feria Agroindustrial',
@@ -79,7 +91,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Villanueva',
         imagen: '/assets/eventos/villanueva-feria.jpg',
         autor: 'vendedor3',
-        direccion: 'Coliseo Municipal de Villanueva'
+        direccion: 'Coliseo Municipal de Villanueva',
+        categoria:'Cultural'
       },
       {
         titulo: 'Encuentro Cultural Tauramenero',
@@ -88,7 +101,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Tauramena',
         imagen: '/assets/eventos/tauramena-cultura.jpg',
         autor: 'vendedor4',
-        direccion: 'Plaza de Bolívar de Tauramena'
+        direccion: 'Plaza de Bolívar de Tauramena',
+        categoria:''
       },
       {
         titulo: 'Festival del Río Ariporo',
@@ -97,7 +111,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Paz de Ariporo',
         imagen: '/assets/eventos/ariporo-rio.jpg',
         autor: 'vendedor5',
-        direccion: 'Malecón sobre el río Ariporo'
+        direccion: 'Malecón sobre el río Ariporo',
+        categoria: ''
       },
       {
         titulo: 'Semana Turística de Yopal',
@@ -106,7 +121,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Yopal',
         imagen: '/assets/eventos/yopal-turismo.jpg',
         autor: 'vendedor6',
-        direccion: 'Centro Cultural El Alcaraván, Yopal'
+        direccion: 'Centro Cultural El Alcaraván, Yopal',
+        categoria:''
       }
       // más eventos...
     ];
@@ -121,7 +137,8 @@ export class EventosComponent implements OnInit {
         municipio: 'Tauramena',
         imagen: '/assets/sitios/calaboza.jpg',
         autor: 'admin',
-        direccion: 'Vereda El Triunfo, Tauramena'
+        direccion: 'Vereda El Triunfo, Tauramena',
+        categoria:'Cultural'
       },
       {
         titulo: 'Mirador Buenavista',
@@ -130,34 +147,43 @@ export class EventosComponent implements OnInit {
         municipio: 'Yopal',
         imagen: '/assets/sitios/mirador.jpg',
         autor: 'admin',
-        direccion: 'Km 5 vía al Morro, Yopal'
+        direccion: 'Km 5 vía al Morro, Yopal',
+        categoria:'Miradores'
       }
       // más sitios...
     ];
     this.sitiosFiltrados = [...this.sitios];
   }
 
-filtrarPorMunicipio() {
+filtrar() {
+  const buscarEn = this.tipoSeleccionado === 'eventos' ? this.eventos : this.sitios;
+
+  const filtrado = buscarEn.filter(item => {
+    const municipioOk = this.municipioSeleccionado ? item.municipio === this.municipioSeleccionado : true;
+    const categoriaOk = this.categoriaSeleccionado ? item.categoria === this.categoriaSeleccionado : true;
+    const textoOk = this.textoBusqueda.trim()
+      ? item.titulo.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
+        item.descripcion.toLowerCase().includes(this.textoBusqueda.toLowerCase())
+      : true;
+
+    return municipioOk && categoriaOk && textoOk;
+  });
+
   if (this.tipoSeleccionado === 'eventos') {
-    this.eventosFiltrados = this.municipioSeleccionado
-      ? this.eventos.filter(e => e.municipio === this.municipioSeleccionado)
-      : [...this.eventos];
+    this.eventosFiltrados = filtrado as Evento[];
   } else {
-    this.sitiosFiltrados = this.municipioSeleccionado
-      ? this.sitios.filter(s => s.municipio === this.municipioSeleccionado)
-      : [...this.sitios];
+    this.sitiosFiltrados = filtrado as Sitio[];
   }
 }
+
 
 filtrarPorTipo() {
-  this.municipioSeleccionado = ''; // reinicia filtro de municipio al cambiar tipo
-
-  if (this.tipoSeleccionado === 'eventos') {
-    this.eventosFiltrados = [...this.eventos];
-  } else {
-    this.sitiosFiltrados = [...this.sitios];
-  }
+  this.municipioSeleccionado = '';
+  this.categoriaSeleccionado = '';
+  this.textoBusqueda = '';
+  this.filtrar();
 }
+
 
 
 

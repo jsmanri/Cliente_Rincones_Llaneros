@@ -1,0 +1,60 @@
+<header class="main-header">
+  <h2 class="logo">Descubre tu sitio de interes</h2>
+</header>
+
+<div class="filtro-container">
+  <!-- Barra de búsqueda -->
+  <div class="filtro-item">
+    <input type="text" [(ngModel)]="textoBusqueda" (input)="filtrar()" placeholder="Buscar actividades..." class="filtro-busqueda" />
+  </div>
+
+  <!-- Select tipo -->
+  <div class="filtro-item">
+    <label for="tipoSelect" class="filtro-label">¿Qué deseas ver?</label>
+    <select id="tipoSelect" [(ngModel)]="tipoSeleccionado" (ngModelChange)="filtrarPorTipo()" class="filtro-select">
+      <option value="eventos">Eventos</option>
+      <option value="sitios">Sitios</option>
+    </select>
+  </div>
+
+  <!-- Select municipio -->
+  <div class="filtro-item">
+    <label for="municipioSelect" class="filtro-label">Municipio:</label>
+    <select id="municipioSelect" [(ngModel)]="municipioSeleccionado" (ngModelChange)="filtrar()" class="filtro-select">
+      <option value="">Todos</option>
+      <option *ngFor="let m of municipios" [value]="m">{{ m }}</option>
+    </select>
+  </div>
+
+  <!-- Select categoría -->
+  <div class="filtro-item">
+    <label for="categoriaSelect" class="filtro-label">Categoría:</label>
+    <select id="categoriaSelect" [(ngModel)]="categoriaSeleccionado" (ngModelChange)="filtrar()" class="filtro-select">
+      <option value="">Todas</option>
+      <option *ngFor="let cat of categoria" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+</div>
+
+
+
+<!-- Tarjetas -->
+<div class="tarjetas-container">
+  <div *ngFor="let item of tipoSeleccionado === 'eventos' ? eventosFiltrados : sitiosFiltrados" class="tarjeta-evento">
+    <img [src]="item.imagen" alt="Imagen" class="imagen-evento" />
+    <div class="contenido-evento">
+      <h3 class="titulo-evento">{{ item.titulo }}</h3>
+      <p><strong>Descripción:</strong> {{ item.descripcion }}</p>
+      <p><strong>Municipio:</strong> {{ item.municipio }}</p>
+      <p *ngIf="item.categoria"><strong>Categoría:</strong> {{ item.categoria }}</p>
+      <p *ngIf="item.fecha"><strong>Fecha:</strong> {{ item.fecha }}</p>
+      <p><strong>Dirección:</strong> {{ item.direccion }}</p>
+
+    </div>
+  </div>
+</div>
+
+
+<footer class="main-footer">
+  <p>&copy; 2025 Casanare Turístico. Todos los derechos reservados.</p>
+</footer>

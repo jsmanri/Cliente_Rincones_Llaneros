@@ -186,7 +186,7 @@ export class VistaComponent {
   }
 
   goToPushEventos() {
-    this.router.navigate(['/eventos']).then(() => {
+    this.router.navigate(['/eventosv2']).then(() => {
       window.scrollTo(0, 0);
     });
   }
