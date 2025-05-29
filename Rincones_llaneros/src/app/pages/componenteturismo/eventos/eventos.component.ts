@@ -40,6 +40,9 @@ export class EventosComponent implements OnInit {
   userId: number = 18; // Cambia esto según tu lógica de usuario
   imagenesPreview: string[] = [];
   imagenesBase64: string[] = [];
+  mensajeVisible: boolean = false;
+  mensajeTexto: string = '';
+  mensajeExito: boolean = true; // para cambiar estilos si es error o éxito
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.eventoForm = this.fb.group({
@@ -47,8 +50,8 @@ export class EventosComponent implements OnInit {
       descripcion: ['', Validators.required],
       inicio: ['', Validators.required],
       fin: ['', Validators.required],
-      sitio: ['', Validators.required], // Aquí se guarda el ID del sitio seleccionado
-      imagenes: [null],
+      sitio: ['', Validators.required],
+      imagenes: [null, Validators.required],
     });
   }
 
@@ -60,14 +63,12 @@ export class EventosComponent implements OnInit {
     const url = `${API_URLS.CRUD.Api_crudRegistrarSitio}?query=IdUsuario.Id:${this.userId}&limit=0`;
     this.apiService.get<any>(url).subscribe({
       next: (data) => {
-        console.log(data);
         this.sitios = (data['sitios consultados'] ?? []).map((sitio: any) => ({
           Id: sitio.Id,
           NombreSitioTuristico: sitio.NombreSitioTuristico,
         }));
       },
-      error: (error) => {
-        console.error('Error al traer sitios turísticos', error);
+      error: () => {
         this.sitios = [];
       },
     });
@@ -81,7 +82,7 @@ export class EventosComponent implements OnInit {
       const disponibles = maxImagenes - this.imagenesPreview.length;
 
       if (disponibles <= 0) {
-        return; // Ya tienes 3 imágenes, no se permite más
+        return;
       }
 
       const filesToProcess: File[] = Array.from(files as FileList).slice(
@@ -92,7 +93,7 @@ export class EventosComponent implements OnInit {
       const base64Array: string[] = [];
       let filesProcessed = 0;
 
-      filesToProcess.forEach((file, index) => {
+      filesToProcess.forEach((file) => {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
@@ -102,7 +103,6 @@ export class EventosComponent implements OnInit {
           filesProcessed++;
 
           if (filesProcessed === filesToProcess.length) {
-            // Agrega y limita a máximo 3
             this.imagenesPreview = [
               ...this.imagenesPreview,
               ...newPreviews,
@@ -112,7 +112,6 @@ export class EventosComponent implements OnInit {
               ...base64Array,
             ].slice(0, 3);
 
-            // Construye el nuevo FileList limitado a 3
             const dataTransfer = new DataTransfer();
             for (let i = 0; i < filesToProcess.length && i < maxImagenes; i++) {
               dataTransfer.items.add(filesToProcess[i]);
@@ -157,40 +156,44 @@ export class EventosComponent implements OnInit {
       const datos = this.eventoForm.value;
 
       const payload = {
-        IdUsuario: {
-          Id: this.userId,
-        },
-        IdSitioTuristico: {
-          Id: datos.sitio,
-        },
+        IdUsuario: { Id: this.userId },
+        IdSitioTuristico: { Id: datos.sitio },
         NombreEvento: datos.nombre,
         DescripcionEvento: datos.descripcion,
         FechaHoraInicioEvento: new Date(datos.inicio).toISOString(),
         FechaHoraFinalizacionEvento: new Date(datos.fin).toISOString(),
         FotosEvento: JSON.stringify(
-          this.imagenesBase64.map((img) => ({
-            imagen_base64: img,
-          }))
+          this.imagenesBase64.map((img) => ({ imagen_base64: img }))
         ),
       };
 
       const url = API_URLS.CRUD.Api_crudEventos;
 
       this.apiService.post<any>(url, payload).subscribe({
-        next: (response) => {
-          console.log('Evento creado exitosamente:', response);
-          // Aquí puedes resetear el formulario o mostrar mensaje de éxito
+        next: () => {
           this.eventoForm.reset();
+          Object.keys(this.eventoForm.controls).forEach((key) => {
+            const control = this.eventoForm.get(key);
+            control?.setErrors(null);
+            control?.markAsPristine();
+            control?.markAsUntouched();
+          });
           this.imagenesPreview = [];
           this.imagenesBase64 = [];
+          this.mensajeTexto = '✅ Evento registrado exitosamente';
+          this.mensajeExito = true;
+          this.mensajeVisible = true;
+          setTimeout(() => (this.mensajeVisible = false), 3000);
         },
-        error: (error) => {
-          console.error('Error al crear el evento:', error);
-          // Puedes mostrar una alerta o mensaje visual aquí
+        error: () => {
+          this.mensajeTexto =
+            '❌ No se pudo registrar el evento. Inténtalo de nuevo';
+          this.mensajeExito = false;
+          this.mensajeVisible = true;
+          setTimeout(() => (this.mensajeVisible = false), 3000);
         },
       });
     } else {
-      console.log('Formulario inválido');
       this.eventoForm.markAllAsTouched();
     }
   }

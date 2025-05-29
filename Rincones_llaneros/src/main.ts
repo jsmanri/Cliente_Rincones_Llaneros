@@ -10,7 +10,6 @@ import { EventosComponent } from './app/pages/componenteturismo/eventos/eventos.
 import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 
 
@@ -25,7 +24,6 @@ bootstrapApplication(AppComponent,{
             { path: 'registrositio', component: RegistroComponent},
             { path: 'registroeven', component: EventosComponent},
             { path: 'usuadmin', component: UsuariosadminComponent},
-            { path: 'sitiosadmin',component: SitiosadminComponent},
             { path: 'adminmapa', component: MapaComponent}
           ]),
         provideAnimations(),
