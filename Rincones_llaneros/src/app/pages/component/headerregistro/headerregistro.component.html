@@ -14,23 +14,16 @@
   <!-- SIDENAV PRINCIPAL (RESPONSIVE MOBILE) -->
   <mat-sidenav #sidenav class="sidenav" mode="over" position="start">
     
-    <!-- BARRA DE BÚSQUEDA SOLO EN MÓVIL -->
-    <div class="search-container mobile-search">
-      <input type="text" class="search-bar" placeholder="Buscar..." />
-    </div>
 
     <mat-nav-list>
       <a mat-list-item routerLink="/home" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">INICIO</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()">
-        <span class="mat-line" style="color: white;">MAPA</span>
-      </a>
-      <a mat-list-item (click)="sidenav.close()">
-        <span class="mat-line" style="color: white;">MUNICIPIOS</span>
-      </a>
       <a mat-list-item routerLink="/home/tendencias" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">TENDENCIAS</span>
+      </a>
+      <a mat-list-item (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">BUSCAR</span>
       </a>
       <a mat-list-item (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">CONFIGURACION</span>
@@ -47,18 +40,12 @@
 
     <div class="botones desktop-only">
       <button mat-raised-button class="nav-btn" routerLink="/home">INICIO</button>
-      <button mat-raised-button class="nav-btn">MAPA</button>
-      <button mat-raised-button class="nav-btn">MUNICIPIOS</button>
+      <button mat-raised-button class="nav-btn">BUSCAR</button>
       <button mat-raised-button routerLink="/home/tendencias" class="nav-btn">TENDENCIAS</button>
     </div>
 
     <span class="spacer"></span>
 
-    <!-- BARRA DE BÚSQUEDA DESKTOP -->
-    <div class="search-container desktop-only">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input type="text" class="search-bar" placeholder="Buscar..." />
-    </div>
 
     <button mat-icon-button (click)="perfilSidenav.toggle()" class="perfil-btn desktop-only">
       <mat-icon class="perfil-icono">account_circle</mat-icon>

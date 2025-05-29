@@ -72,6 +72,7 @@ export class InfoSitioComponent implements OnInit {
           } catch (e) {
             console.warn('Error al procesar Fotositio:', datos.Fotositio);
           }
+          
 
           this.sitio = {
             id: datos.Id_Sitio,
@@ -93,6 +94,7 @@ export class InfoSitioComponent implements OnInit {
         }
       });
     }
+    this.iniciarCarruselAutomatico();
   }
 
     ngOnDestroy(): void {
@@ -102,27 +104,50 @@ export class InfoSitioComponent implements OnInit {
   iniciarCarruselAutomatico(): void {
     this.intervaloCarrusel = setInterval(() => {
       this.siguienteImagen();
-    }, 4000);
+    }, 3500);
   }
   seleccionarEstrellas(valor: number) {
     this.nuevoComentario.valoracion = valor;
   }
 
-  enviarComentario() {
-    if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
-      alert('Por favor, escribe un comentario y selecciona una puntuación.');
-      return;
-    }
-
-    const nuevo = {
-      autor: 'Usuario',
-      texto: this.nuevoComentario.texto,
-      valoracion: this.nuevoComentario.valoracion
-    };
-
-    this.sitio.comentarios.push(nuevo);
-    this.nuevoComentario = { texto: '', valoracion: 0 };
+enviarComentario() {
+  if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
+    alert('Por favor, escribe un comentario y selecciona una puntuación.');
+    return;
   }
+
+  const comentario = {
+    IdSitio: this.sitio.id,
+    Autor: { Id: 4 }, // Puedes cambiar esto por el nombre real si hay autenticación
+    Texto: this.nuevoComentario.texto,
+    Calificacion: this.nuevoComentario.valoracion
+  };
+
+  this.apiService.post<any>('http://localhost:8080/v1/Comentarios', comentario).subscribe({
+    next: (response) => {
+      // Opcional: puedes validar si se agregó correctamente y actualizar la lista de comentarios
+      const nuevo = {
+        autor: comentario.Autor,
+        texto: comentario.Texto,
+        calificacion: comentario.Calificacion
+      };
+
+      this.sitio.comentarios.push(nuevo);
+
+      // También podrías actualizar la valoración promedio si el backend la retorna actualizada
+      if (response?.nuevaPonderacion) {
+        this.sitio.valoracion = Math.round(response.nuevaPonderacion * 10) / 10;
+      }
+
+      this.nuevoComentario = { texto: '', valoracion: 0 };
+      alert('Comentario enviado con éxito');
+    },
+    error: (err) => {
+      console.error('Error al enviar el comentario:', err);
+      alert('Ocurrió un error al enviar el comentario');
+    }
+  });
+}
 
   anteriorImagen() {
     if (this.sitio?.imagenes?.length > 0) {
@@ -168,7 +193,6 @@ export class InfoSitioComponent implements OnInit {
 
   cerrarModal() {
     this.modalVisible = false;
-    this.iniciarCarruselAutomatico();
   }
 
   abrirModalTransporte() {

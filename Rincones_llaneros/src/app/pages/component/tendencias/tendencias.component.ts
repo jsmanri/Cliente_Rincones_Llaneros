@@ -13,6 +13,7 @@ import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { API_URLS } from '../../../../config/api-config';
 
 export interface Sitio {
   Id_Sitio: number;
@@ -58,7 +59,7 @@ export class TendenciasComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
+    this.apiService.get<TendenciasResponse>(API_URLS.Mid.Api_midtendencias).subscribe({
       next: (response) => {
         this.sitios = response.resultado.map(sitio => {
           let imagen = 'default.png'; // Imagen por defecto

@@ -41,7 +41,7 @@
         <p><mat-icon>navigation</mat-icon> LAT: {{ sitio?.lat }}, LNG: {{ sitio?.lng }}</p>
         <p><mat-icon>location_on</mat-icon>{{ sitio?.direccion }}</p>
         <p>
-          <mat-icon>directions_car</mat-icon> {{ sitio?.transporte?.recomendacion }}
+          <mat-icon>directions_car</mat-icon> Recomendaciones de transporte {{ sitio?.transporte?.recomendacion }}
           <button mat-button (click)="abrirModalTransporte()">Ver más</button>
         </p>
       </div>

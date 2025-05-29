@@ -47,7 +47,7 @@ export class RegistroComponent implements OnInit {
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
       horario: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       categoria: [null, Validators.required], // ← se guarda el ID directamente
       municipio: [null, Validators.required], // ← se guarda el ID directamente
       imagenes: [null],

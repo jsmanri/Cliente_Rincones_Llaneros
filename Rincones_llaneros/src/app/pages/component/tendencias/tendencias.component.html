@@ -5,7 +5,7 @@
     <div class="contenido-card">
       <img mat-card-image class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
 
-      <div class="contenido-sitio">
+      <div [routerLink]="['/homesinregistro/info-sitio', sitio.id]" class="contenido-sitio">
         <h3 class="nombre-sitio">{{ sitio.nombre }}</h3>
         
         <!-- Descripción con opción de leer más -->
