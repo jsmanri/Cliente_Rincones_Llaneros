@@ -13,7 +13,6 @@ import { ClienteComponent } from './pages/component/perfil/cliente/cliente.compo
 import { VendedorComponent } from './pages/component/perfil/vendedor/vendedor.component';
 import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
-import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { DetallesComponent } from './pages/componets/detalles/detalles.component';
 import { InfoSitioComponent } from './pages/component/info-sitio/info-sitio.component';
 
@@ -33,12 +32,6 @@ export const routes: Routes = [
     { path: 'cliente', component: ClienteComponent},
     { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
-    { path: 'sitiosadmin', component: SitiosadminComponent},
     { path: 'detalles', component:DetallesComponent},
     { path: 'info-sitio/:id', component: InfoSitioComponent },
 ];
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}

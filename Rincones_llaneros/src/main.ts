@@ -17,7 +17,6 @@ import { VendedorComponent } from './app/pages/component/perfil/vendedor/vendedo
 import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 import { DetallesComponent } from './app/pages/componets/detalles/detalles.component';
 import { InfoSitioComponent } from './app/pages/component/info-sitio/info-sitio.component';
@@ -26,7 +25,7 @@ import { InfoSitioComponent } from './app/pages/component/info-sitio/info-sitio.
 bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([
-            { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
             { path: 'homesinregistro', component: HeadersinregistroComponent,
               children: [
                 { 
@@ -68,11 +67,18 @@ bootstrapApplication(AppComponent,{
              { path: 'recuperacion', component: RecuperacionComponent},
              { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
-             { path: 'sitiosadmin',component: SitiosadminComponent},
              { path: 'adminmapa', component: MapaComponent},
              { path: 'vista', component: VistaComponent },
              { path: 'detalles', component: DetallesComponent },
              { path: 'eventos', component: EventosComponent},
+             { path: 'login', component: LoginComponent },
+             { path: 'register', component: RegisterComponent },
+             { path: 'politica', component: PoliticaComponent },
+             { path: 'recuperacion', component: RecuperacionComponent},
+             { path: 'registrositio', component: RegistroComponent},
+             { path: 'registroeven', component: EventosComponent},
+             { path: 'usuadmin', component: UsuariosadminComponent},
+             { path: 'adminmapa', component: MapaComponent}
           ]),
         provideAnimations(),
         provideHttpClient()
