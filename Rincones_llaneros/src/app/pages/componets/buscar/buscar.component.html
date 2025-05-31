@@ -1,0 +1,75 @@
+<header class="main-header">
+  <h2 class="logo">Descubre tu sitio de interés</h2>
+</header>
+
+<div class="filtro-container">
+  <!-- Barra de búsqueda -->
+  <div class="filtro-item">
+    <input type="text" [(ngModel)]="textoBusqueda" (input)="filtrar()" placeholder="Buscar" class="filtro-busqueda" />
+  </div>
+
+  <!-- Select municipio -->
+  <div class="filtro-item">
+    <label for="municipioSelect" class="filtro-label">Municipio:</label>
+    <select [(ngModel)]="municipioSeleccionado" (ngModelChange)="filtrar()" class="filtro-select">
+      <option value="">Todos</option>
+      <option *ngFor="let m of municipios" [value]="m">{{ m }}</option>
+    </select>
+  </div>
+
+  <!-- Select categoría -->
+  <div class="filtro-item" *ngIf="!mostrarEventos">
+    <label for="categoriaSelect" class="filtro-label">Categoría:</label>
+    <select id="categoriaSelect" [(ngModel)]="categoriaSeleccionada" (ngModelChange)="filtrar()" class="filtro-select">
+      <option value="">Todas</option>
+      <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+
+  <!-- Botón para limpiar filtros -->
+  <div class="filtro-item">
+    <button (click)="limpiarFiltros()">Limpiar Filtros</button>
+  </div>
+</div>
+
+<!-- Botones para cambiar vista -->
+<div class="filtro">
+  <button (click)="cambiarFiltro(false)" [class.active]="!mostrarEventos">Ver Sitios</button>
+  <button (click)="cambiarFiltro(true)" [class.active]="mostrarEventos">Ver Eventos</button>
+</div>
+
+<!-- Tarjetas de sitios turísticos -->
+<div *ngIf="!mostrarEventos" class="tarjetas-container">
+  <div *ngFor="let sitio of sitiosFiltrados" class="tarjeta-sitio">
+    <h3>{{ sitio.titulo }}</h3>
+    <img [src]="sitio.imagen || 'assets/default.png'" [alt]="sitio.titulo" class="imagen-sitio" />
+    <p><strong>Municipio:</strong> {{ sitio.municipio }}</p>
+    <p><strong>Categoría:</strong> {{ sitio.categoria }}</p>
+    <p><strong>Dirección:</strong> {{ sitio.direccion }}</p>
+    <p><strong>Horario:</strong> {{ sitio.horario }}</p>
+    <p><strong>Autor:</strong> {{ sitio.autor }}</p>
+  </div>
+</div>
+
+<!-- Tarjetas de eventos con estructura corregida -->
+<div *ngIf="mostrarEventos" class="tarjetas-container">
+  <ng-container *ngIf="eventosFiltrados.length > 0; else noEventos">
+    <div *ngFor="let evento of eventosFiltrados" class="tarjeta-evento">
+      <div class="contenido-evento">
+        <h3>{{ evento.titulo }}</h3>
+        <img [src]="evento.imagen || 'assets/default.png'" [alt]="evento.titulo" class="imagen-evento" />
+        <p><strong>Sitio:</strong> {{ evento.sitio }}</p>
+        <p><strong>Fecha Inicio:</strong> {{ evento.fechaInicio | date:'short' }}</p>
+        <p><strong>Fecha Fin:</strong> {{ evento.fechaFin | date:'short' }}</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noEventos>
+  <p>No se encontraron eventos para los filtros seleccionados.</p>
+</ng-template>
+
+<footer class="main-footer">
+  <p>&copy; 2025 Casanare Turístico. Todos los derechos reservados.</p>
+</footer>

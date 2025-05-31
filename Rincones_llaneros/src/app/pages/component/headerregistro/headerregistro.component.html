@@ -14,11 +14,6 @@
   <!-- SIDENAV PRINCIPAL (RESPONSIVE MOBILE) -->
   <mat-sidenav #sidenav class="sidenav" mode="over" position="start">
     
-    <!-- BARRA DE BÚSQUEDA SOLO EN MÓVIL -->
-    <div class="search-container mobile-search">
-      <input type="text" class="search-bar" placeholder="Buscar..." />
-    </div>
-
     <mat-nav-list>
       <a mat-list-item routerLink="/home" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">INICIO</span>
@@ -32,7 +27,7 @@
       <a mat-list-item routerLink="/home/tendencias" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">TENDENCIAS</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()">
+      <a mat-list-item routerLink="/home/vendedor" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">CONFIGURACION</span>
       </a>
       <a mat-list-item (click)="sidenav.close()">
@@ -54,11 +49,7 @@
 
     <span class="spacer"></span>
 
-    <!-- BARRA DE BÚSQUEDA DESKTOP -->
-    <div class="search-container desktop-only">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input type="text" class="search-bar" placeholder="Buscar..." />
-    </div>
+    <!-- BARRA DE BÚSQUEDA DESKTOP --> 
 
     <button mat-icon-button (click)="perfilSidenav.toggle()" class="perfil-btn desktop-only">
       <mat-icon class="perfil-icono">account_circle</mat-icon>

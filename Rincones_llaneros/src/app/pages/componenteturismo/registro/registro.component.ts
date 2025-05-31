@@ -165,7 +165,7 @@ export class RegistroComponent implements OnInit {
         FotoSitio: JSON.stringify(this.imagenesBase64),
         IdCategoria: { Id: this.sitioForm.value.categoria },
         IdMunicipio: { Id: this.sitioForm.value.municipio },
-        IdUsuario: { Id: 4 } // puedes ajustar el ID del usuario según tu lógica
+        IdUsuario: { Id: 1 } // puedes ajustar el ID del usuario según tu lógica
       };
 
       console.log('Datos del sitio (para enviar al backend):', datosSitio);
