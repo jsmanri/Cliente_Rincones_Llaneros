@@ -1,49 +1,195 @@
-<div class="profile-container">
-  <!-- Portada -->
-  <div class="cover-photo">
-    <img src="rio.jpg" alt="Cover Photo">
+<ng-template #cargando>
+  <p>Cargando perfil del vendedor...</p>
+</ng-template>
+
+<div class="perfil-container" *ngIf="vendedor; else cargando">
+  <!-- ENCABEZADO DEL VENDEDOR -->
+  <div class="perfil-header">
+    <div class="foto-perfil">
+      <img [src]="vendedor.FotoPerfil?.url || 'assets/default-profile.jpg'" alt="Foto de perfil" />
+    </div>
+    <div class="info-basica">
+      <h1>{{ vendedor.Nombre }}</h1>
+      <p><strong>Email:</strong> {{ vendedor.Correo }}</p>
+      <p><strong>Teléfono:</strong> {{ vendedor.NumeroTelefono }}</p>
+    </div>
   </div>
 
-  <!-- Información principal -->
-  <div class="profile-main">
-    <div class="profile-picture">
-      <img src="Widow.jpg" alt="Profile Picture">
-    </div>
-    <div class="profile-info">
-      <h1>{{ nombre }}</h1>
-      <p>Vendedora destacada | Casanare</p>
-      <p><i class="fas fa-map-marker-alt"></i> Casanare, Colombia</p>
+  <!-- TABS -->
+  <div class="tabs">
+    <button [class.activo]="tabActivo === 'publicaciones'" (click)="cambiarTab('publicaciones')">Sitios</button>
+    <button [class.activo]="tabActivo === 'eventos'" (click)="cambiarTab('eventos')">Eventos</button>
+    <button [class.activo]="tabActivo === 'info'" (click)="cambiarTab('info')">Información</button>
+    
+
+  </div>
+
+  <!-- TAB DE PUBLICACIONES -->
+  <div *ngIf="tabActivo === 'publicaciones'">
+    <h2>Publicaciones</h2>
+<div class="publicacion-card" *ngFor="let sitio of publicaciones">
+  <div class="menu-opciones">
+    <button class="btn-menu" (click)="sitio.menuAbierto = !sitio.menuAbierto">
+      &#8942;
+    </button>
+    <div class="menu-desplegable" *ngIf="sitio.menuAbierto">
+      <button class="opcion-editar" (click)="sitio.editando = true; sitio.menuAbierto = false">Editar</button>
+      <button class="opcion-eliminar" (click)="eliminarPublicacion(sitio)">Eliminar</button>
     </div>
   </div>
 
-  <!-- Navegación estilo Facebook -->
-  <nav class="profile-nav">
-    <ul>
-      <li><a href="#" [class.active]="tabActivo === 'publicaciones'" (click)="cambiarTab('publicaciones')">Publicaciones</a></li>
-      <li><a href="#" [class.active]="tabActivo === 'informacion'" (click)="cambiarTab('informacion')">Información</a></li>
-      <li><a href="#" [class.active]="tabActivo === 'eventos'" (click)="cambiarTab('eventos')">Eventos</a></li>
-    </ul>
-  </nav>
+      <!-- MODO EDICIÓN -->
+      <div *ngIf="sitio.editando; else vistaNormal" class="editar-publicacion-container">
+        <h3>Editar publicación</h3>
 
-  <!-- Contenido dinámico -->
-  <div class="profile-content">
-    <ng-container [ngSwitch]="tabActivo">
-      <div *ngSwitchCase="'publicaciones'">
-        <h2>Publicaciones</h2>
-        <p>Aquí aparecerán las publicaciones del vendedor.</p>
+        <label>Nombre:</label>
+        <input [(ngModel)]="sitio.NombreSitioTuristico" placeholder="Nombre del sitio" />
+
+        <label>Descripción:</label>
+        <textarea [(ngModel)]="sitio.DescripcionSitioTuristico" placeholder="Descripción detallada"></textarea>
+
+        <label>Ubicación:</label>
+        <input [(ngModel)]="sitio.Ubicacion" placeholder="Ubicación del sitio" />
+
+        <label>Horario:</label>
+        <input [(ngModel)]="sitio.Horario" placeholder="Horario de atención" />
+
+        <label>Imagen:</label>
+        <input type="file" (change)="procesarImagen($event, sitio)" />
+
+        <div *ngIf="sitio.Fotos && sitio.Fotos.length" class="preview-imagen-edicion">
+          <img [src]="sitio.Fotos[0]" alt="Foto del sitio" />
+        </div>
+
+        <div class="botones-edicion">
+          <button class="btn-guardar" (click)="guardarCambios(sitio)">💾 Guardar</button>
+          <button class="btn-cancelar" (click)="sitio.editando = false">❌ Cancelar</button>
+        </div>
       </div>
-      <div *ngSwitchCase="'fotos'">
-        <h2>Fotos</h2>
-        <p>Galería de fotos del vendedor.</p>
+
+      <!-- MODO VISTA -->
+      <ng-template #vistaNormal>
+        <div class="contenido-principal">
+          <h3>{{ sitio.NombreSitioTuristico }}</h3>
+
+          <div class="imagen-grande">
+            <img [src]="sitio.Fotos[0]" alt="Foto del sitio" />
+          </div>
+
+          <p>{{ sitio.DescripcionSitioTuristico }}</p>
+        </div>
+
+        <button (click)="sitio.mostrarDetalles = !sitio.mostrarDetalles" class="btn-mas">
+          {{ sitio.mostrarDetalles ? 'Ocultar información' : 'Más información' }}
+        </button>
+
+        <div *ngIf="sitio.mostrarDetalles" class="detalles-adicionales">
+          <p><strong>Ubicación:</strong> {{ sitio.Ubicacion }}</p>
+          <p><strong>Horario:</strong> {{ sitio.Horario }}</p>
+          <p><strong>Municipio:</strong> {{ sitio.IdMunicipio?.NombreMunicipio }}</p>
+          <p><strong>Categoría:</strong> {{ sitio.IdCategoria?.Nombre }}</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- TAB DE INFORMACIÓN -->
+<div *ngIf="tabActivo === 'info'">
+  <h2>Información adicional</h2>
+
+  <!-- Modo Edición -->
+  <div *ngIf="editandoVendedor; else vistaVendedor">
+    <label>Nombre:</label>
+    <input [(ngModel)]="vendedor.Nombre" type="text" />
+
+    <label>Email:</label>
+    <input [(ngModel)]="vendedor.Correo" type="email" />
+
+    <label>Teléfono:</label>
+    <input [(ngModel)]="vendedor.NumeroTelefono" type="text" />
+
+    <div class="botones-edicion">
+      <button class="btn-guardar" (click)="guardarInfoVendedor()">💾 Guardar</button>
+      <button class="btn-cancelar" (click)="editandoVendedor = false">❌ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modo Vista -->
+  <ng-template #vistaVendedor>
+    <p><strong>Nombre:</strong> {{ vendedor.Nombre }}</p>
+    <p><strong>Email:</strong> {{ vendedor.Correo }}</p>
+    <p><strong>Teléfono:</strong> {{ vendedor.NumeroTelefono }}</p>
+    <p><strong>Cédula:</strong> {{ vendedor.Cedula }}</p>
+    <p><strong>Fecha creación:</strong> {{ vendedor.FechaCreacion | date:'medium' }}</p>
+    <p><strong>Activo:</strong> {{ vendedor.Activo ? 'Sí' : 'No' }}</p>
+
+    <button class="btn-editar" (click)="editandoVendedor = true">✏️ Editar información</button>
+  </ng-template>
+</div>
+
+<!-- TAB DE EVENTOS -->
+<div *ngIf="tabActivo === 'eventos'">
+  <h2>Eventos publicados</h2>
+  <div class="publicacion-card" *ngFor="let evento of eventos">
+
+    <!-- MENÚ DE TRES PUNTOS -->
+    <div class="menu-opciones">
+      <button class="btn-menu" (click)="evento.menuAbierto = !evento.menuAbierto">
+        &#8942;
+      </button>
+      <div class="menu-desplegable" *ngIf="evento.menuAbierto">
+        <button class="opcion-editar" (click)="evento.editando = true; evento.menuAbierto = false">Editar</button>
+        <button class="opcion-eliminar" (click)="eliminarEvento(evento)">Eliminar</button>
       </div>
-      <div *ngSwitchCase="'informacion'">
-        <h2>Información</h2>
-        <p>Detalles sobre el vendedor.</p>
+    </div>
+
+    <div *ngIf="evento.editando; else vistaEvento" class="editar-publicacion-container">
+      <h3>Editar evento</h3>
+
+      <label>Nombre:</label>
+      <input [(ngModel)]="evento.NombreEvento" placeholder="Nombre del evento" />
+
+      <label>Descripción:</label>
+      <textarea [(ngModel)]="evento.DescripcionEvento" placeholder="Descripción del evento"></textarea>
+
+      <label>Fecha:</label>
+      <input type="date" [(ngModel)]="evento.FechaEvento" />
+
+      <label>Ubicación:</label>
+      <input [(ngModel)]="evento.Ubicacion" placeholder="Ubicación" />
+
+      <label>Imagen:</label>
+      <input type="file" (change)="procesarImagenEvento($event, evento)" />
+      <div *ngIf="evento.Fotos?.length" class="preview-imagen-edicion">
+        <img [src]="evento.Fotos[0]" alt="Imagen del evento" />
       </div>
-      <div *ngSwitchCase="'eventos'">
-        <h2>Eventos</h2>
-        <p>Eventos organizados por el vendedor.</p>
+
+      <div class="botones-edicion">
+        <button class="btn-guardar" (click)="guardarCambiosEvento(evento)">💾 Guardar</button>
+        <button class="btn-cancelar" (click)="evento.editando = false">❌ Cancelar</button>
       </div>
-    </ng-container>
+    </div>
+
+    <ng-template #vistaEvento>
+      <h3>{{ evento.NombreEvento }}</h3>
+      <div class="imagen-grande">
+        <img [src]="evento.Fotos[0]" alt="Imagen del evento" />
+      </div>
+      <p>{{ evento.DescripcionEvento }}</p>
+      <p><strong>Fecha:</strong> {{ evento.FechaEvento | date:'longDate' }}</p>
+      <p><strong>Ubicación:</strong> {{ evento.Ubicacion }}</p>
+    </ng-template>
+  </div>
+</div>
+
+
+
+
+  <!-- TAB DE INFORMACIÓN -->
+  <div *ngIf="tabActivo === 'info'">
+    <h2>Información adicional</h2>
+    <p><strong>Cédula:</strong> {{ vendedor.Cedula }}</p>
+    <p><strong>Fecha creación:</strong> {{ vendedor.FechaCreacion | date:'medium' }}</p>
+    <p><strong>Activo:</strong> {{ vendedor.Activo ? 'Sí' : 'No' }}</p>
   </div>
 </div>
