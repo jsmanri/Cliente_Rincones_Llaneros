@@ -3,13 +3,19 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card'
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-vista',
   imports: [
     CommonModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbar,
+    MatToolbarModule,
+    MatIconModule
   ],
   templateUrl: './vista.component.html',
   styleUrl: './vista.component.css'

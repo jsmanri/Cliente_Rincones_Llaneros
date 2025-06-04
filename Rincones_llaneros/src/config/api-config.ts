@@ -5,6 +5,7 @@ export const API_URLS ={
         Api_midCreacionUsuario: 'http://localhost:8086/v1/creacionusu',
         Api_Newpassword:'http://localhost:8086/v1/newpassword',
         Api_Sesion:'http://localhost:8086/v1/Sesion',
+        Api_Infositio: 'http://localhost:8086/v1/Sitios_turisticos/'
     },
     CRUD:{
         Api_crudRegistrarSitio: 'http://localhost:8080/v1/Sitios_Turisticos',

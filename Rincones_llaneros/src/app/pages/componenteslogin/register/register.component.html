@@ -50,7 +50,7 @@
                     <div class="form-column">
                         <mat-form-field appearance="outline" class="role-selector">
                             <mat-label>Rol</mat-label>
-                            <mat-select formControlName="Rol" required>
+                            <mat-select formControlName="role" required>
                                 <mat-option *ngFor="let rol of roles" [value]="rol.Id">
                                     {{ rol.Nombre }}
                                 </mat-option>
@@ -58,7 +58,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Nombre y Apellido</mat-label>
-                            <input matInput formControlName="Nombre" required>
+                            <input matInput formControlName="fullName" required>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Correo</mat-label>

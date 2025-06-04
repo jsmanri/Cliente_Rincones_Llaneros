@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../../../../services/api.service';
@@ -50,8 +50,8 @@ export class RegisterComponent {
     private apiService: ApiService
   ) {
     this.registerForm = this.fb.group({
-      Rol: ['', Validators.required],
-      Nombre: ['', [Validators.required, Validators.minLength(4)]],
+      role: ['', Validators.required],
+      fullName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       cedula: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -72,8 +72,8 @@ export class RegisterComponent {
       next: (response) => {
         if (response.status === 200 && response.success) {
           this.roles = response['roles consultados']
-            .filter((Rol: any) => Rol.Activo)
-            .map((Rol: any) => ({ Id: Rol.Id, Nombre: Rol.Nombre }));
+            .filter((role: any) => role.Activo)
+            .map((role: any) => ({ Id: role.Id, Nombre: role.Nombre }));
         }
       },
       error: (err) => {
@@ -130,6 +130,7 @@ export class RegisterComponent {
       contrasena: this.registerForm.value.password,
       fotoPerfil: this.base64Image || null
     };
+    console.log("json para el api mid ",usuario)
 
     this.apiService.post(API_URLS.Mid.Api_midCreacionUsuario, usuario).subscribe({
       next: () => {

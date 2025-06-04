@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
+import { API_URLS } from '../../../../config/api-config';
 
 @Component({
   selector: 'app-info-sitio',
@@ -53,7 +54,7 @@ export class InfoSitioComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.apiService.get<any>(`http://localhost:8085/v1/Sitios_turisticos/${id}`).subscribe({
+      this.apiService.get<any>(`${API_URLS.Mid.Api_Infositio}/${id}`).subscribe({
         next: (response) => {
           const datos = response.resultado;
 
