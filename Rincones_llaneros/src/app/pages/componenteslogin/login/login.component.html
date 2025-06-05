@@ -77,4 +77,19 @@
       </button>
     </div>
   </mat-card>
+
+  <div
+  class="modal-backdrop"
+  *ngIf="showInactiveModal"
+  (click)="showInactiveModal = false"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 style="color: red;">Usuario Inactivo</h2>
+    <p>Tu cuenta está inactiva. Por favor, comunícate con el administrador.</p>
+    <button mat-raised-button color="primary" (click)="showInactiveModal = false">
+      Cerrar
+    </button>
+    </div>
+  </div>
+
 </div>

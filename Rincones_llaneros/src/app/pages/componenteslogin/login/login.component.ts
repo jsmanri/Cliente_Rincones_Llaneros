@@ -28,6 +28,7 @@ import { API_URLS } from '../../../../config/api-config';
 export class LoginComponent {
   hidePassword = true;
   loginForm: FormGroup;
+  showInactiveModal = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +63,10 @@ export class LoginComponent {
         if (response.error) {
           this.setServerErrors(response.error);
         } else if (response.id_usuario && response.id_rol) {
+          if (!response.activo) {
+            this.showInactiveModal = true;
+            return;
+          }  
           // Aquí puedes almacenar la sesión o redirigir
           this.router.navigate(['/home']);
         } else {

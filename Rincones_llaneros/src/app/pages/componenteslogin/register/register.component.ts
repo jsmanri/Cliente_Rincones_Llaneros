@@ -130,6 +130,7 @@ export class RegisterComponent {
       contrasena: this.registerForm.value.password,
       fotoPerfil: this.base64Image || null
     };
+    console.log("json para el api mid ",usuario)
 
     this.apiService.post(API_URLS.Mid.Api_midCreacionUsuario, usuario).subscribe({
       next: () => {
