@@ -12,23 +12,22 @@
   </mat-sidenav>
 
   <!-- SIDENAV PRINCIPAL (RESPONSIVE MOBILE) -->
-  <mat-sidenav #sidenav class="sidenav" mode="over" position="start">
+<mat-sidenav #sidenav class="sidenav" mode="over" position="start">
     
-
     <mat-nav-list>
       <a mat-list-item routerLink="/home" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">INICIO</span>
       </a>
+      <a mat-list-item (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">MUNICIPIOS</span>
+      </a>
       <a mat-list-item routerLink="/home/tendencias" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">TENDENCIAS</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()">
-        <span class="mat-line" style="color: white;">BUSCAR</span>
-      </a>
-      <a mat-list-item (click)="sidenav.close()">
+      <a mat-list-item routerLink="/home/vendedor" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">CONFIGURACION</span>
       </a>
-      <a mat-list-item (click)="sidenav.close()">
+      <a mat-list-item routerLink="/login" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">CERRAR SESION</span>
       </a>
     </mat-nav-list>
@@ -46,6 +45,7 @@
 
     <span class="spacer"></span>
 
+    <!-- BARRA DE BÚSQUEDA DESKTOP --> 
 
     <button mat-icon-button (click)="perfilSidenav.toggle()" class="perfil-btn desktop-only">
       <mat-icon class="perfil-icono">account_circle</mat-icon>

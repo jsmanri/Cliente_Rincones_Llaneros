@@ -1,0 +1,58 @@
+<div class="fondo-completo">
+  <div class="overlay"></div>
+  
+  <div class="perfil-left">
+    <img [src]="usuario.fotoPerfil" alt="Foto de perfil" class="perfil-foto" />
+    <h2 class="nombre">{{ usuario.nombre }}</h2>
+    <div class="rol">{{ usuario.rol.nombre }}</div>
+
+    <button (click)="editando = !editando" class="btn-editar">
+      {{ editando ? 'Cancelar' : 'Editar Perfil' }}
+    </button>
+
+    <form *ngIf="editando; else vistaNormal" (ngSubmit)="guardarCambios()" class="section-column">
+      <div class="info-box">
+        <h3>Nombre</h3>
+        <input [(ngModel)]="usuario.nombre" name="nombre" type="text" required />
+      </div>
+      <div class="info-box">
+        <h3>Correo</h3>
+        <input [(ngModel)]="usuario.correo" name="correo" type="email" required />
+      </div>
+      <div class="info-box">
+        <h3>Cédula</h3>
+        <input [(ngModel)]="usuario.cedula" name="cedula" required />
+      </div>
+      <div class="info-box">
+        <h3>Teléfono</h3>
+        <input [(ngModel)]="usuario.numeroTelefono" name="telefono" required />
+      </div>
+      <div class="info-box">
+        <h3>Foto de Perfil</h3>
+        <input type="file" accept="image/*" (change)="cambiarFoto($event)" />
+        <img *ngIf="usuario.fotoPreview" [src]="usuario.fotoPreview" alt="Vista previa" class="vista-previa" />
+      </div>
+
+      <div class="info-box full-width">
+        <button type="submit" class="btn-guardar">Guardar Cambios</button>
+      </div>
+    </form>
+
+    <ng-template #vistaNormal>
+      <div class="section-column">
+        <div class="info-box">
+          <h3>Correo</h3>
+          <p>{{ usuario.correo }}</p>
+        </div>
+        <div class="info-box">
+          <h3>Cédula</h3>
+          <p>{{ usuario.cedula }}</p>
+        </div>
+        <div class="info-box">
+          <h3>Teléfono</h3>
+          <p>{{ usuario.numeroTelefono }}</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -6,6 +6,7 @@ export const API_URLS ={
         Api_Newpassword:'http://localhost:8086/v1/newpassword',
         Api_Sesion:'http://localhost:8086/v1/Sesion',
         Api_Infositio: 'http://localhost:8086/v1/Sitios_turisticos/'
+        
     },
     CRUD:{
         Api_crudRegistrarSitio: 'http://localhost:8080/v1/Sitios_Turisticos',
@@ -13,6 +14,8 @@ export const API_URLS ={
         Api_crudCategorias:'http://localhost:8080/v1/Categorias',
         Api_crudMunicipios:'http://localhost:8080/v1/Municipios',
         Api_crudRol: 'http://localhost:8080/v1/Roles',
-        Api_crudEventos: 'http://localhost:8080/v1/Eventos'
+        Api_crudEventos: 'http://localhost:8080/v1/Eventos',
+        Api_crudSitios: 'http://localhost:8080/v1/Sitios_Turisticos'
+
     }
 }

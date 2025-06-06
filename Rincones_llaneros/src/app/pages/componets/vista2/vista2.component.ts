@@ -21,33 +21,41 @@ goToPushCaballo() {
 }
 
 goToPushRestaurantes() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'restaurantes' } });
 }
 
 goToPushMuseos() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'museos' } });
 }
 
 goToPushMonumentos() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'monumentos' } });
 }
 
 goToPushCaminata() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'caminata' } });
 }
 
 goToPushSafari() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'safari' } });
 }
 
 goToPushHoteles() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'Hoteles' } });
 }
 goToPushPiscinas() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/detalles'], { queryParams: { actividad: 'Piscinas' } });
 }
 
 goToPushEventos() {
+   window.scrollTo(0, 0);
   this.router.navigate(['/eventos'], { queryParams: { actividad: 'Piscinas' } });
 }
 

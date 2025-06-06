@@ -12,14 +12,15 @@ import { HeaderregistroComponent } from './app/pages/component/headerregistro/he
 import { TendenciasComponent } from './app/pages/component/tendencias/tendencias.component';
 import { VistaComponent } from './app/pages/componets/vista/vista.component';
 import { Vista2Component } from './app/pages/componets/vista2/vista2.component';
-import { ClienteComponent } from './app/pages/component/perfil/cliente/cliente.component';
-import { VendedorComponent } from './app/pages/component/perfil/vendedor/vendedor.component';
 import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 import { DetallesComponent } from './app/pages/componets/detalles/detalles.component';
 import { InfoSitioComponent } from './app/pages/component/info-sitio/info-sitio.component';
+import { ClienteComponent } from './app/pages/Perfil/cliente/cliente.component';
+import { VendedorComponent } from './app/pages/Perfil/vendedor/vendedor.component';
+import { BuscarComponent } from './app/pages/componets/buscar/buscar.component';
 
 
 bootstrapApplication(AppComponent,{
@@ -39,7 +40,11 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'info-sitio/:id', component: InfoSitioComponent
-                }
+                },
+                {
+                  path: 'Buscar', component: BuscarComponent
+                },
+                
               ]
              },
              { path: 'home', component: HeaderregistroComponent,
@@ -58,6 +63,9 @@ bootstrapApplication(AppComponent,{
                 },
                 { 
                   path: 'registrositio', component: RegistroComponent
+                },
+                {
+                  path: 'Buscar', component: BuscarComponent
                 }
               ]
               },
@@ -78,7 +86,10 @@ bootstrapApplication(AppComponent,{
              { path: 'registrositio', component: RegistroComponent},
              { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
-             { path: 'adminmapa', component: MapaComponent}
+             { path: 'adminmapa', component: MapaComponent},
+             { path: 'Buscar', component: BuscarComponent },
+             { path: 'vendedor/:id', component: VendedorComponent},
+             { path: 'cliente/:id', component: ClienteComponent}
           ]),
         provideAnimations(),
         provideHttpClient()

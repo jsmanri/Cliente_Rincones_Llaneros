@@ -75,25 +75,53 @@
 
 
   
-  
+  <div class="opinion-container">
+  <h3 class="opinion-titulo">¿Qué opinas de esta actividad?</h3>
 
+  <div class="opinion-form">
+    <textarea [(ngModel)]="nuevoComentario.mensaje" placeholder="Escribe tu comentario" class="opinion-textarea"></textarea>
+
+    <div class="opinion-estrellas">
+      <label for="calificacion">Calificación:</label>
+      <select id="calificacion" [(ngModel)]="nuevoComentario.calificacion" class="opinion-select">
+        <option *ngFor="let estrella of [1,2,3,4,5]" [value]="estrella">{{ estrella }} ★</option>
+      </select>
+    </div>
+
+    <button (click)="agregarComentario()" class="opinion-boton">Enviar opinión</button>
+  </div>
+</div>
 
 
   <!-- Sección de testimonios -->
 <!-- Sección de testimonios -->
-<div *ngIf="testimonios.length > 0" class="testimonios">
-  <h3>Testimonios de visitantes</h3>
-  <div class="testimonio" *ngFor="let t of testimonios">
-    <img [src]="t.imagen" alt="{{ t.autor }}" class="testimonio-img">
-    <div class="testimonio-texto">
-      <p>"{{ t.mensaje }}"</p>
-      <span>- {{ t.autor }}</span>
-      <div class="estrellas">
-        <span *ngFor="let _ of getEstrellas(t.calificacion)">★</span>
+<div class="comentarios-container">
+  <h3>Opiniones de otros visitantes</h3>
+
+  <div *ngFor="let testimonio of testimonios" class="comentario">
+    <img [src]="testimonio.imagen" alt="Avatar" class="comentario-avatar" />
+
+    <div class="comentario-contenido">
+      <div class="comentario-usuario">{{ testimonio.autor }}</div>
+      <div class="comentario-texto">{{ testimonio.mensaje }}</div>
+
+      <div class="comentario-estrellas">
+        <ng-container *ngFor="let estrella of [1,2,3,4,5]">
+          <span [class.activa]="estrella <= testimonio.calificacion">★</span>
+        </ng-container>
       </div>
     </div>
   </div>
-</div>
+
+  <hr />
+
+
+
+
+
+
+
+
 
 
   <button (click)="goToPusvolver()" class="btn-volver">Volver</button>
