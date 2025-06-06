@@ -81,9 +81,9 @@ obtenerPublicaciones(idVendedor: number): Observable<any[]> {
     return this.http.delete(url);
   }
 
-updateVendedorDesdeMid(id: number, datos: any) {
-  return this.http.put(`${API_URLS.Mid.Api_midPutU}/${id}`, datos);
-}
+
+
+
 
 obtenerEventos(idVendedor: number): Observable<any[]> {
   return this.http.get<any>(`${this.eventosUrl}`).pipe(
@@ -115,6 +115,14 @@ deleteEvento(id: number) {
 export class ClienteService {
   constructor(private http: HttpClient) {} 
 
+ actualizarCliente(id: number, datos: any): Observable<any> {
+  const url = `${API_URLS.CRUD.Api_crudUsuarios}/${id}`;
+  return this.http.put(url, datos);
+}
+
+
+  
+
 obtenerClientePorId(id: number): Observable<any> {
   const url = `${API_URLS.CRUD.Api_crudUsuarios}/${id}`;
   return this.http.get<any>(url).pipe(
@@ -144,7 +152,12 @@ obtenerClientePorId(id: number): Observable<any> {
       return cliente;
     })
   );
+
+  
 }
+
+
+
 
 
 

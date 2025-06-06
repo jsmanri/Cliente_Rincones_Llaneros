@@ -321,4 +321,125 @@
 }
 
 
+.btn-publicar {
+  background-color: #2e8b57;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.btn-publicar {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.btn-publicar {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.card-publicar {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 320px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.opciones-publicar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.btn-opcion {
+  flex: 1;
+  margin: 0 5px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-opcion:hover {
+  background-color: #138496;
+}
+
+.editar-vendedor-form {
+  background-color: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.editar-vendedor-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.editar-vendedor-form input[type="text"],
+.editar-vendedor-form input[type="email"],
+.editar-vendedor-form input[type="file"] {
+  width: 100%;
+  padding: 12px 5px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editar-vendedor-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.editar-vendedor-form input[type="file"] {
+  padding: 5px;
+  background-color: #eff6ff;
+  border: 2px dashed #93c5fd;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.preview-imagen-edicion img {
+  margin-top: 15px;
+  max-width: 180px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+
 

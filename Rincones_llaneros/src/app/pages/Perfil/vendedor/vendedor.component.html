@@ -6,7 +6,11 @@
   <!-- ENCABEZADO DEL VENDEDOR -->
   <div class="perfil-header">
     <div class="foto-perfil">
-      <img [src]="vendedor.FotoPerfil?.url || 'assets/default-profile.jpg'" alt="Foto de perfil" />
+    <!-- Plantilla HTML -->
+
+
+<!-- Vista previa -->
+<img *ngIf="vendedor.FotoPreview || vendedor.FotoPerfil" [src]="vendedor.FotoPreview || vendedor.FotoPerfil" alt="Foto de perfil" width="150" />
     </div>
     <div class="info-basica">
       <h1>{{ vendedor.Nombre }}</h1>
@@ -23,6 +27,23 @@
     
 
   </div>
+
+  <!-- Botón de Publicar -->
+<!-- Botón para mostrar/ocultar la card -->
+<button (click)="mostrarCardPublicar = !mostrarCardPublicar" class="btn-publicar">
+   ¿Agregar nuevo sitio?
+</button>
+
+<!-- Card con opciones -->
+<div *ngIf="mostrarCardPublicar" class="card-publicar">
+  <h3>¿Qué deseas publicar?</h3>
+  <div class="opciones-publicar">
+    <button (click)="publicarSitio()" class="btn-opcion">🏞 Publicar sitio</button>
+    <button (click)="publicarEvento()" class="btn-opcion">🎉 Publicar evento</button>
+  </div>
+</div>
+
+
 
   <!-- TAB DE PUBLICACIONES -->
   <div *ngIf="tabActivo === 'publicaciones'">
@@ -98,28 +119,35 @@
   <h2>Información adicional</h2>
 
   <!-- Modo Edición -->
-  <div *ngIf="editandoVendedor; else vistaVendedor">
-    <label>Nombre:</label>
-    <input [(ngModel)]="vendedor.Nombre" type="text" />
+  <div *ngIf="editandoVendedor; else vistaVendedor" class="editar-vendedor-form">
+  <label>Nombre:</label>
+  <input [(ngModel)]="vendedor.Nombre" type="text" />
 
-    <label>Email:</label>
-    <input [(ngModel)]="vendedor.Correo" type="email" />
+  <label>Email:</label>
+  <input [(ngModel)]="vendedor.Correo" type="email" />
 
-    <label>Teléfono:</label>
-    <input [(ngModel)]="vendedor.NumeroTelefono" type="text" />
+  <label>Teléfono:</label>
+  <input [(ngModel)]="vendedor.NumeroTelefono" type="text" />
 
-    <div class="botones-edicion">
-      <button class="btn-guardar" (click)="guardarInfoVendedor()">💾 Guardar</button>
-      <button class="btn-cancelar" (click)="editandoVendedor = false">❌ Cancelar</button>
-    </div>
+  <label>Foto de perfil:</label>
+  <input type="file" (change)="cambiarFoto($event)" accept="image/*" />
+
+  <div *ngIf="vendedor.FotoPerfil" class="preview-imagen-edicion">
+    <img [src]="vendedor.FotoPerfil" alt="Foto de perfil" />
   </div>
+
+  <div class="botones-edicion">
+    <button class="btn-guardar" (click)="guardarInfoVendedor()">💾 Guardar</button>
+    <button class="btn-cancelar" (click)="editandoVendedor = false">❌ Cancelar</button>
+  </div>
+</div>
+
 
   <!-- Modo Vista -->
   <ng-template #vistaVendedor>
     <p><strong>Nombre:</strong> {{ vendedor.Nombre }}</p>
     <p><strong>Email:</strong> {{ vendedor.Correo }}</p>
     <p><strong>Teléfono:</strong> {{ vendedor.NumeroTelefono }}</p>
-    <p><strong>Cédula:</strong> {{ vendedor.Cedula }}</p>
     <p><strong>Fecha creación:</strong> {{ vendedor.FechaCreacion | date:'medium' }}</p>
     <p><strong>Activo:</strong> {{ vendedor.Activo ? 'Sí' : 'No' }}</p>
 
@@ -191,5 +219,6 @@
     <p><strong>Cédula:</strong> {{ vendedor.Cedula }}</p>
     <p><strong>Fecha creación:</strong> {{ vendedor.FechaCreacion | date:'medium' }}</p>
     <p><strong>Activo:</strong> {{ vendedor.Activo ? 'Sí' : 'No' }}</p>
+    
   </div>
 </div>

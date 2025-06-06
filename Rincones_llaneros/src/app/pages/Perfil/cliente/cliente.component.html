@@ -1,4 +1,6 @@
-<div class="perfil-container">
+<div class="fondo-completo">
+  <div class="overlay"></div>
+  
   <div class="perfil-left">
     <img [src]="usuario.fotoPerfil" alt="Foto de perfil" class="perfil-foto" />
     <h2 class="nombre">{{ usuario.nombre }}</h2>
@@ -7,10 +9,12 @@
     <button (click)="editando = !editando" class="btn-editar">
       {{ editando ? 'Cancelar' : 'Editar Perfil' }}
     </button>
-  </div>
 
-  <div class="perfil-right">
-    <form *ngIf="editando; else vistaNormal" (ngSubmit)="guardarCambios()" class="section-grid">
+    <form *ngIf="editando; else vistaNormal" (ngSubmit)="guardarCambios()" class="section-column">
+      <div class="info-box">
+        <h3>Nombre</h3>
+        <input [(ngModel)]="usuario.nombre" name="nombre" type="text" required />
+      </div>
       <div class="info-box">
         <h3>Correo</h3>
         <input [(ngModel)]="usuario.correo" name="correo" type="email" required />
@@ -24,17 +28,10 @@
         <input [(ngModel)]="usuario.numeroTelefono" name="telefono" required />
       </div>
       <div class="info-box">
-        <h3>Usuario</h3>
-        <input [(ngModel)]="usuario.idCredencialesCredenciales.usuario" name="usuario" required />
+        <h3>Foto de Perfil</h3>
+        <input type="file" accept="image/*" (change)="cambiarFoto($event)" />
+        <img *ngIf="usuario.fotoPreview" [src]="usuario.fotoPreview" alt="Vista previa" class="vista-previa" />
       </div>
-      <div class="info-box">
-        <h3>Estado</h3>
-        <select [(ngModel)]="usuario.activo" name="estado">
-          <option [value]="true">Activo</option>
-          <option [value]="false">Inactivo</option>
-        </select>
-      </div>
-
 
       <div class="info-box full-width">
         <button type="submit" class="btn-guardar">Guardar Cambios</button>
@@ -42,7 +39,7 @@
     </form>
 
     <ng-template #vistaNormal>
-      <div class="section-grid">
+      <div class="section-column">
         <div class="info-box">
           <h3>Correo</h3>
           <p>{{ usuario.correo }}</p>
@@ -54,16 +51,6 @@
         <div class="info-box">
           <h3>Teléfono</h3>
           <p>{{ usuario.numeroTelefono }}</p>
-        </div>
-        <div class="info-box">
-          <h3>Usuario</h3>
-          <p>{{ usuario.idCredencialesCredenciales.usuario }}</p>
-        </div>
-        <div class="info-box">
-          <h3>Estado</h3>
-          <p [ngClass]="usuario.activo ? 'activo' : 'inactivo'">
-            {{ usuario.activo ? 'Activo' : 'Inactivo' }}
-          </p>
         </div>
       </div>
     </ng-template>
