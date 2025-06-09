@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ViewChild,TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +33,8 @@ import { MatIcon } from '@angular/material/icon';
     MatSelectModule,
     MatOptionModule,
     MatCheckboxModule,
-    MatIcon
+    MatIcon,
+    MatDialogModule
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
@@ -43,21 +46,29 @@ export class RegisterComponent {
   base64Image: string | null = null;
   roles: { Id: number, Nombre: string }[] = [];
   registrationSuccess = false; // Indicador de registro exitoso
+  showPassword = false;
+  showConfirmPassword = false;
+
+  @ViewChild('successDialog') successDialog!: TemplateRef<any>;
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private dialog: MatDialog
   ) {
     this.registerForm = this.fb.group({
       role: ['', Validators.required],
       fullName: ['', [Validators.required, Validators.minLength(4)]],
+      fotoPerfil: [null, Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cedula: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(10),
+        Validators.maxLength(10),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d$@$!%*?&]{8,}$')
       ]],
       confirmPassword: ['', Validators.required],
@@ -66,6 +77,39 @@ export class RegisterComponent {
 
     this.loadRoles();
   }
+
+  onlyNumberKey(event: KeyboardEvent): boolean {
+  const charCode = event.which ? event.which : event.keyCode;
+  // Permite solo números del 0 al 9 (códigos ASCII)
+  if (charCode < 48 || charCode > 57) {
+    event.preventDefault();
+    return false;
+  }
+  return true;
+  }
+
+  getPasswordError(): string | null {
+  const control = this.registerForm.get('password');
+  const value = control?.value || '';
+
+  if (control?.hasError('required')) {
+    return 'La contraseña es obligatoria.';
+  }
+  if (!/[A-Z]/.test(value)) {
+    return 'Debe contener al menos una letra mayúscula.';
+  }
+  if (!/\d/.test(value)) {
+    return 'Debe contener al menos un número.';
+  }
+  if (!/[$@$!%*?&]/.test(value)) {
+    return 'Debe contener al menos un carácter especial.';
+  }
+    if (value.length < 10) {
+    return 'La contraseña debe tener al menos 10 caracteres.';
+  }
+  return null;
+  }
+
 
   private loadRoles(): void {
     this.apiService.get<any>(API_URLS.CRUD.Api_crudRol).subscribe({
@@ -98,11 +142,12 @@ export class RegisterComponent {
     const file: File = event.target.files[0];
     if (file) {
       this.fotoPerfil = file;
-
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result as string;
         this.base64Image = reader.result?.toString().split(',')[1] ?? null;
+        this.registerForm.get('fotoPerfil')?.setValue(this.base64Image);
+        this.registerForm.get('fotoPerfil')?.markAsTouched();
       };
       reader.readAsDataURL(file);
     }
@@ -112,6 +157,7 @@ export class RegisterComponent {
     this.fotoPerfil = null;
     this.previewUrl = null;
     this.base64Image = null;
+    this.registerForm.get('fotoPerfil')?.setValue(null);
   }
 
   register(): void {
@@ -134,8 +180,14 @@ export class RegisterComponent {
 
     this.apiService.post(API_URLS.Mid.Api_midCreacionUsuario, usuario).subscribe({
       next: () => {
-        this.registrationSuccess = true;
-        setTimeout(() => this.router.navigate(['/login']), 3000); // Redirige tras 3 segundos
+        const dialogRef = this.dialog.open(this.successDialog, {
+          disableClose: true,
+          width: '350px'
+        });
+        setTimeout(() => {
+          dialogRef.close();
+          this.router.navigate(['/login']);
+        }, 3000);
       },
       error: (err) => {
         console.error('Error al registrar usuario:', err);
