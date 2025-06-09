@@ -26,7 +26,7 @@ import { BuscarComponent } from './app/pages/componets/buscar/buscar.component';
 bootstrapApplication(AppComponent,{
     providers:[
         provideRouter([
-            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
             { path: 'homesinregistro', component: HeadersinregistroComponent,
               children: [
                 { 
@@ -79,14 +79,6 @@ bootstrapApplication(AppComponent,{
              { path: 'vista', component: VistaComponent },
              { path: 'detalles', component: DetallesComponent },
              { path: 'eventos', component: EventosComponent},
-             { path: 'login', component: LoginComponent },
-             { path: 'register', component: RegisterComponent },
-             { path: 'politica', component: PoliticaComponent },
-             { path: 'recuperacion', component: RecuperacionComponent},
-             { path: 'registrositio', component: RegistroComponent},
-             { path: 'registroeven', component: EventosComponent},
-             { path: 'usuadmin', component: UsuariosadminComponent},
-             { path: 'adminmapa', component: MapaComponent},
              { path: 'Buscar', component: BuscarComponent },
              { path: 'vendedor/:id', component: VendedorComponent},
              { path: 'cliente/:id', component: ClienteComponent}
@@ -95,4 +87,3 @@ bootstrapApplication(AppComponent,{
         provideHttpClient()
     ]
 }).catch(err => console.error(err));
-

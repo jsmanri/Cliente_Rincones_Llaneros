@@ -15,6 +15,7 @@ import { DetallesComponent } from './pages/componets/detalles/detalles.component
 import { InfoSitioComponent } from './pages/component/info-sitio/info-sitio.component';
 import { ClienteComponent } from './pages/Perfil/cliente/cliente.component';
 import { VendedorComponent } from './pages/Perfil/vendedor/vendedor.component';
+import { BuscarComponent } from './pages/componets/buscar/buscar.component';
 
 
 export const routes: Routes = [
@@ -34,4 +35,5 @@ export const routes: Routes = [
     { path: 'usuadmin', component: UsuariosadminComponent},
     { path: 'detalles', component:DetallesComponent},
     { path: 'info-sitio/:id', component: InfoSitioComponent },
+    { path: 'buscar', component: BuscarComponent },
 ];
