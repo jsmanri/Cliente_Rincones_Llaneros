@@ -75,12 +75,18 @@
         <label>Horario:</label>
         <input [(ngModel)]="sitio.Horario" placeholder="Horario de atención" />
 
-        <label>Imagen:</label>
-        <input type="file" (change)="procesarImagen($event, sitio)" />
-
-        <div *ngIf="sitio.Fotos && sitio.Fotos.length" class="preview-imagen-edicion">
-          <img [src]="sitio.Fotos[0]" alt="Foto del sitio" />
+        <label>Imágenes:</label>
+        <div *ngFor="let foto of sitio.Fotos; let i = index">
+        <img [src]="foto" width="150" />
+        <input type="file" (change)="reemplazarImagen($event, i, sitio)" />
         </div>
+        <div *ngIf="sitio.Fotos.length < 5">
+        <input type="file" multiple (change)="agregarImagenes($event, sitio)" />
+        </div>
+
+
+
+
 
         <div class="botones-edicion">
           <button class="btn-guardar" (click)="guardarCambios(sitio)">💾 Guardar</button>
@@ -93,9 +99,17 @@
         <div class="contenido-principal">
           <h3>{{ sitio.NombreSitioTuristico }}</h3>
 
-          <div class="imagen-grande">
-            <img [src]="sitio.Fotos[0]" alt="Foto del sitio" />
-          </div>
+         <div class="slider-imagenes">
+         <img [src]="sitio.Fotos[sitio.indiceImagenActual || 0]" alt="Foto del sitio" class="imagen-publicacion" />
+
+         <div class="botones-navegacion">
+         <button (click)="anteriorImagen(sitio)">&#8592; Anterior</button>
+         <button (click)="siguienteImagen(sitio)">Siguiente &#8594;</button>
+         </div>
+         </div>
+
+
+
 
           <p>{{ sitio.DescripcionSitioTuristico }}</p>
         </div>
@@ -171,6 +185,7 @@
       </div>
     </div>
 
+    <!-- MODO EDICIÓN -->
     <div *ngIf="evento.editando; else vistaEvento" class="editar-publicacion-container">
       <h3>Editar evento</h3>
 
@@ -186,10 +201,15 @@
       <label>Ubicación:</label>
       <input [(ngModel)]="evento.Ubicacion" placeholder="Ubicación" />
 
-      <label>Imagen:</label>
-      <input type="file" (change)="procesarImagenEvento($event, evento)" />
-      <div *ngIf="evento.Fotos?.length" class="preview-imagen-edicion">
-        <img [src]="evento.Fotos[0]" alt="Imagen del evento" />
+      <label>Imágenes (máximo 3):</label>
+      <div *ngFor="let foto of evento.Fotos; let i = index" class="imagen-reemplazo-container">
+        <img [src]="foto" alt="Imagen del evento" width="150" />
+        <input type="file" (change)="reemplazarImagenEvento($event, i, evento)" />
+      </div>
+
+      <!-- Solo mostrar input para agregar imágenes si hay menos de 3 -->
+      <div *ngIf="(evento.Fotos?.length || 0) < 3">
+        <input type="file" multiple (change)="agregarImagenesEvento($event, evento)" />
       </div>
 
       <div class="botones-edicion">
@@ -198,17 +218,33 @@
       </div>
     </div>
 
+    <!-- MODO VISTA -->
     <ng-template #vistaEvento>
       <h3>{{ evento.NombreEvento }}</h3>
-      <div class="imagen-grande">
-        <img [src]="evento.Fotos[0]" alt="Imagen del evento" />
-      </div>
+      
+      <!-- SLIDER DE IMÁGENES -->
+      <!-- SLIDER DE IMÁGENES -->
+<div class="slider-imagenes" *ngIf="evento.Fotos?.length > 0">
+  <img 
+    [src]="evento.Fotos[evento.indiceImagenActual || 0]" 
+    alt="Imagen del evento" 
+    class="imagen-publicacion"
+  />
+
+  <div class="botones-navegacion">
+    <button (click)="cambiarImagenEvento(evento, -1)">&#8592; Anterior</button>
+    <button (click)="cambiarImagenEvento(evento, 1)">Siguiente &#8594;</button>
+  </div>
+</div>
+
+
       <p>{{ evento.DescripcionEvento }}</p>
       <p><strong>Fecha:</strong> {{ evento.FechaEvento | date:'longDate' }}</p>
       <p><strong>Ubicación:</strong> {{ evento.Ubicacion }}</p>
     </ng-template>
   </div>
 </div>
+
 
 
 
