@@ -57,7 +57,7 @@ body {
 .filtro-item button {
   padding: 0.5rem 1rem;
   border: none;
-  background-color: #007bff;
+  background-color: #1976d2;
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -77,14 +77,14 @@ body {
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
   border: none;
-  background-color: #28a745;
+  background-color: #1976d2;
   color: white;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .filtro button:hover {
-  background-color: #1e7e34;
+  background-color: #1976d2;
 }
 
 /* Contenedor tarjetas: Usado para ambos sitios y eventos */
@@ -136,7 +136,7 @@ body {
 }
 
 .tarjeta-sitio p strong, .tarjeta-evento p strong {
-  color: #007bff;
+  color: #1976d2;
 }
 
 /* Para eventos, hacer que contenido tenga un poco de padding (especialmente si usas imagen y texto juntos) */

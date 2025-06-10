@@ -32,19 +32,20 @@ export class VendedorComponent implements OnInit {
 
       // Obtener sitios turísticos
       this.VendedorService.obtenerPublicaciones(this.vendedor.Id).subscribe(publicaciones => {
-        this.publicaciones = publicaciones.map((publicacion: any) => {
-          let fotos: string[] = [];
-          try {
-            fotos = JSON.parse(publicacion.FotoSitio);
-          } catch (e) {
-            console.error('Error al parsear FotoSitio:', e);
-          }
-          return {
-            ...publicacion,
-            Fotos: fotos
-          };
-        });
-      });
+    this.publicaciones = publicaciones.map((publicacion: any) => {
+      let fotos: string[] = [];
+      try {
+        fotos = JSON.parse(publicacion.FotoSitio);
+      } catch (e) {
+        console.error('Error al parsear FotoSitio:', e);
+      }
+      return {
+        ...publicacion,
+        Fotos: fotos,
+        indiceImagenActual: 0  // <--- Agrega este índice inicial
+      };
+    });
+  });
 
       // Obtener eventos
       this.VendedorService.obtenerEventos(this.vendedor.Id).subscribe(eventos => {
@@ -80,17 +81,65 @@ export class VendedorComponent implements OnInit {
   }
 
   procesarImagen(event: any, sitio: any) {
-    const archivo = event.target.files[0];
+  const archivos = event.target.files;
+  sitio.Fotos = [];
+
+  for (let archivo of archivos) {
+    const lector = new FileReader();
+    lector.onload = () => {
+      sitio.Fotos.push(lector.result as string);
+      sitio.FotoSitio = JSON.stringify(sitio.Fotos);
+    };
+    lector.readAsDataURL(archivo);
+  }
+}
+
+
+agregarImagenes(event: any, sitio: any) {
+  const archivos = event.target.files;
+  if (!archivos || archivos.length === 0) return;
+
+  const cantidadActual = sitio.Fotos.length;
+  const cantidadNueva = archivos.length;
+
+  if (cantidadActual + cantidadNueva > 5) {
+    alert('No puedes subir más de 5 imágenes en total.');
+    return;
+  }
+
+  for (let archivo of archivos) {
     const lector = new FileReader();
 
     lector.onload = () => {
-      const base64 = lector.result as string;
-      sitio.Fotos = [base64];
+      sitio.Fotos.push(lector.result as string);
       sitio.FotoSitio = JSON.stringify(sitio.Fotos);
     };
 
-    if (archivo) lector.readAsDataURL(archivo);
+    lector.readAsDataURL(archivo);
   }
+
+  // Limpiar input para poder seleccionar archivos nuevamente
+  event.target.value = null;
+}
+
+reemplazarImagen(event: any, index: number, sitio: any) {
+  const archivo = event.target.files[0];
+  if (!archivo) return;
+
+  const lector = new FileReader();
+
+  lector.onload = () => {
+    sitio.Fotos[index] = lector.result as string;
+    sitio.FotoSitio = JSON.stringify(sitio.Fotos);
+  };
+
+  lector.readAsDataURL(archivo);
+
+  // Limpiar input para que pueda volver a usarse
+  event.target.value = null;
+}
+
+
 
   eliminarPublicacion(sitio: any) {
     const confirmar = confirm('¿Estás seguro de que deseas eliminar esta publicación?');
@@ -109,37 +158,87 @@ export class VendedorComponent implements OnInit {
   }
 
   guardarCambiosEvento(evento: any) {
-    this.VendedorService.updateEvento(evento.Id, evento).subscribe({
-      next: () => {
-        evento.editando = false;
-        alert('Evento actualizado correctamente.');
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Error al actualizar el evento.');
-      }
-    });
+  evento.FotosEvento = JSON.stringify(evento.Fotos || []);
+  
+  this.VendedorService.updateEvento(evento.Id, evento).subscribe({
+    next: () => {
+      evento.editando = false;
+      alert('Evento actualizado correctamente.');
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Hubo un error al actualizar el evento.');
+    }
+  });
+}
+
+
+
+
+
+agregarImagenesEvento(event: any, evento: any) {
+  const archivos = event.target.files;
+  if (!archivos || archivos.length === 0) return;
+
+  const cantidadActual = evento.Fotos?.length || 0;
+  const cantidadNueva = archivos.length;
+
+  if (cantidadActual + cantidadNueva > 3) {
+    alert('No puedes subir más de 3 imágenes en total.');
+    return;
   }
 
-  procesarImagenEvento(event: any, evento: any) {
-    const archivo = event.target.files[0];
+  for (let archivo of archivos) {
     const lector = new FileReader();
 
     lector.onload = () => {
-      const base64 = lector.result as string;
-      evento.Fotos = [base64];
-      evento.FotoEvento = JSON.stringify(evento.Fotos);
+      if (!evento.Fotos) evento.Fotos = [];
+      evento.Fotos.push(lector.result as string);
+      // No actualices evento.FotoEvento aquí
     };
 
-    if (archivo) lector.readAsDataURL(archivo);
+    lector.readAsDataURL(archivo);
   }
+
+  event.target.value = null;
+}
+
+
+reemplazarImagenEvento(event: any, index: number, evento: any) {
+  const archivo = event.target.files[0];
+  if (!archivo) return;
+
+  const lector = new FileReader();
+
+  lector.onload = () => {
+    if (!evento.Fotos) evento.Fotos = [];
+    evento.Fotos[index] = lector.result as string;
+    // No actualices evento.FotoEvento aquí
+  };
+
+  lector.readAsDataURL(archivo);
+
+  event.target.value = null;
+}
+
+
+
+cambiarImagenEvento(evento: any, direccion: number) {
+  if (!evento.indiceImagenActual && evento.indiceImagenActual !== 0) {
+    evento.indiceImagenActual = 0;
+  }
+  const total = evento.Fotos.length;
+  evento.indiceImagenActual = (evento.indiceImagenActual + direccion + total) % total;
+}
+
+
 
   cambiarFoto(event: any) {
   const archivo = event.target.files[0];
   if (!archivo) return;
 
   // 🔁 Limpiar datos anteriores
-  this.vendedor.fotoPerfil = '';
+  this.vendedor.FotoPerfil = '';
   this.vendedor.FotoPreview = '';
 
   const lector = new FileReader();
@@ -209,7 +308,23 @@ if (this.vendedor.fotoPerfil) {
       });
     }
   }
-  
+
+  anteriorImagen(sitio: any) {
+  if (!sitio.Fotos || sitio.Fotos.length === 0) return;
+  sitio.indiceImagenActual = (sitio.indiceImagenActual || 0) - 1;
+  if (sitio.indiceImagenActual < 0) {
+    sitio.indiceImagenActual = sitio.Fotos.length - 1; // ciclo al final
+  }
+}
+
+// Botón para ir a la imagen siguiente
+siguienteImagen(sitio: any) {
+  if (!sitio.Fotos || sitio.Fotos.length === 0) return;
+  sitio.indiceImagenActual = (sitio.indiceImagenActual || 0) + 1;
+  if (sitio.indiceImagenActual >= sitio.Fotos.length) {
+    sitio.indiceImagenActual = 0; // ciclo al inicio
+  }
+}
  mostrarCardPublicar = false;
 
 publicarSitio() {
@@ -221,8 +336,6 @@ publicarEvento() {
   this.mostrarCardPublicar = false;
   this.router.navigate(['/crear-evento']); // Ajusta la ruta según tu configuración
 }
-
-
 
 
 

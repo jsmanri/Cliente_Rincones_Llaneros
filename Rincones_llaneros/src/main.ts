@@ -66,6 +66,12 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'Buscar', component: BuscarComponent
+                },
+                { 
+                  path: 'vendedor/:id', component: VendedorComponent
+                },
+                {
+                  path: 'cliente/:id', component: ClienteComponent
                 }
               ]
               },
@@ -79,9 +85,6 @@ bootstrapApplication(AppComponent,{
              { path: 'vista', component: VistaComponent },
              { path: 'detalles', component: DetallesComponent },
              { path: 'eventos', component: EventosComponent},
-             { path: 'Buscar', component: BuscarComponent },
-             { path: 'vendedor/:id', component: VendedorComponent},
-             { path: 'cliente/:id', component: ClienteComponent}
           ]),
         provideAnimations(),
         provideHttpClient()
