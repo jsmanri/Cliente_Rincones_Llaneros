@@ -95,6 +95,7 @@ body {
   padding: 1rem;
 }
 
+
 /* Tarjeta base para sitios y eventos */
 .tarjeta-sitio, .tarjeta-evento {
   background-color: white;
@@ -109,6 +110,7 @@ body {
 }
 
 .tarjeta-sitio:hover, .tarjeta-evento:hover {
+  cursor: pointer;
   transform: scale(1.05);
 }
 

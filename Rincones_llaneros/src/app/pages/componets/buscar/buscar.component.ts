@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API_URLS } from '../../../../config/api-config';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 interface Sitio {
   id: number;
@@ -32,7 +33,12 @@ export interface Evento {
 @Component({
   selector: 'app-buscar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ],
+    
   templateUrl: './buscar.component.html',
   styleUrl: './buscar.component.css'
 })
@@ -254,4 +260,8 @@ obtenerEventos() {
   goToPushinicio() {
     this.router.navigate(['/vista']).then(() => window.scrollTo(0, 0));
   }
+    verDetalle(id: string | number): void {
+    this.router.navigate(['/info-sitio', id]);
+  }
 }
+

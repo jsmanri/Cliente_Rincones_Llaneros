@@ -39,8 +39,8 @@
 </div>
 
 <!-- Tarjetas de sitios turísticos -->
-<div *ngIf="!mostrarEventos" class="tarjetas-container">
-  <div *ngFor="let sitio of sitiosFiltrados" class="tarjeta-sitio">
+<div  *ngIf="!mostrarEventos" class="tarjetas-container">
+  <div [routerLink]="['/homesinregistro/info-sitio', sitio.id]" *ngFor="let sitio of sitiosFiltrados" class="tarjeta-sitio">
     <h3>{{ sitio.titulo }}</h3>
     <img [src]="sitio.imagen || 'assets/default.png'" [alt]="sitio.titulo" class="imagen-sitio" />
     <p><strong>Municipio:</strong> {{ sitio.municipio }}</p>
