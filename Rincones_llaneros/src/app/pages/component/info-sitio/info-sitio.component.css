@@ -286,6 +286,13 @@ button {
   margin: 0;
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
 /* Media query para móviles, elimina el min-width para evitar scroll horizontal */
 @media (max-width: 480px) {
   .descripcion-card,

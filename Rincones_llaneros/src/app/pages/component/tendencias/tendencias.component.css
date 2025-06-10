@@ -134,6 +134,13 @@ button[mat-button], button[mat-stroked-button] {
     min-height: 190px;
   }
 }
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
 
 @media (max-width: 768px) {
   .tarjeta-sitio {

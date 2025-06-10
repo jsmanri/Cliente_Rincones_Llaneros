@@ -2,6 +2,11 @@
   <h2 class="titulo">{{ sitio?.nombre }}</h2>
 </div>
 
+<!-- Spinner de carga -->
+<div *ngIf="cargando" class="spinner-container">
+  <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+</div>
+
 <mat-card class="card-completa">
   <div class="info-completa">
     <!-- Carrusel -->
