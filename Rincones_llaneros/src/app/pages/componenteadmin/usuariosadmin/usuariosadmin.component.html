@@ -61,31 +61,32 @@
     <mat-card class="content">
       <h2>Lista de Usuarios</h2>
       <p class="item-desc">
-        Aquí puedes activar o desactivar usuarios según sea necesario.
+        Aquí puedes activar o desactivar usuarios segun el Rol Vendedor (v) o Cliente (C)
       </p>
       <!-- Filtro de búsqueda -->
-      <div class="filter-row" style="display:flex; align-items:center; gap: 12px;">
-      <mat-form-field class="search-field" appearance="outline">
+      <div class="filter-row">
+      <mat-form-field class="search-input" appearance="outline">
         <mat-label>Buscar usuario</mat-label>
         <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
       </mat-form-field>
 
-      <div class="rol-filters" style="display: flex; gap:4px;">
+      <div class="rol-filters">
         <button mat-raised-button
-          color="{{selectedRol === 'vendedor' ? 'primary' : ''}}"
-          (click)="cambiarRol('vendedor')"
-          [disabled]="selectedRol === 'vendedor'">
+          class="vendedor-btn"
+          [ngClass]="{ 'activo': selectedRol === 'vendedor', 'inactivo': selectedRol !== 'vendedor' }"
+          (click)="cambiarRol('vendedor')">
           V
         </button>
       </div>
 
       <button mat-raised-button
-        color="{{selectedRol === 'cliente' ? 'accent' : ''}}"
-        (click)="cambiarRol('cliente')"
-        [disabled]="selectedRol === 'cliente'">
+        class="cliente-btn"
+        [ngClass]="{ 'activo': selectedRol === 'cliente', 'inactivo': selectedRol !== 'cliente' }"
+        (click)="cambiarRol('cliente')">
         C
       </button>
       </div>
+
       <!-- Lista de usuarios -->
       <div class="user-list">
         <div class="user" *ngFor="let usuario of filteredUsuarios">

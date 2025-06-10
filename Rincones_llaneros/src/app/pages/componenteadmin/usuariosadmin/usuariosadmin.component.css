@@ -22,7 +22,7 @@
 .item:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-} 
+}
 
 /* Tarjeta interior */
 .content {
@@ -104,9 +104,50 @@ canvas {
 }
 
 /*boton de cliente o usuario*/
-.rol-filters button {
-  min-width: 36px;
-  font-weight: bold;
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-input {
+  flex: 1 1 250px;
+  min-width: 200px;
+}
+
+.rol-filters {
+  display: flex;
+  gap: 8px;
+}
+
+/* Estilo base (por si quieres mantener color general) */
+.vendedor-btn,
+.cliente-btn {
+  color: rgb(255, 255, 255);
+}
+
+/* Botón ACTIVO */
+.vendedor-btn.activo {
+  background-color: #49b64e; /* Verde oscuro */
+}
+
+.cliente-btn.activo {
+  background-color: #3b8ada; /* Azul oscuro */
+}
+
+/* Botón INACTIVO */
+.vendedor-btn.inactivo {
+  background-color: #a5d6a7; /* Verde claro */
+  opacity: 0.8;
+}
+
+.cliente-btn.inactivo {
+  background-color: #90caf9; /* Azul claro */
+  opacity: 0.8;
 }
 
 /* Usuario individual */
@@ -127,7 +168,6 @@ canvas {
 .user:hover {
   background: #bbdefb;
 }
-
 
 /* Responsive */
 @media (max-width: 768px) {
