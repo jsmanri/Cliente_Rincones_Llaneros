@@ -7,6 +7,9 @@
   <div class="item">
     <mat-card class="content">
       <h2>Total Usuarios</h2>
+      <p class="item-desc">
+        Esta es la cantidad de clientes y vendedores que se han registrado en la página.
+      </p>
       <div class="counter">{{ data?.TotalUsuarios }}</div>
     </mat-card>
   </div>
@@ -15,6 +18,9 @@
   <div class="item">
     <mat-card class="content">
       <h2>Usuarios por Rol</h2>
+      <p class="item-desc">
+        Distribución de usuarios según su rol (cliente, vendedor, etc.).
+      </p>
       <canvas baseChart
         [data]="rolesChartData"
         [type]="'pie'">
@@ -26,6 +32,9 @@
   <div class="item">
     <mat-card class="content">
       <h2>Usuarios Registrados por Mes</h2>
+      <p class="item-desc">
+        Usuarios registrados por mes y segun el año.
+      </p>
 
       <!-- Botones de navegación de años -->
       <div class="year-selector">
@@ -51,19 +60,41 @@
   <div class="item">
     <mat-card class="content">
       <h2>Lista de Usuarios</h2>
-
+      <p class="item-desc">
+        Aquí puedes activar o desactivar usuarios según sea necesario.
+      </p>
       <!-- Filtro de búsqueda -->
+      <div class="filter-row" style="display:flex; align-items:center; gap: 12px;">
       <mat-form-field class="search-field" appearance="outline">
         <mat-label>Buscar usuario</mat-label>
         <input matInput [(ngModel)]="searchText" placeholder="Escribe un nombre">
       </mat-form-field>
 
+      <div class="rol-filters" style="display: flex; gap:4px;">
+        <button mat-raised-button
+          color="{{selectedRol === 'vendedor' ? 'primary' : ''}}"
+          (click)="cambiarRol('vendedor')"
+          [disabled]="selectedRol === 'vendedor'">
+          V
+        </button>
+      </div>
+
+      <button mat-raised-button
+        color="{{selectedRol === 'cliente' ? 'accent' : ''}}"
+        (click)="cambiarRol('cliente')"
+        [disabled]="selectedRol === 'cliente'">
+        C
+      </button>
+      </div>
       <!-- Lista de usuarios -->
       <div class="user-list">
         <div class="user" *ngFor="let usuario of filteredUsuarios">
           <span>{{ usuario.Nombre }}</span>
           <mat-slide-toggle [checked]="usuario.Activo" (change)="toggleActivo(usuario)">
           </mat-slide-toggle>
+        </div>
+        <div *ngIf="filteredUsuarios.length === 0" class="no-users-msg">
+          <span>No hay usuarios para mostrar.</span>
         </div>
       </div>
     </mat-card>

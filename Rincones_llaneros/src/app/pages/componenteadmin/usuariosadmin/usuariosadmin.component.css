@@ -44,6 +44,18 @@
   margin-bottom: 20px;
 }
 
+/*Estilos para los parrafos*/
+.item-desc {
+  font-size: 14px;
+  color: #5c6bc0;
+  margin-top: -10px;
+  margin-bottom: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  max-width: 90%;
+}
+
 /* Contador destacado */
 .counter {
   font-size: 54px;
@@ -89,6 +101,12 @@ canvas {
   overflow-y: auto;
   max-height: 220px;
   padding-right: 8px;
+}
+
+/*boton de cliente o usuario*/
+.rol-filters button {
+  min-width: 36px;
+  font-weight: bold;
 }
 
 /* Usuario individual */

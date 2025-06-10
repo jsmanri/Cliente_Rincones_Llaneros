@@ -42,9 +42,11 @@ export class UsuariosadminComponent implements OnInit {
   loading = true;
   searchText: string = '';
   selectedYear = new Date().getFullYear();
+  selectedRol: string = 'vendedor';
+
 
   // Definición de las columnas a mostrar en la tabla
-  displayedColumns: string[] = ['Nombre', 'Activo', 'Rol'];
+  displayedColumns: string[] = ['Nombre', 'Activo'];
 
   // Gráfica Circular - Roles
   rolesChartData: ChartData<'pie'> = {
@@ -133,9 +135,15 @@ export class UsuariosadminComponent implements OnInit {
   // Filtrar los usuarios según la búsqueda
   get filteredUsuarios() {
     if (!this.data?.Usuarios) return [];
-    return this.data.Usuarios.filter((user: any) => 
+    return this.data.Usuarios
+    .filter((user: any) => user.RolNombre?.toLowerCase() === this.selectedRol)
+    .filter((user: any) => 
       user.Nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );
+  }
+
+  cambiarRol(rol: string) {
+    this.selectedRol = rol;
   }
 
   // Cambiar el estado de "Activo" de un usuario
