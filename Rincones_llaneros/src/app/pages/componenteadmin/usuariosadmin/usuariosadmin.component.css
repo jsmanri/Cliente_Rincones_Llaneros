@@ -127,16 +127,16 @@ canvas {
 /* Estilo base (por si quieres mantener color general) */
 .vendedor-btn,
 .cliente-btn {
-  color: rgb(255, 255, 255);
+  color: white
 }
 
 /* Botón ACTIVO */
 .vendedor-btn.activo {
-  background-color: #49b64e; /* Verde oscuro */
+  background-color: #44c74a; /* Verde oscuro */
 }
 
 .cliente-btn.activo {
-  background-color: #3b8ada; /* Azul oscuro */
+  background-color: #1785ce; /* Azul oscuro */
 }
 
 /* Botón INACTIVO */
