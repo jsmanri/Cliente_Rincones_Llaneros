@@ -50,7 +50,7 @@ export class VendedorService {
     return this.http.get<any>(this.usuariosUrl).pipe(
       map(res => {
         const vendedores = res['usuarios consultados'] || [];
-        const vendedor = vendedores.find((u: any) => u.Id === id && u.Rol?.Id === 2);
+        const vendedor = vendedores.find((u: any) => u.Id === id && u.Rol?.Id === 1);
         if (vendedor?.FotoPerfil) {
           try {
             vendedor.FotoPerfil = JSON.parse(vendedor.FotoPerfil);
@@ -134,7 +134,7 @@ obtenerClientePorId(id: number): Observable<any> {
       console.log('ID del rol:', cliente?.Rol?.Id, 'Tipo:', typeof cliente?.Rol?.Id);
 
       // Validar que tenga rol de cliente (Id == 2)
-      if (parseInt(cliente?.Rol?.Id, 10) !== 1) {
+      if (parseInt(cliente?.Rol?.Id, 10) !== 2) {
         console.warn('El usuario no es un cliente.');
         return null;
       }
