@@ -1,37 +1,166 @@
-<body>
-    <div class="header-container">
-      <div class="header-image">
-        <h1>REGISTRA TU EVENTO</h1>
-      </div>
-  
-      <!-- Formulario de Evento -->
-      <div class="form-wrapper">
-        <div class="form-container">
-          <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nombre del Evento</mat-label>
-              <input matInput formControlName="nombre" required>
-            </mat-form-field>
-  
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Descripción</mat-label>
-              <textarea matInput rows="4" formControlName="descripcion" required></textarea>
-            </mat-form-field>
-  
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Fecha y Hora de Inicio</mat-label>
-              <input matInput type="datetime-local" formControlName="inicio" required>
-            </mat-form-field>
-  
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Fecha y Hora de Finalización</mat-label>
-              <input matInput type="datetime-local" formControlName="fin" required>
-            </mat-form-field>
-  
-            <button mat-raised-button color="primary" type="submit">Registrar Evento</button>
-          </form>
+<div class="header-container">
+  <div class="header-image">
+    <h1>REGISTRA TU EVENTO</h1>
+  </div>
+
+  <!-- Formulario de Evento -->
+  <div class="form-wrapper">
+    <div class="form-container">
+      <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre del Evento</mat-label>
+          <input matInput formControlName="nombre" required maxlength="50" />
+          <mat-hint
+            >{{ eventoForm.get("nombre")?.value?.length || 0 }} / 50</mat-hint
+          >
+          <mat-error
+            *ngIf="
+              eventoForm.get('nombre')?.hasError('required') &&
+              eventoForm.get('nombre')?.touched
+            "
+          >
+            El nombre es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            rows="4"
+            formControlName="descripcion"
+            required
+            maxlength="500"
+          ></textarea>
+          <mat-hint
+            >{{ eventoForm.get("descripcion")?.value?.length || 0 }} /
+            500</mat-hint
+          >
+          <mat-error
+            *ngIf="
+              eventoForm.get('descripcion')?.hasError('required') &&
+              eventoForm.get('descripcion')?.touched
+            "
+          >
+            La descripción es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha y Hora de Inicio</mat-label>
+          <input
+            matInput
+            type="datetime-local"
+            formControlName="inicio"
+            required
+          />
+          <mat-error
+            *ngIf="
+              eventoForm.get('inicio')?.hasError('required') &&
+              eventoForm.get('inicio')?.touched
+            "
+          >
+            La fecha y hora de inicio es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha y Hora de Finalización</mat-label>
+          <input
+            matInput
+            type="datetime-local"
+            formControlName="fin"
+            required
+          />
+          <mat-error
+            *ngIf="
+              eventoForm.get('fin')?.hasError('required') &&
+              eventoForm.get('fin')?.touched
+            "
+          >
+            La fecha y hora de finalización es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sitio Turístico</mat-label>
+          <mat-select formControlName="sitio" required>
+            <mat-option *ngFor="let sitio of sitios" [value]="sitio.Id">
+              {{ sitio.NombreSitioTuristico }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              eventoForm.get('sitio')?.hasError('required') &&
+              eventoForm.get('sitio')?.touched
+            "
+          >
+            Seleccione un sitio turístico
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Subida de imágenes -->
+        <div class="file-upload-container small">
+          <label for="file-upload" class="file-label">
+            <span class="upload-icon">📁</span>
+            <span class="upload-text">Subir imágenes</span>
+            <input
+              id="file-upload"
+              type="file"
+              multiple
+              (change)="onFileSelected($event)"
+              accept="image/*"
+            />
+          </label>
+
+          <mat-error
+            *ngIf="
+              eventoForm.get('imagenes')?.hasError('required') &&
+              eventoForm.get('imagenes')?.touched
+            "
+            style="
+              display: block;
+              color: red;
+              margin-top: 10px;
+              text-align: center;
+            "
+          >
+            Al menos una imagen es requerida
+          </mat-error>
+
+          <!-- Miniaturas -->
+          <div class="image-preview" *ngIf="imagenesPreview.length > 0">
+            <div
+              class="image-thumb"
+              *ngFor="let img of imagenesPreview; let i = index"
+            >
+              <img [src]="img" alt="Vista previa" />
+              <button
+                class="delete-btn"
+                (click)="eliminarImagen(i)"
+                mat-icon-button
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          style="margin-top: 40px"
+        >
+          Registrar Evento
+        </button>
+      </form>
+      <div
+        class="mensaje-modal"
+        *ngIf="mensajeVisible"
+        [ngClass]="{ exito: mensajeExito, error: !mensajeExito }"
+      >
+        {{ mensajeTexto }}
       </div>
     </div>
-  </body>
-  
+  </div>
+</div>

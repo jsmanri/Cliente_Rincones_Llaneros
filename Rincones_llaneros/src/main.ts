@@ -15,7 +15,6 @@ import { Vista2Component } from './app/pages/componets/vista2/vista2.component';
 import { UsuariosadminComponent } from './app/pages/componenteadmin/usuariosadmin/usuariosadmin.component';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { SitiosadminComponent } from './app/pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { MapaComponent } from './app/pages/componenteturismo/mapa/mapa.component';
 import { DetallesComponent } from './app/pages/componets/detalles/detalles.component';
 import { InfoSitioComponent } from './app/pages/component/info-sitio/info-sitio.component';
@@ -73,6 +72,9 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'cliente/:id', component: ClienteComponent
+                },
+                {
+                  path: 'info-sitio/:id', component: InfoSitioComponent
                 }
               ]
               },
@@ -82,7 +84,6 @@ bootstrapApplication(AppComponent,{
              { path: 'recuperacion', component: RecuperacionComponent},
              { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
-             { path: 'sitiosadmin',component: SitiosadminComponent},
              { path: 'adminmapa', component: MapaComponent},
              { path: 'vista', component: VistaComponent },
              { path: 'detalles', component: DetallesComponent },
@@ -92,4 +93,3 @@ bootstrapApplication(AppComponent,{
         provideHttpClient()
     ]
 }).catch(err => console.error(err));
-

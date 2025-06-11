@@ -13,6 +13,8 @@ import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { API_URLS } from '../../../../config/api-config';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export interface Sitio {
   Id_Sitio: number;
@@ -44,9 +46,7 @@ export interface TendenciasResponse {
     FormsModule,
     MatFormFieldModule,
     HttpClientModule,
-    
-
-
+    MatProgressSpinnerModule // Importa el módulo del spinner
   ],
   templateUrl: './tendencias.component.html',
   styleUrls: ['./tendencias.component.css']
@@ -54,18 +54,18 @@ export interface TendenciasResponse {
 export class TendenciasComponent implements OnInit {
   sitiosAMostrar = 10;
   sitios: any[] = [];
+  cargando = true; // Variable para controlar el estado de carga
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    this.apiService.get<TendenciasResponse>('http://localhost:8085/v1/Tendencias').subscribe({
+    this.apiService.get<TendenciasResponse>(API_URLS.Mid.Api_midtendencias).subscribe({
       next: (response) => {
         this.sitios = response.resultado.map(sitio => {
-          let imagen = 'default.png'; // Imagen por defecto
+          let imagen = 'assets/default.png'; // Imagen por defecto
           try {
-            let fotos: string[] = [];
             const contenido = sitio.Fotositio?.trim();
-
+            let fotos: string[] = [];
             if (contenido?.startsWith('"[')) {
               fotos = JSON.parse(JSON.parse(contenido));
             } else if (contenido?.startsWith('[')) {
@@ -73,13 +73,10 @@ export class TendenciasComponent implements OnInit {
             } else if (contenido?.startsWith('data:image')) {
               fotos = [contenido];
             }
-
-            if (fotos.length > 0) {
+            if (fotos.length > 0 && fotos[0].trim() !== '') {
               imagen = fotos[0];
             }
-          } catch (e) {
-            console.warn('Error al procesar Fotositio:', sitio.Fotositio);
-          }
+          } catch (error) {}
 
           return {
             id: sitio.Id_Sitio,
@@ -90,15 +87,19 @@ export class TendenciasComponent implements OnInit {
             comentarios: sitio.Cantidad_comentarios
           };
         }).sort((a, b) => b.valoracion - a.valoracion);
+
+        this.cargando = false; // Oculta el spinner cuando la petición se completa
       },
       error: (err) => {
         console.error('Error al cargar tendencias:', err);
+        this.cargando = false; // Oculta el spinner en caso de error
       }
     });
   }
-expandirDescripcion(sitio: any): void {
-  sitio.descripcionExpandida = !sitio.descripcionExpandida;
-}
+
+  expandirDescripcion(sitio: any): void {
+    sitio.descripcionExpandida = !sitio.descripcionExpandida;
+  }
 
   getEstrellasArray(puntaje: number): string[] {
     const estrellas = [];
@@ -123,9 +124,6 @@ expandirDescripcion(sitio: any): void {
   }
 
   verDetalle(id: string | number): void {
-  this.router.navigate(['/info-sitio', id]);
+    this.router.navigate(['/info-sitio', id]);
+  }
 }
-
-}
-
-  

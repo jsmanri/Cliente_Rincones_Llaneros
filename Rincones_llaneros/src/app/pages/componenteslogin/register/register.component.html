@@ -4,66 +4,80 @@
         <div class="logo-container">
             <img src="/logo.png" alt="Logo" class="logo">
         </div>
-        
-        <mat-card-title class="register-title">REGISTRATE</mat-card-title>
-        <p class="register-subtitle"> ¿Eres un viajero?
-            Descubre los mejores sitios turísticos de Casanare, encuentra promociones y planea tu aventura.
+
+        <!-- Título y Subtítulo -->
+        <mat-card-title class="register-title">REGÍSTRATE</mat-card-title>
+        <p class="register-subtitle">
+            ¿Eres un viajero? Descubre los mejores sitios turísticos de Casanare, encuentra promociones y planea tu aventura.
             <br>
-             ¿Tienes un negocio turístico?
-            Regístrate como vendedor, publica tus servicios y llega a más clientes.
+            ¿Tienes un negocio turístico? Regístrate como vendedor, publica tus servicios y llega a más clientes.
             <br>
-            ¡Únete y vive la experiencia llanera! 
+            ¡Únete y vive la experiencia llanera!
             <br>
-            Regístrate ahora</p>
-        
+            Regístrate ahora
+        </p>
+
         <mat-card-content>
+            <!-- Formulario -->
             <form [formGroup]="registerForm" (ngSubmit)="register()">
+                <!-- Foto de Perfil -->
+                <div class="profile-pic-container">
+                    <label for="profile-pic-input" class="profile-pic-label">
+                        <img *ngIf="previewUrl; else placeholder" [src]="previewUrl" alt="Foto de Perfil" class="profile-pic-preview">
+                        <ng-template #placeholder>
+                            <div class="profile-pic-placeholder">+</div>
+                        </ng-template>
+                    </label>
+                    <input type="file" id="profile-pic-input" (change)="onFileSelected($event)" accept="image/*" hidden>
+                    <div class="profile-actions">
+                        <p class="profile-pic-text">
+                            {{ previewUrl ? 'Eliminar imagen' : 'Haz clic para agregar una foto' }}
+                        </p>
+                        <button 
+                            *ngIf="previewUrl" 
+                            mat-icon-button 
+                            class="remove-pic-button" 
+                            (click)="removeProfilePicture()" 
+                            type="button" 
+                            aria-label="Eliminar foto">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Campos del Formulario -->
                 <div class="form-columns-container">
-                    <!-- Columna Izquierda -->
                     <div class="form-column">
-                        <!-- Selector de Rol -->
                         <mat-form-field appearance="outline" class="role-selector">
                             <mat-label>Rol</mat-label>
-                            <mat-select formControlName="Rol" required>
-                                <mat-option value="vendedor">Usuario Vendedor</mat-option>
-                                <mat-option value="cliente">Usuario Cliente</mat-option>
+                            <mat-select formControlName="role" required>
+                                <mat-option *ngFor="let rol of roles" [value]="rol.Id">
+                                    {{ rol.Nombre }}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
-
-                        <!-- Nombre y Apellido -->
                         <mat-form-field appearance="outline">
                             <mat-label>Nombre y Apellido</mat-label>
-                            <input matInput formControlName="Nombre" required>
+                            <input matInput formControlName="fullName" required>
                         </mat-form-field>
-
-                        <!-- Correo -->
                         <mat-form-field appearance="outline">
                             <mat-label>Correo</mat-label>
                             <input matInput formControlName="email" type="email" required>
                         </mat-form-field>
-
-                        <!-- Cédula -->
                         <mat-form-field appearance="outline">
                             <mat-label>Cédula</mat-label>
                             <input matInput formControlName="cedula" type="text" required>
                         </mat-form-field>
                     </div>
-
-                    <!-- Columna Derecha -->
                     <div class="form-column">
-                        <!-- Número Telefónico -->
                         <mat-form-field appearance="outline">
                             <mat-label>Número Telefónico</mat-label>
                             <input matInput formControlName="telefono" type="tel" required>
                         </mat-form-field>
-
-                        <!-- Contraseña -->
                         <mat-form-field appearance="outline">
                             <mat-label>Contraseña</mat-label>
                             <input matInput formControlName="password" type="password" required>
                         </mat-form-field>
-
-                        <!-- Confirmar Contraseña -->
                         <mat-form-field appearance="outline">
                             <mat-label>Confirmar Contraseña</mat-label>
                             <input matInput formControlName="confirmPassword" type="password" required>
@@ -71,18 +85,31 @@
                     </div>
                 </div>
 
-                <!-- Botón de Registro (full width) -->
-                <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" class="submit-button">
-                    Registrarme
-                </button>
+                <!-- Checkbox para aceptar políticas de privacidad -->
+                <mat-checkbox formControlName="acceptTerms" class="terms-checkbox">
+                    Acepto los <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a> y las políticas de privacidad.
+                </mat-checkbox>
+
+                <!-- Mensajes Adicionales -->
                 <p class="login-message">
                     ¿Ya tienes una cuenta?
                     <a (click)="goToLogin()" class="login-link">Inicia sesión</a>
                 </p>
-                <p class="terms-message">
-                    Al registrarte aceptas nuestros 
-                    <a (click)="goToPolitica()" class="terms-link">Términos y Condiciones</a>
-                  </p>                  
+
+                <!-- Botón de Registro -->
+                <button 
+                    mat-raised-button 
+                    color="primary" 
+                    type="submit" 
+                    [disabled]="registerForm.invalid" 
+                    class="submit-button">
+                    Registrarme
+                </button>
+
+                <!-- Mensaje de éxito -->
+                <div *ngIf="registrationSuccess" class="success-message">
+                    ¡Usuario registrado con éxito! Redirigiendo al inicio de sesión...
+                </div>
             </form>
         </mat-card-content>
     </mat-card>

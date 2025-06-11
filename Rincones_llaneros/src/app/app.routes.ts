@@ -11,11 +11,11 @@ import { VistaComponent } from './pages/componets/vista/vista.component';
 import { Vista2Component } from './pages/componets/vista2/vista2.component';
 import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
-import { SitiosadminComponent } from './pages/componenteadmin/sitiosadmin/sitiosadmin.component';
 import { DetallesComponent } from './pages/componets/detalles/detalles.component';
 import { InfoSitioComponent } from './pages/component/info-sitio/info-sitio.component';
 import { ClienteComponent } from './pages/Perfil/cliente/cliente.component';
 import { VendedorComponent } from './pages/Perfil/vendedor/vendedor.component';
+import { BuscarComponent } from './pages/componets/buscar/buscar.component';
 
 
 export const routes: Routes = [
@@ -33,12 +33,7 @@ export const routes: Routes = [
     { path: 'cliente', component: ClienteComponent},
     { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
-    { path: 'sitiosadmin', component: SitiosadminComponent},
     { path: 'detalles', component:DetallesComponent},
     { path: 'info-sitio/:id', component: InfoSitioComponent },
+    { path: 'buscar', component: BuscarComponent },
 ];
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}

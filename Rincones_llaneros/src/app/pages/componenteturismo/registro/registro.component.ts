@@ -37,6 +37,9 @@ export class RegistroComponent implements OnInit {
   imagenesBase64: string[] = [];
   categorias: any[] = [];
   municipio: any[] = [];
+  imagenPerfil: File | null = null;
+  imagenPerfilPreview: string | null = null;
+
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +50,7 @@ export class RegistroComponent implements OnInit {
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
       horario: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       categoria: [null, Validators.required], // ← se guarda el ID directamente
       municipio: [null, Validators.required], // ← se guarda el ID directamente
       imagenes: [null],
@@ -225,4 +228,21 @@ export class RegistroComponent implements OnInit {
       dialogRef.close();
     });
   }
+  onPerfilSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.imagenPerfil = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagenPerfilPreview = reader.result as string;
+    };
+    reader.readAsDataURL(this.imagenPerfil);
+  }
+}
+
+eliminarImagenPerfil(): void {
+  this.imagenPerfil = null;
+  this.imagenPerfilPreview = null;
+}
 }

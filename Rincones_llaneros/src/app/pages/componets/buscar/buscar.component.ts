@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API_URLS } from '../../../../config/api-config';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 interface Sitio {
   id: number;
@@ -32,7 +33,12 @@ export interface Evento {
 @Component({
   selector: 'app-buscar',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ],
+    
   templateUrl: './buscar.component.html',
   styleUrl: './buscar.component.css'
 })
@@ -70,12 +76,12 @@ export class BuscarComponent implements OnInit {
   }
 
 obtenerSitios() {
-  this.http.get<any>('http://localhost:8080/v1/Sitios_Turisticos').subscribe(
+  this.http.get<any>('http://localhost:8080/v1/Sitios_Turisticos?limit=0').subscribe(
     (response) => {
       const sitiosConsultados = response['sitios consultados'];
       if (Array.isArray(sitiosConsultados)) {
         this.sitios = sitiosConsultados.map((sitio: any) => {
-          let imagen = 'assets/default.png'; // Imagen por defecto
+          let imagen = 'default.png'; // Imagen por defecto
           try {
             const contenido = sitio.FotoSitio?.trim();
 
@@ -254,4 +260,8 @@ obtenerEventos() {
   goToPushinicio() {
     this.router.navigate(['/vista']).then(() => window.scrollTo(0, 0));
   }
+    verDetalle(id: string | number): void {
+    this.router.navigate(['/info-sitio', id]);
+  }
 }
+

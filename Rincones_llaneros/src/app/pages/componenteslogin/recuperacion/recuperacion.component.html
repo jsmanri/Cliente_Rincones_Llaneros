@@ -1,45 +1,51 @@
 <div class="recuperacion-container">
-    <mat-card class="recuperacion-card">
-      <h2 class="title">Recuperar contraseña</h2>
-  
-      <p class="description">{{ subtitulo }}</p>
-  
-      <!-- Paso 1: Enviar código -->
-      <form *ngIf="paso === 1" [formGroup]="phoneForm" (ngSubmit)="enviarCodigo()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Número de teléfono</mat-label>
-          <input matInput type="tel" formControlName="telefono" required>
-        </mat-form-field>
-  
-        <button mat-raised-button color="primary" type="submit" [disabled]="phoneForm.invalid">
-          Enviar código por SMS
-        </button>
-      </form>
-  
-      <!-- Paso 2: Verificación del código + nueva contraseña -->
-      <form *ngIf="paso === 2" [formGroup]="codeForm" (ngSubmit)="cambiarContrasena()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Código recibido</mat-label>
-          <input matInput formControlName="codigo" required>
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Nueva contraseña</mat-label>
-          <input matInput type="password" formControlName="nuevaContrasena" required>
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Confirmar contraseña</mat-label>
-          <input matInput type="password" formControlName="confirmarContrasena" required>
-        </mat-form-field>
-  
-        <button mat-raised-button color="primary" type="submit" [disabled]="codeForm.invalid">
-          Cambiar contraseña
-        </button>
-      </form>
-  
-      <p class="volver-message">
-        <a (click)="volverALogin()" class="volver-link">Volver al inicio de sesión</a>
-      </p>
-    </mat-card>
-  </div>
+  <mat-card class="recuperacion-card">
+    <h2 class="title">Recuperar contraseña</h2>
+    <p class="description">{{ subtitulo }}</p>
+
+    <form *ngIf="paso === 1" [formGroup]="emailForm" (ngSubmit)="enviarCodigo()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="correo" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="emailForm.invalid">
+        Enviar código
+      </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
+    </form>
+
+    <!-- Paso 2: Confirmar código -->
+    <form *ngIf="paso === 2" [formGroup]="codigoForm" (ngSubmit)="verificarCodigo()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Código recibido</mat-label>
+        <input matInput formControlName="codigo" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="codigoForm.invalid">
+        Verificar código
+      </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
+    </form>
+
+    <!-- Paso 3: Cambiar contraseña -->
+    <form *ngIf="paso === 3" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nueva contraseña</mat-label>
+        <input matInput type="password" formControlName="nuevaContrasena" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input matInput type="password" formControlName="confirmarContrasena" required>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="contrasenaForm.invalid">
+        Cambiar contraseña
+      </button>
+      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
+    </form>
+
+    <p class="volver-message">
+      <a (click)="volverALogin()" class="volver-link">Volver al inicio de sesión</a>
+    </p>
+  </mat-card>
+</div>

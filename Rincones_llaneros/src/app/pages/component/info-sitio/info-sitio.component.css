@@ -70,7 +70,7 @@
 }
 
 .comentario {
-  background-color: #f3f3f3;
+  background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -284,6 +284,13 @@ button {
   color: #555;
   line-height: 1.6;
   margin: 0;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 }
 
 /* Media query para móviles, elimina el min-width para evitar scroll horizontal */

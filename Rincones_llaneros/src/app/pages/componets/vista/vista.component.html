@@ -81,37 +81,6 @@
     </div>
   </section>
 
-
-  <!-- <div class="carousel-wrapper">
-    <h2>{{sectionTitle}}</h2>
-    <p class="description">{{sectionDescription}}</p>
-    
-    <div class="carousel-container">
-        <button mat-raised-button color="primary" (click)="goPrevius()" [disabled]="currentIndex === 0">Anterior</button>
-
-        <div class="carousel-track-container">
-            <div class="carousel-track" [style.transform]="getTransform()">
-                <mat-card class="carousel-card" *ngFor="let card of cards">
-                    <img mat-card-image [src]="card.image" alt="Imagen de la tarjeta"/>
-                    <mat-card-title>{{card.title}}</mat-card-title>
-                    <p *ngIf="card.mensaje">{{ card.mensaje }}</p>
-                    <mat-card-actions>
-                        <button mat-button color="accent" (click)="card.action()">{{card.title_button}}</button>
-                    </mat-card-actions>
-                </mat-card>
-
-            </div>
-        </div>
-        <button mat-raised-button color="primary" (click)="goNext()" [disabled]="currentIndex === cards.length -1">Siguiente</button>
-    </div>
-    <div class="detalle-info" *ngIf="selectedInfo">
-      
-        <h3>{{selectedInfo.title}}</h3>
-        <p>{{selectedInfo.description}}</p>
-        <button mat-stroked-button color="warn" (click)="cerrarDetalle()">Cerrar</button>
-    </div>
-</div> -->
-
 <section class="testimonios">
   <h2>Lo que dicen nuestros visitantes</h2>
   <div class="carrusel-testimonios">
@@ -173,17 +142,25 @@
 
 
 
-  <footer class="footer">
-    <div class="footer-content container">
-      <div class="link">
-        <h3>Atención al Cliente</h3>
-        <ul>
-          <li><a href="#">Ayuda</a></li>
-          <li><a href="#">Contactos</a></li>
-          <li><a href="#">Política de privacidad</a></li>
-        </ul>
-      </div>
+<mat-toolbar color="primary" class="informatbar">
+  <span class="contact-info">
+    <p style="color: white;">Calle 26A #14-63 Piso 1, Yopal Casanare Colombia</p>
+    <p style="color: white;">Horario de atención: Lunes a domingo - 6:00 am a 10:00 pm</p>
+    <p style="color: white;">Dependencias Administrativas: (+57) 3114368376</p>
+  </span>
+  <span class="spacer"></span>
+  <span class="social-media">
+    <h2 class="social-media">Síguenos</h2>
+    <div class="social-icons">
+      <i class="fab fa-facebook "></i>
+      <i class="fab fa-instagram "></i>
+      <i class="fab fa-linkedin "></i>
+      <i class="fab fa-github "></i>
+      <i class="fab fa-google "></i>
     </div>
-  </footer>
+    <p style="color: white;">RinconesLlaneros&#64;gmail.com</p>
+  </span>
+
+</mat-toolbar>
 </body>
 </html>

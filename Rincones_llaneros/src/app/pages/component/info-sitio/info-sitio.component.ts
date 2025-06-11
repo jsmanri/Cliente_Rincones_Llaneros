@@ -13,7 +13,9 @@ import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { API_URLS } from '../../../../config/api-config';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-info-sitio',
@@ -30,13 +32,16 @@ import { ActivatedRoute } from '@angular/router';
     FormsModule,
     MatFormFieldModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule // Importa el módulo del spinner
   ],
   templateUrl: './info-sitio.component.html',
-  styleUrl: './info-sitio.component.css'
+  styleUrls: ['./info-sitio.component.css']
 })
-export class InfoSitioComponent implements OnInit {
+export class InfoSitioComponent implements OnInit, OnDestroy {
   sitio: any;
+  cargando = true; // Variable para controlar el estado de carga
+  usuarioAutenticado = false; // Variable para verificar si el usuario ha iniciado sesión
   intervaloCarrusel: any;
   imagenActual = 0;
   imagenSeleccionada: string | null = null;
@@ -48,20 +53,21 @@ export class InfoSitioComponent implements OnInit {
     valoracion: 0
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
+    // Verificar si el usuario está autenticado (puedes cambiar esto según tu lógica de autenticación)
+    this.usuarioAutenticado = !!localStorage.getItem('usuario'); // Ejemplo usando localStorage
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.apiService.get<any>(`http://localhost:8085/v1/Sitios_turisticos/${id}`).subscribe({
+      this.apiService.get<any>(`${API_URLS.Mid.Api_Infositio}/${id}`).subscribe({
         next: (response) => {
           const datos = response.resultado;
 
-          // Procesar Fotositio
           let imagenes: string[] = [];
           try {
             const contenido = datos.Fotositio?.trim();
-
             if (contenido?.startsWith('"[')) {
               imagenes = JSON.parse(JSON.parse(contenido));
             } else if (contenido?.startsWith('[')) {
@@ -87,41 +93,76 @@ export class InfoSitioComponent implements OnInit {
             telefono: datos.Telefono,
             transporte: datos.Transporte || {}
           };
+
+          this.cargando = false; // Oculta el spinner cuando la petición se completa
         },
         error: (err) => {
           console.error('Error al cargar el sitio:', err);
+          this.cargando = false; // Oculta el spinner en caso de error
         }
       });
     }
+    this.iniciarCarruselAutomatico();
   }
 
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     clearInterval(this.intervaloCarrusel);
   }
 
   iniciarCarruselAutomatico(): void {
     this.intervaloCarrusel = setInterval(() => {
       this.siguienteImagen();
-    }, 4000);
+    }, 3500);
   }
+
   seleccionarEstrellas(valor: number) {
     this.nuevoComentario.valoracion = valor;
   }
 
   enviarComentario() {
+    if (!this.usuarioAutenticado) {
+      alert('Debes iniciar sesión para agregar comentarios.');
+      return;
+    }
+
     if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
       alert('Por favor, escribe un comentario y selecciona una puntuación.');
       return;
     }
 
-    const nuevo = {
-      autor: 'Usuario',
-      texto: this.nuevoComentario.texto,
-      valoracion: this.nuevoComentario.valoracion
+    const comentario = {
+      IdSitio: this.sitio.id,
+      Autor: { Id: 4 }, // Puedes cambiar esto por el nombre real si hay autenticación
+      Texto: this.nuevoComentario.texto,
+      Calificacion: this.nuevoComentario.valoracion
     };
 
-    this.sitio.comentarios.push(nuevo);
-    this.nuevoComentario = { texto: '', valoracion: 0 };
+    this.apiService.post<any>('http://localhost:8080/v1/Comentarios', comentario).subscribe({
+      next: (response) => {
+        const nuevo = {
+          autor: comentario.Autor,
+          texto: comentario.Texto,
+          calificacion: comentario.Calificacion
+        };
+
+        this.sitio.comentarios.push(nuevo);
+
+        if (response?.nuevaPonderacion) {
+          this.sitio.valoracion = Math.round(response.nuevaPonderacion * 10) / 10;
+        }
+
+        this.nuevoComentario = { texto: '', valoracion: 0 };
+        alert('Comentario enviado con éxito');
+      },
+      error: (err) => {
+        console.error('Error al enviar el comentario:', err);
+        alert('Ocurrió un error al enviar el comentario');
+      }
+    });
+  }
+
+  iniciarSesion() {
+    this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
   }
 
   anteriorImagen() {
@@ -168,7 +209,6 @@ export class InfoSitioComponent implements OnInit {
 
   cerrarModal() {
     this.modalVisible = false;
-    this.iniciarCarruselAutomatico();
   }
 
   abrirModalTransporte() {
