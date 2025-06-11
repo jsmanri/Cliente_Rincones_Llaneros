@@ -4,7 +4,7 @@ export const API_URLS ={
         
     },
     CRUD:{
-        Api_crudRegistrarSitio: 'http://localhost:8080/v1/Sitios_Turisticos',
+        Api_crudRegistrarSitio: 'http://localhost:8080/v1/Sitios_Turisticos?limit=0',
         Api_crudUsuarios:'http://localhost:8080/v1/Usuarios',
         Api_crudCategorias:'http://localhost:8080/v1/Categorias',
         Api_crudMunicipios:'http://localhost:8080/v1/Municipios',
