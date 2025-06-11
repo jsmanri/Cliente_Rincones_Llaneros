@@ -16,6 +16,9 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API_URLS } from '../../../../config/api-config';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MapaRutaComponent } from '../mapa-ruta/mapa-ruta.component'; // Importa el nuevo componente de mapa
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-info-sitio',
@@ -33,7 +36,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     HttpClientModule,
     MatInputModule,
-    MatProgressSpinnerModule // Importa el módulo del spinner
+    MatProgressSpinnerModule, // Importa el módulo del spinner
+    MatDialogModule,
   ],
   templateUrl: './info-sitio.component.html',
   styleUrls: ['./info-sitio.component.css']
@@ -53,11 +57,11 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     valoracion: 0
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    // Verificar si el usuario está autenticado
-    this.usuarioAutenticado = !!localStorage.getItem('usuario');
+    // Verificar si el usuario está autenticado (puedes cambiar esto según tu lógica de autenticación)
+    this.usuarioAutenticado = !!localStorage.getItem('usuario'); // Ejemplo usando localStorage
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -132,7 +136,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
 
     const comentario = {
       IdSitio: this.sitio.id,
-      Autor: { Id: 4 },
+      Autor: { Id: 4 }, // Puedes cambiar esto por el nombre real si hay autenticación
       Texto: this.nuevoComentario.texto,
       Calificacion: this.nuevoComentario.valoracion
     };
@@ -162,7 +166,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   }
 
   iniciarSesion() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
   }
 
   anteriorImagen() {
@@ -177,24 +181,6 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       this.imagenActual =
         (this.imagenActual + 1) % this.sitio.imagenes.length;
     }
-  }
-
-  abrirImagen(imagen: string) {
-    this.imagenSeleccionada = imagen;
-    this.modalVisible = true;
-    clearInterval(this.intervaloCarrusel);
-  }
-
-  cerrarModal() {
-    this.modalVisible = false;
-  }
-
-  abrirModalTransporte() {
-    this.modalTransporteVisible = true;
-  }
-
-  cerrarModalTransporte() {
-    this.modalTransporteVisible = false;
   }
 
   getEstrellasArray(valoracion: number): string[] {
@@ -217,5 +203,37 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     }
 
     return estrellas;
+  }
+
+  abrirImagen(imagen: string) {
+    this.imagenSeleccionada = imagen;
+    this.modalVisible = true;
+    clearInterval(this.intervaloCarrusel);
+  }
+
+  cerrarModal() {
+    this.modalVisible = false;
+  }
+
+abrirModalTransporte() {
+  if (!this.sitio.lat || !this.sitio.lng) {
+    console.error('Ubicación del sitio no está definida correctamente.');
+    return;
+  }
+
+  const dialogRef = this.dialog.open(MapaRutaComponent, {
+    width: '700px',
+    height: '500px',
+    disableClose: false,
+    data: { sitioUbicacion: { lat: this.sitio.lat, lng: this.sitio.lng } }
+  });
+
+  dialogRef.componentInstance.ubicacionUsuario.subscribe((coords: { lat: number; lng: number }) => {
+    console.log('Ubicación del usuario:', coords);
+  });
+}
+
+  cerrarModalTransporte() {
+    this.modalTransporteVisible = false;
   }
 }

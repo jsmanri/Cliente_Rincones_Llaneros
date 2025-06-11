@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild, Input, OnInit }
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 
 
 @Component({
@@ -17,15 +19,20 @@ import { GoogleMapsModule } from '@angular/google-maps';
 })
 export class MapaRutaComponent implements OnInit {
   @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
-  @Input() sitioUbicacion!: { lat: number; lng: number };
   @Output() ubicacionUsuario = new EventEmitter<{ lat: number; lng: number }>();
 
+  sitioUbicacion!: { lat: number; lng: number };
+  usuarioUbicacion!: { lat: number; lng: number };
   mapa!: any;
   directionsService!: any;
   directionsRenderer!: any;
-  usuarioUbicacion!: { lat: number; lng: number };
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { sitioUbicacion: { lat: number; lng: number } }) {
+    this.sitioUbicacion = data.sitioUbicacion; // Recibe la ubicación del sitio desde el modal
+  }
 
   ngOnInit(): void {
+    console.log('Ubicación del sitio recibida:', this.sitioUbicacion);
     this.obtenerUbicacionUsuario();
   }
 
@@ -37,8 +44,14 @@ export class MapaRutaComponent implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          this.ubicacionUsuario.emit(this.usuarioUbicacion);
-          this.inicializarMapa();
+
+          console.log('Ubicación del usuario obtenida:', this.usuarioUbicacion);
+
+          if (this.sitioUbicacion) {
+            this.inicializarMapa();
+          } else {
+            console.error('Ubicación del sitio no definida.');
+          }
         },
         (error) => {
           console.error('Error obteniendo ubicación:', error);
@@ -51,6 +64,11 @@ export class MapaRutaComponent implements OnInit {
   }
 
   inicializarMapa() {
+    if (!this.usuarioUbicacion || !this.sitioUbicacion) {
+      console.error('Ubicación del usuario o del sitio no definida correctamente.');
+      return;
+    }
+
     this.mapa = new google.maps.Map(this.mapContainer.nativeElement, {
       center: this.sitioUbicacion,
       zoom: 14
@@ -64,18 +82,22 @@ export class MapaRutaComponent implements OnInit {
   }
 
   generarRuta() {
-    const request = {
-      origin: this.usuarioUbicacion,
-      destination: this.sitioUbicacion,
-      travelMode: google.maps.TravelMode.DRIVING
-    };
+    if (this.usuarioUbicacion && this.sitioUbicacion) {
+      const request = {
+        origin: { lat: this.usuarioUbicacion.lat, lng: this.usuarioUbicacion.lng },
+        destination: { lat: this.sitioUbicacion.lat, lng: this.sitioUbicacion.lng },
+        travelMode: google.maps.TravelMode.DRIVING
+      };
 
-    this.directionsService.route(request, (result: any, status: any) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        this.directionsRenderer.setDirections(result);
-      } else {
-        console.error('Error generando ruta:', status);
-      }
-    });
+      this.directionsService.route(request, (result: any, status: any) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.directionsRenderer.setDirections(result);
+        } else {
+          console.error('Error generando ruta:', status);
+        }
+      });
+    } else {
+      console.error('Ubicación del usuario o del sitio no definida correctamente.');
+    }
   }
 }
