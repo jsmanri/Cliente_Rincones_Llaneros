@@ -76,12 +76,12 @@ export class BuscarComponent implements OnInit {
   }
 
 obtenerSitios() {
-  this.http.get<any>('http://localhost:8080/v1/Sitios_Turisticos').subscribe(
+  this.http.get<any>('http://localhost:8080/v1/Sitios_Turisticos?limit=0').subscribe(
     (response) => {
       const sitiosConsultados = response['sitios consultados'];
       if (Array.isArray(sitiosConsultados)) {
         this.sitios = sitiosConsultados.map((sitio: any) => {
-          let imagen = 'assets/default.png'; // Imagen por defecto
+          let imagen = 'default.png'; // Imagen por defecto
           try {
             const contenido = sitio.FotoSitio?.trim();
 

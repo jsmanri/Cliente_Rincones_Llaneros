@@ -72,6 +72,9 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'cliente/:id', component: ClienteComponent
+                },
+                {
+                  path: 'info-sitio/:id', component: InfoSitioComponent
                 }
               ]
               },

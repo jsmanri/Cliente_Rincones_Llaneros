@@ -13,7 +13,7 @@ import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { API_URLS } from '../../../../config/api-config';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -41,6 +41,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class InfoSitioComponent implements OnInit, OnDestroy {
   sitio: any;
   cargando = true; // Variable para controlar el estado de carga
+  usuarioAutenticado = false; // Variable para verificar si el usuario ha iniciado sesión
   intervaloCarrusel: any;
   imagenActual = 0;
   imagenSeleccionada: string | null = null;
@@ -52,9 +53,12 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     valoracion: 0
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
+    // Verificar si el usuario está autenticado (puedes cambiar esto según tu lógica de autenticación)
+    this.usuarioAutenticado = !!localStorage.getItem('usuario'); // Ejemplo usando localStorage
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.apiService.get<any>(`${API_URLS.Mid.Api_Infositio}/${id}`).subscribe({
@@ -116,6 +120,11 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   }
 
   enviarComentario() {
+    if (!this.usuarioAutenticado) {
+      alert('Debes iniciar sesión para agregar comentarios.');
+      return;
+    }
+
     if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
       alert('Por favor, escribe un comentario y selecciona una puntuación.');
       return;
@@ -150,6 +159,10 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
         alert('Ocurrió un error al enviar el comentario');
       }
     });
+  }
+
+  iniciarSesion() {
+    this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
   }
 
   anteriorImagen() {
