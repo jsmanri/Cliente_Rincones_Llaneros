@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 
 // Importa ApiService y la configuración
 import { API_URLS } from '../../../../config/api-config';
@@ -28,6 +30,7 @@ import emailjs from 'emailjs-com';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule
   ]
 })
 export class RecuperacionComponent {
@@ -38,12 +41,21 @@ export class RecuperacionComponent {
   codigoForm: FormGroup;
   contrasenaForm: FormGroup;
 
-  mensajeError: string = '';
   codigoGenerado: string = '';
 
   // IDs para enviar al backend
   idUsuario: number | null = null;
   idCredenciales: number | null = null;
+
+  mostrarModal: boolean = false;
+  modalMensaje: string = '';
+
+  mostrarNuevaContrasena = false;
+  mostrarConfirmarContrasena = false;
+
+  modalTitulo: string = '';
+  modalClase: string = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -57,17 +69,43 @@ export class RecuperacionComponent {
       codigo: ['', Validators.required]
     });
     this.contrasenaForm = this.fb.group({
-      nuevaContrasena: ['', [Validators.required, Validators.minLength(6)]],
+      nuevaContrasena: ['', [Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{10}$')
+      ]],
       confirmarContrasena: ['', Validators.required]
     }, { validators: this.passwordsIgualesValidator });
   }
+
+  getPasswordError(): string | null {
+    const control = this.contrasenaForm.get('nuevaContrasena');
+    const value = control?.value || '';
+
+    if (control?.hasError('required')) {
+      return 'La contraseña es obligatoria.';
+    }
+    if (!/[A-Z]/.test(value)) {
+      return 'Debe contener al menos una letra mayúscula.';
+    }
+    if (!/\d/.test(value)) {
+      return 'Debe contener al menos un número.';
+    }
+    if (!/[$@$!%*?&]/.test(value)) {
+      return 'Debe contener al menos un carácter especial.';
+    }
+    if (value.length < 10) {
+      return 'La contraseña debe tener al menos 10 caracteres.';
+    }
+    return null;
+  }
+
 
   generarCodigo(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
   }
 
   enviarCodigo() {
-    this.mensajeError = '';
     if (this.emailForm.valid) {
       const correo = this.emailForm.value.correo;
       const url = `${API_URLS.CRUD.Api_crudUsuarios}?query=Correo:${correo}`;
@@ -100,20 +138,37 @@ export class RecuperacionComponent {
                 this.paso = 2;
                 this.subtitulo = 'Ingresa el código que recibiste por correo';
               }, (error) => {
-                this.mensajeError = 'Ocurrió un error al enviar el correo. Intenta nuevamente.';
+                this.mostrarModalError ('Ocurrió un error al enviar el correo. Intenta nuevamente.');
                 console.error(error);
               });
 
           } else {
-            this.mensajeError = 'El correo ingresado no está registrado.';
+            this.mostrarModalError ('El correo ingresado no está registrado.');
           }
         },
         error: (error) => {
-          this.mensajeError = 'Ocurrió un error al consultar el correo. Intenta nuevamente.';
+          this.mostrarModalError ('Ocurrió un error al consultar el correo. Intenta nuevamente.');
         }
       });
     }
   }
+
+
+  mostrarModalError(mensaje: string, titulo: string = 'Error') {
+    this.modalTitulo = titulo
+    this.modalMensaje = mensaje;
+    this.modalClase = titulo === 'Exito' ? 'titulo-exito' : 'titulo-error';
+    this.mostrarModal = true;
+  }
+
+  cerrarModal() {
+    if (this.modalMensaje.includes('ha sido actualizada')) {
+      this.router.navigate(['/login']);
+    }
+     this.mostrarModal = false;
+     this.modalMensaje = '';
+  }
+
 
   verificarCodigo() {
     if (this.codigoForm.valid) {
@@ -121,9 +176,8 @@ export class RecuperacionComponent {
       if (codigoIngresado === this.codigoGenerado) {
         this.paso = 3;
         this.subtitulo = 'Crea tu nueva contraseña';
-        this.mensajeError = '';
       } else {
-        this.mensajeError = 'El código ingresado no es correcto.';
+        this.mostrarModalError ('El código ingresado no es correcto.');
       }
     }
   }
@@ -131,18 +185,18 @@ export class RecuperacionComponent {
 
   cambiarContrasena() {
   if (this.contrasenaForm.invalid) {
-    alert('Por favor completa todos los campos correctamente');
+     this.mostrarModalError('Por favor completa todos los campos correctamente');
     return;
   }
 
   if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
-    alert('Las contraseñas no coinciden');
+     this.mostrarModalError('Las contraseñas no coinciden');
     return;
   }
 
   // Verifica que los IDs estén presentes
   if (!this.idUsuario || !this.idCredenciales) {
-    this.mensajeError = 'No se pudo identificar el usuario. Intenta el proceso de nuevo.';
+    this.mostrarModalError ('No se pudo identificar el usuario. Intenta el proceso de nuevo.');
     return;
   }
 
@@ -156,15 +210,15 @@ export class RecuperacionComponent {
   this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
     next: (respuesta) => {
       if (respuesta && respuesta.success) {
-        alert('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.');
-        this.router.navigate(['/login']);
+       this.mostrarModalError('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.',
+        'Exito');
+        this.mostrarModal = true;
       } else {
-        // Mostrar mensaje de error del backend si existe
-        this.mensajeError = respuesta?.message || 'No se pudo actualizar la contraseña. Intenta nuevamente.';
+        this.mostrarModalError(respuesta?.message || 'No se pudo actualizar la contraseña. Intenta nuevamente.');
       }
     },
     error: (error) => {
-      this.mensajeError = 'Ocurrió un error al actualizar la contraseña. Intenta nuevamente.';
+      this.mostrarModalError ('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.');
     }
   });
   }
