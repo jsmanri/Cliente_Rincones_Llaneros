@@ -56,8 +56,8 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    // Verificar si el usuario está autenticado (puedes cambiar esto según tu lógica de autenticación)
-    this.usuarioAutenticado = !!localStorage.getItem('usuario'); // Ejemplo usando localStorage
+    // Verificar si el usuario está autenticado
+    this.usuarioAutenticado = !!localStorage.getItem('usuario');
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -132,7 +132,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
 
     const comentario = {
       IdSitio: this.sitio.id,
-      Autor: { Id: 4 }, // Puedes cambiar esto por el nombre real si hay autenticación
+      Autor: { Id: 4 },
       Texto: this.nuevoComentario.texto,
       Calificacion: this.nuevoComentario.valoracion
     };
@@ -162,7 +162,7 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
   }
 
   iniciarSesion() {
-    this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
+    this.router.navigate(['/login']);
   }
 
   anteriorImagen() {
@@ -177,6 +177,24 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
       this.imagenActual =
         (this.imagenActual + 1) % this.sitio.imagenes.length;
     }
+  }
+
+  abrirImagen(imagen: string) {
+    this.imagenSeleccionada = imagen;
+    this.modalVisible = true;
+    clearInterval(this.intervaloCarrusel);
+  }
+
+  cerrarModal() {
+    this.modalVisible = false;
+  }
+
+  abrirModalTransporte() {
+    this.modalTransporteVisible = true;
+  }
+
+  cerrarModalTransporte() {
+    this.modalTransporteVisible = false;
   }
 
   getEstrellasArray(valoracion: number): string[] {
@@ -199,23 +217,5 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     }
 
     return estrellas;
-  }
-
-  abrirImagen(imagen: string) {
-    this.imagenSeleccionada = imagen;
-    this.modalVisible = true;
-    clearInterval(this.intervaloCarrusel);
-  }
-
-  cerrarModal() {
-    this.modalVisible = false;
-  }
-
-  abrirModalTransporte() {
-    this.modalTransporteVisible = true;
-  }
-
-  cerrarModalTransporte() {
-    this.modalTransporteVisible = false;
   }
 }
