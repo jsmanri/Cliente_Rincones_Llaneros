@@ -46,8 +46,8 @@
         <p><mat-icon>navigation</mat-icon> LAT: {{ sitio?.lat }}, LNG: {{ sitio?.lng }}</p>
         <p><mat-icon>location_on</mat-icon>{{ sitio?.direccion }}</p>
         <p>
-          <mat-icon>directions_car</mat-icon> Recomendaciones de transporte {{ sitio?.transporte?.recomendacion }}
-          <button mat-button (click)="abrirModalTransporte()">Ver más</button>
+          <mat-icon>map</mat-icon> Ver ruta {{ sitio?.transporte?.recomendacion }}
+          <button mat-button (click)="abrirModalTransporte()">Ver</button>
         </p>
       </div>
       <div class="galeria">
@@ -110,17 +110,6 @@
     </div>
   </div>
 </mat-card>
-
-<!-- Modal de Transporte -->
-<div class="modal" [class.visible]="modalTransporteVisible" (click)="cerrarModalTransporte()">
-  <div class="modal-contenido" (click)="$event.stopPropagation()">
-    <h3>Opciones de transporte</h3>
-    <p>Más información en: <a href="https://taxialife.com/">Sitio web Taxialife</a></p>
-    <p>Más información en: <a href="https://transyopo.blogspot.com/">Sitio web Transyopo</a></p>
-    <button mat-raised-button color="primary" (click)="cerrarModalTransporte()">Cerrar</button>
-  </div>
-</div>
-
 <!-- Modal de Imágenes -->
 <div class="modal" [class.visible]="modalVisible" (click)="cerrarModal()">
   <img [src]="imagenSeleccionada" class="imagen-completa" />
