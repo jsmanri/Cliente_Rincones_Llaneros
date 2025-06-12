@@ -82,22 +82,29 @@ export class MapaRutaComponent implements OnInit {
   }
 
   generarRuta() {
-    if (this.usuarioUbicacion && this.sitioUbicacion) {
-      const request = {
-        origin: { lat: this.usuarioUbicacion.lat, lng: this.usuarioUbicacion.lng },
-        destination: { lat: this.sitioUbicacion.lat, lng: this.sitioUbicacion.lng },
-        travelMode: google.maps.TravelMode.DRIVING
-      };
-
-      this.directionsService.route(request, (result: any, status: any) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-          this.directionsRenderer.setDirections(result);
-        } else {
-          console.error('Error generando ruta:', status);
-        }
-      });
-    } else {
-      console.error('Ubicación del usuario o del sitio no definida correctamente.');
-    }
+  if (!this.usuarioUbicacion || !this.sitioUbicacion) {
+    console.error('Ubicación del usuario o del sitio no definida correctamente.');
+    return;
   }
+
+  console.log('Generando ruta desde:', this.usuarioUbicacion, 'hasta:', this.sitioUbicacion);
+
+  const request = {
+    origin: { lat: this.usuarioUbicacion.lat, lng: this.usuarioUbicacion.lng },
+    destination: { lat: this.sitioUbicacion.lat, lng: this.sitioUbicacion.lng },
+    travelMode: google.maps.TravelMode.DRIVING // Puedes probar con WALKING o BICYCLING si es necesario
+  };
+
+  this.directionsService.route(request, (result: any, status: any) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      this.directionsRenderer.setDirections(result);
+    } else {
+      console.error('Error generando ruta:', status);
+      if (status === 'ZERO_RESULTS') {
+        alert('No se encontró una ruta válida entre tu ubicación y el sitio.');
+      }
+    }
+  });
+}
+
 }
