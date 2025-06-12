@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Angular Material
@@ -9,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
 
 // Importa ApiService y la configuración
 import { API_URLS } from '../../../../config/api-config';
@@ -30,12 +34,13 @@ import emailjs from 'emailjs-com';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
 export class RecuperacionComponent {
   paso: number = 1;
-  subtitulo: string = 'Ingrese su correo electrónico para recibir un código de verificación';
+  subtitulo: string =
+    'Ingrese su correo electrónico para recibir un código de verificación';
 
   emailForm: FormGroup;
   codigoForm: FormGroup;
@@ -56,26 +61,34 @@ export class RecuperacionComponent {
   modalTitulo: string = '';
   modalClase: string = '';
 
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private apiService: ApiService
   ) {
     this.emailForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]]
+      correo: ['', [Validators.required, Validators.email]],
     });
     this.codigoForm = this.fb.group({
-      codigo: ['', Validators.required]
+      codigo: ['', Validators.required],
     });
-    this.contrasenaForm = this.fb.group({
-      nuevaContrasena: ['', [Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{10}$')
-      ]],
-      confirmarContrasena: ['', Validators.required]
-    }, { validators: this.passwordsIgualesValidator });
+    this.contrasenaForm = this.fb.group(
+      {
+        nuevaContrasena: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10),
+            Validators.pattern(
+              '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{10}$'
+            ),
+          ],
+        ],
+        confirmarContrasena: ['', Validators.required],
+      },
+      { validators: this.passwordsIgualesValidator }
+    );
   }
 
   getPasswordError(): string | null {
@@ -100,7 +113,6 @@ export class RecuperacionComponent {
     return null;
   }
 
-
   generarCodigo(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
   }
@@ -115,7 +127,8 @@ export class RecuperacionComponent {
           if (usuarios && usuarios.length > 0) {
             // Guarda los IDs necesarios
             this.idUsuario = usuarios[0].Id;
-            this.idCredenciales = usuarios[0].IdCredencialesCredenciales?.Id || null;
+            this.idCredenciales =
+              usuarios[0].IdCredencialesCredenciales?.Id || null;
 
             // Genera el código
             const codigo = this.generarCodigo();
@@ -130,32 +143,36 @@ export class RecuperacionComponent {
             const templateParams = {
               title: 'Recuperación de contraseña – Código de verificación',
               email: correo,
-              message: codigo
+              message: codigo,
             };
 
-            emailjs.send(serviceID, templateID, templateParams, userID)
-              .then(() => {
+            emailjs.send(serviceID, templateID, templateParams, userID).then(
+              () => {
                 this.paso = 2;
                 this.subtitulo = 'Ingresa el código que recibiste por correo';
-              }, (error) => {
-                this.mostrarModalError ('Ocurrió un error al enviar el correo. Intenta nuevamente.');
+              },
+              (error) => {
+                this.mostrarModalError(
+                  'Ocurrió un error al enviar el correo. Intenta nuevamente.'
+                );
                 console.error(error);
-              });
-
+              }
+            );
           } else {
-            this.mostrarModalError ('El correo ingresado no está registrado.');
+            this.mostrarModalError('El correo ingresado no está registrado.');
           }
         },
         error: (error) => {
-          this.mostrarModalError ('Ocurrió un error al consultar el correo. Intenta nuevamente.');
-        }
+          this.mostrarModalError(
+            'Ocurrió un error al consultar el correo. Intenta nuevamente.'
+          );
+        },
       });
     }
   }
 
-
   mostrarModalError(mensaje: string, titulo: string = 'Error') {
-    this.modalTitulo = titulo
+    this.modalTitulo = titulo;
     this.modalMensaje = mensaje;
     this.modalClase = titulo === 'Exito' ? 'titulo-exito' : 'titulo-error';
     this.mostrarModal = true;
@@ -165,10 +182,9 @@ export class RecuperacionComponent {
     if (this.modalMensaje.includes('ha sido actualizada')) {
       this.router.navigate(['/login']);
     }
-     this.mostrarModal = false;
-     this.modalMensaje = '';
+    this.mostrarModal = false;
+    this.modalMensaje = '';
   }
-
 
   verificarCodigo() {
     if (this.codigoForm.valid) {
@@ -177,50 +193,60 @@ export class RecuperacionComponent {
         this.paso = 3;
         this.subtitulo = 'Crea tu nueva contraseña';
       } else {
-        this.mostrarModalError ('El código ingresado no es correcto.');
+        this.mostrarModalError('El código ingresado no es correcto.');
       }
     }
   }
-
 
   cambiarContrasena() {
-  if (this.contrasenaForm.invalid) {
-     this.mostrarModalError('Por favor completa todos los campos correctamente');
-    return;
-  }
-
-  if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
-     this.mostrarModalError('Las contraseñas no coinciden');
-    return;
-  }
-
-  // Verifica que los IDs estén presentes
-  if (!this.idUsuario || !this.idCredenciales) {
-    this.mostrarModalError ('No se pudo identificar el usuario. Intenta el proceso de nuevo.');
-    return;
-  }
-
-  // Prepara el JSON para el backend MID
-  const payload = {
-    idUsuario: this.idUsuario,
-    idCredenciales: this.idCredenciales,
-    nuevaContrasena: this.contrasenaForm.value.nuevaContrasena
-  };
-
-  this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
-    next: (respuesta) => {
-      if (respuesta && respuesta.success) {
-       this.mostrarModalError('Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.',
-        'Exito');
-        this.mostrarModal = true;
-      } else {
-        this.mostrarModalError(respuesta?.message || 'No se pudo actualizar la contraseña. Intenta nuevamente.');
-      }
-    },
-    error: (error) => {
-      this.mostrarModalError ('Ocurrió un error al actualizar la contraseña. Intenta nuevamente.');
+    if (this.contrasenaForm.invalid) {
+      this.mostrarModalError(
+        'Por favor completa todos los campos correctamente'
+      );
+      return;
     }
-  });
+
+    if (this.contrasenaForm.errors?.['passwordsNoCoinciden']) {
+      this.mostrarModalError('Las contraseñas no coinciden');
+      return;
+    }
+
+    // Verifica que los IDs estén presentes
+    if (!this.idUsuario || !this.idCredenciales) {
+      this.mostrarModalError(
+        'No se pudo identificar el usuario. Intenta el proceso de nuevo.'
+      );
+      return;
+    }
+
+    // Prepara el JSON para el backend MID
+    const payload = {
+      idUsuario: this.idUsuario,
+      idCredenciales: this.idCredenciales,
+      nuevaContrasena: this.contrasenaForm.value.nuevaContrasena,
+    };
+
+    this.apiService.post<any>(API_URLS.Mid.Api_Newpassword, payload).subscribe({
+      next: (respuesta) => {
+        if (respuesta && respuesta.success) {
+          this.mostrarModalError(
+            'Tu contraseña ha sido actualizada. Ahora puedes iniciar sesión.',
+            'Exito'
+          );
+          this.mostrarModal = true;
+        } else {
+          this.mostrarModalError(
+            respuesta?.message ||
+              'No se pudo actualizar la contraseña. Intenta nuevamente.'
+          );
+        }
+      },
+      error: (error) => {
+        this.mostrarModalError(
+          'Ocurrió un error al actualizar la contraseña. Intenta nuevamente.'
+        );
+      },
+    });
   }
 
   passwordsIgualesValidator(form: FormGroup) {
