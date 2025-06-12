@@ -1,0 +1,401 @@
+.actividad-detalle {
+  max-width: 800px; 
+  margin: 0 auto; /* Centra el contenedor en la pantalla */
+  padding: 20px;
+  text-align: center; /* Centra el texto dentro del contenedor */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.actividad-detalle h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center; /* Asegura que el título esté centrado */
+}
+
+.descripcion {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center; /* Asegura que la descripción esté centrada */
+}
+
+.info-section {
+  margin-bottom: 20px;
+  text-align: center; /* Asegura que el contenido dentro de la sección también esté centrado */
+}
+
+.info-section h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.municipios-lista {
+  list-style-type: none;
+  padding: 0;
+  display: flex; /* Usamos flexbox para alinear los elementos en una fila */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en una nueva línea si no caben en la misma línea */
+}
+.municipios-lista li {
+  font-size: 1.1rem;
+  color: #444;
+  margin: 5px 15px;
+}
+
+.btn-volver {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.btn-volver:hover {
+  background-color: #0056b3;
+}
+
+
+.testimonio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem auto;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 15px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+}
+
+
+.testimonio-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonio-texto {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.estrellas {
+  display: flex;
+  gap: 4px;
+  color: gold;
+  margin-top: 0.25rem;
+  justify-content: center;
+}
+
+.actividad-imagen {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.municipio-item {
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #e7f1ff;
+  border-radius: 5px;
+  margin: 5px;
+  transition: background-color 0.3s;
+}
+
+.municipio-item:hover {
+  background-color: #d0e8ff;
+}
+
+.municipio-item.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* .carrusel-container {
+  margin: 30px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.carrusel-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carrusel {
+  display: inline-flex;
+  gap: 12px;
+  padding: 10px 20px;
+}
+
+.municipio-item {
+  flex: 0 0 auto;
+  min-width: 140px;
+  padding: 12px 20px;
+  background-color: #ffeeba;
+  border-radius: 30px;
+  font-size: 1rem;
+  color: #6c5100;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.municipio-item:hover {
+  transform: scale(1.05);
+} */
+
+
+.recomendacion-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columnas */
+  gap: 10px 20px; /* espacio entre filas y columnas */
+  text-align: left;
+}
+
+.recomendacion-linea {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.municipio-card {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 150px;              /* O puedes usar 30%, 200px, etc. */
+  text-align: center;
+}
+
+
+.municipio-card:hover {
+  background-color: #eafaf1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.municipio-nombre {
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  text-align: center;
+
+ 
+  color: #333;
+}
+.municipios-wrapper {
+  display: flex;
+  flex-wrap: wrap;           /* ¡Clave! Para que salten a la siguiente fila */
+  justify-content: center;   /* Centra horizontalmente */
+  gap: 1rem;                 /* Espaciado entre tarjetas */
+}
+
+
+
+
+
+
+
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+ul li:hover {
+  color: #7d402e; /* verde oscuro */
+}
+
+
+
+
+.carrusel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.carrusel-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carrusel-boton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carrusel-boton:hover {
+  background-color: #0056b3;
+}
+
+.select-container {
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.select-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.select-container select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+
+
+
+.comentarios-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 10px;
+}
+
+.comentario {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.comentario-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comentario-contenido {
+  flex: 1;
+}
+
+.comentario-usuario {
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.comentario-texto {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.comentario-estrellas {
+  display: flex;
+  gap: 4px;
+}
+
+.comentario-estrellas span {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.comentario-estrellas span.activa {
+  color: gold;
+}
+
+
+.opinion-container {
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+}
+
+.opinion-titulo {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.opinion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opinion-input,
+.opinion-textarea,
+.opinion-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.opinion-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.opinion-estrellas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.opinion-boton {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.opinion-boton:hover {
+  background-color: #388e3c;
+}
+
+

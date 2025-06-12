@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 // Importa ApiService y la configuración
 import { API_URLS } from '../../../../config/api-config';
-import { ApiService } from '../../../../services/api.services';
+import { ApiService } from '../../../../services/api.service';
 
 // Importa EmailJS
 import emailjs from 'emailjs-com';

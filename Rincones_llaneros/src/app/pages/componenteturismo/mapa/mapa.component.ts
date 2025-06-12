@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
@@ -7,7 +8,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
   standalone: true,
   imports: [
     CommonModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatButtonModule
   ],
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.css']

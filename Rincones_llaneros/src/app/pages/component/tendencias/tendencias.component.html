@@ -1,13 +1,22 @@
 <div class="tendencias-container">
   <h2 class="titulo-tendencias">Tendencias Turísticas</h2>
 
+  <!-- Spinner de carga -->
+  <div *ngIf="cargando" class="spinner-container">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <!-- Lista de sitios (se muestra cuando cargando es false) -->
   <mat-card class="tarjeta-sitio" *ngFor="let sitio of getSitiosAMostrar()" matRipple>
     <div class="contenido-card">
-      <img class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
+      <img mat-card-image class="imagen-sitio" [src]="sitio.imagen" alt="Imagen del sitio" />
 
-      <div class="contenido-sitio">
+      <div [routerLink]="['/home/info-sitio', sitio.id]" class="contenido-sitio">
         <h3 class="nombre-sitio">{{ sitio.nombre }}</h3>
-        <p class="descripcion-sitio">{{ sitio.descripcion }}</p>
+        
+        <p class="descripcion-sitio">
+          {{ sitio.descripcion.length > 100 ? sitio.descripcion.substring(0, 50) + '...' : sitio.descripcion }}
+        </p>
 
         <div class="valoracion">
           <ng-container *ngFor="let estrella of getEstrellasArray(sitio.valoracion)">
@@ -19,7 +28,7 @@
         <p class="comentarios">{{ sitio.comentarios }} comentarios</p>
 
         <div class="boton-mas">
-          <button mat-stroked-button color="primary">Más...</button>
+          <button mat-stroked-button color="primary" [routerLink]="['/home/info-sitio', sitio.id]">Ver más...</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Casanare - Detalles</title>
+        <!-- sin enlace al CSS externo -->
+      </head>
+<body>
+
+  <div style="text-align: center;"class="detalle-container">
+    <div class="detalle-header">
+      <img src="elemento.jpg" alt="Paseo en Kayak">
+    </div>
+
+    <h1>Que experiencias deseas probar en Casanare</h1>
+
+    <nav class="actividades">
+      <div class="columna">
+        <ul>
+          <li><a (click)="scrollTo('caballo')">Paseo a Caballo</a></li>
+          <li><a (click)="scrollTo('restaurantes')">Restaurantes</a></li>
+          <li><a (click)="scrollTo('hoteles')">Hoteles</a></li>
+          <li><a (click)="scrollTo('piscinas')">Piscinas</a></li>
+        </ul>
+        
+      </div>
+      <div class="columna">
+        <ul>
+          <li><a (click)="scrollTo('museos')">Museos</a></li>
+          <li><a (click)="scrollTo('monumentos')">Monumentos</a></li>
+          <li><a (click)="scrollTo('caminata')">Caminata ecológica</a></li>
+          <li><a (click)="scrollTo('safari')">Safari Casanare</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+      
+
+
+      
+      
+      
+
+    <div class="info">
+      Experimenta una aventura por los hatos de Casanare conectandote con la naturaleza, montando a caballo o a pie para observar las distintas espcies que viven en ellas 
+    </div>
+    
+
+    <h2>Eventos y ferias de Casanare </h2>
+
+
+    <div class="datos">
+      <div class="dato">
+        <strong>Mani </strong>
+        Festival De La Bandola Llanera "Pedro Florez"
+      </div>
+      <div class="dato">
+        <strong> Sabanalarga </strong>
+        Festival De La Naranja Y Feria Ganadera
+      </div>
+      <div class="dato">
+        <strong>Tauramena </strong>
+        Festival Folklórico Internacional Del Rodeo
+      </div>
+      <div class="dato">
+        <strong> Manì </strong>
+        Festival Del Mango
+        
+      </div>
+    </div>
+
+    <a (click)="goToPushEventos()" class="btn-reservar">Mas informacion</a>
+
+    <div id="caballo" class="actividad-info">
+      <div class="contenido-actividad">
+        <img src="llanos2.jpg" alt="Paseo a Caballo" />
+        <div class="texto-actividad">
+          <h2>Paseo a Caballo</h2>
+          <p>"Descubre la belleza de los llanos a lomo de caballo. Vive una experiencia auténtica recorriendo paisajes inolvidables en Casanare, como un verdadero llanero. ¡Una aventura que conecta con la naturaleza y la cultura de nuestra tierra!</p>
+          <button class="btn-1" (click)="goToPushCaballo()">Explorar más </button>
+        </div>
+      </div>
+    
+      <div class="municipios">
+        <h3>Disponible en:</h3>
+        <ul class="municipios-lista">
+          <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+          <li><i class="fas fa-map-marker-alt"></i> Maní</li>
+          <li><i class="fas fa-map-marker-alt"></i> Tauramena</li>
+        </ul>
+      </div>
+    </div>
+    
+<!-- Restaurantes -->
+<div id="restaurantes" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/restaurantes.jpg" alt="Restaurantes en Casanare" />
+    <div class="texto-actividad">
+      <h2>Restaurantes</h2>
+      <p>Saborea lo mejor de la cocina llanera en restaurantes típicos y modernos.</p>
+      <button class="btn-1" (click)="goToPushRestaurantes()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <p>Todos los municipios de Casanare</p>
+
+  </div>
+</div>
+
+<div id="piscinas" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/Piscinas.jpg" alt="Piscinas Naturales y Artificiales" />
+    <div class="texto-actividad">
+      <h2>Piscinas</h2>
+      <p>Explora senderos naturales mientras disfrutas del aire puro y la fauna local.</p>
+      <button class="btn-1" (click)="goToPushPiscinas()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Villanueva</li>
+      <li><i class="fas fa-map-marker-alt"></i> Aguazul...</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Museos -->
+<div id="museos" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/museos.jpg" alt="Museos de Casanare" />
+    <div class="texto-actividad">
+      <h2>Museos</h2>
+      <p>Descubre la historia y cultura de Casanare en sus museos más representativos.</p>
+      <button class="btn-1" (click)="goToPushMuseos()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Paz de Ariporo</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Monumentos -->
+<div id="monumentos" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/monumentos.jpg" alt="Monumentos en Casanare" />
+    <div class="texto-actividad">
+      <h2>Monumentos</h2>
+      <p>Conoce los monumentos emblemáticos que rinden homenaje a la tradición llanera.</p>
+      <button class="btn-1" (click)="goToPushMonumentos()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Aguazul</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Caminata Ecológica -->
+<div id="caminata" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/caminata.jpg" alt="Caminata ecológica Casanare" />
+    <div class="texto-actividad">
+      <h2>Caminata ecológica</h2>
+      <p>Explora senderos naturales mientras disfrutas del aire puro y la fauna local.</p>
+      <button class="btn-1" (click)="goToPushCaminata()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Yopal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Villanueva</li>
+      <li><i class="fas fa-map-marker-alt"></i> Aguazul</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Safari -->
+<div id="safari" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/safari.jpg" alt="Safari Casanare" />
+    <div class="texto-actividad">
+      <h2>Safari Casanare</h2>
+      <p>Una experiencia única para observar animales en su hábitat natural.</p>
+      <button class="btn-1" (click)="goToPushSafari()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <ul class="municipios-lista">
+      <li><i class="fas fa-map-marker-alt"></i> Hato Corozal</li>
+      <li><i class="fas fa-map-marker-alt"></i> Paz de Ariporo</li>
+      <li><i class="fas fa-map-marker-alt"></i> Trinidad</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div id="hoteles" class="actividad-info">
+  <div class="contenido-actividad">
+    <img src="/assets/hospedaje.jpg" alt="Hospedaje en Casanare" />
+    <div class="texto-actividad">
+      <h2>Hospedaje</h2>
+      <p>hospedaje lo mejor de la cocina llanera en restaurantes típicos y modernos.</p>
+      <button class="btn-1" (click)="goToPushHoteles()">Explorar más</button>
+    </div>
+  </div>
+  <div class="municipios">
+    <h3>Disponible en:</h3>
+    <p>Todos los municipios de Casanare</p>
+
+  </div>
+</div>
+
+    
+    
+    
+
+    
+
+
+
+
+
+
+
+
+
+</body>
+</html>

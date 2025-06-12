@@ -1,26 +1,39 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import { HeadersinregistroComponent } from './pages/component/headersinregistro/headersinregistro.component';
 import { TendenciasComponent } from './pages/component/tendencias/tendencias.component';
-import { LoginComponent } from './pages/componenteslogin/login/login.component';
 import { RegisterComponent } from './pages/componenteslogin/register/register.component';
 import { PoliticaComponent } from './pages/componenteslogin/politica/politica.component';
 import { RecuperacionComponent } from './pages/componenteslogin/recuperacion/recuperacion.component';
 import { RegistroComponent } from './pages/componenteturismo/registro/registro.component';
 import { EventosComponent } from './pages/componenteturismo/eventos/eventos.component';
+import { VistaComponent } from './pages/componets/vista/vista.component';
+import { Vista2Component } from './pages/componets/vista2/vista2.component';
+import { HeaderregistroComponent } from './pages/component/headerregistro/headerregistro.component';
 import { UsuariosadminComponent } from './pages/componenteadmin/usuariosadmin/usuariosadmin.component';
+import { DetallesComponent } from './pages/componets/detalles/detalles.component';
+import { InfoSitioComponent } from './pages/component/info-sitio/info-sitio.component';
+import { ClienteComponent } from './pages/Perfil/cliente/cliente.component';
+import { VendedorComponent } from './pages/Perfil/vendedor/vendedor.component';
+import { BuscarComponent } from './pages/componets/buscar/buscar.component';
 
 
 export const routes: Routes = [
-    { path: '', component:LoginComponent},
+    { path: '', redirectTo: 'homesinregistro', pathMatch: 'full' },
+    { path: 'vista', component:VistaComponent},
     { path: 'register', component:RegisterComponent},
     { path: 'politica', component:PoliticaComponent},
     { path: 'recuperacion', component:RecuperacionComponent },
     { path: 'registrossitio', component:RegistroComponent},
     { path: 'registroeven', component:EventosComponent},
-    { path: '', redirectTo: 'headersinregistro', pathMatch: 'full' },
-    { path: 'headersinregistro', component: HeadersinregistroComponent },
+    { path: 'home', component:HeaderregistroComponent},
+    { path: 'homesinregistro', component: HeadersinregistroComponent },
     { path: 'tendencias', component: TendenciasComponent },
+    { path: 'vista2', component:Vista2Component},
+    { path: 'cliente', component: ClienteComponent},
+    { path: 'vendedor', component: VendedorComponent},
     { path: 'usuadmin', component: UsuariosadminComponent},
+    { path: 'detalles', component:DetallesComponent},
+    { path: 'info-sitio/:id', component: InfoSitioComponent },
+    { path: 'buscar', component: BuscarComponent },
 ];
-
-

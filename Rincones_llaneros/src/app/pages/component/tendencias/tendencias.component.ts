@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,7 +9,27 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../../services/api.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { API_URLS } from '../../../../config/api-config';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+export interface Sitio {
+  Id_Sitio: number;
+  Cantidad_comentarios: number;
+  Descripcion: string;
+  Fotositio: string;
+  Nombre: string;
+  Ponderacion: number;
+}
+
+export interface TendenciasResponse {
+  message: string;
+  resultado: Sitio[];
+  status: number;
+}
 
 @Component({
   selector: 'app-tendencias',
@@ -23,83 +43,64 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
+    FormsModule,
     MatFormFieldModule,
-    FormsModule
+    HttpClientModule,
+    MatProgressSpinnerModule // Importa el módulo del spinner
   ],
   templateUrl: './tendencias.component.html',
   styleUrls: ['./tendencias.component.css']
 })
-export class TendenciasComponent {
-  // Número de sitios que se deben mostrar
-  sitiosAMostrar = 9;  // Cambia este valor para ver más o menos sitios
+export class TendenciasComponent implements OnInit {
+  sitiosAMostrar = 10;
+  sitios: any[] = [];
+  cargando = true; // Variable para controlar el estado de carga
 
-  sitios = [
-    {
-      nombre: 'Estadero Y',
-      descripcion: 'Lugar para comer la mejor carne al horno y conocer a yashido.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 4.5,
-      comentarios: 32
-    },
-    {
-      nombre: 'Cascada La Linda',
-      descripcion: 'Una vista mágica con senderos naturales.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 3.5,
-      comentarios: 14
-    },
-    {
-      nombre: 'Parque del Sol',
-      descripcion: 'Ideal para hacer picnic y disfrutar el atardecer.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 5,
-      comentarios: 45
-    },
-    {
-      nombre: 'Museo Histórico Regional',
-      descripcion: 'Conoce la historia local en un solo lugar.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 2.5,
-      comentarios: 6
-    },
-    {
-      nombre: 'Mirador del Águila',
-      descripcion: 'Perfecto para ver toda la ciudad desde las alturas.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 4.0,
-      comentarios: 27
-    },
-    {
-      nombre: 'EcoRuta Aventura',
-      descripcion: 'Caminatas guiadas, tirolesa y naturaleza pura.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 4.2,
-      comentarios: 18
-    },
-    {
-      nombre: 'Sendero Encantado',
-      descripcion: 'Una experiencia mágica para toda la familia.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 3.8,
-      comentarios: 10
-    },
-    {
-      nombre: 'Café Colonial',
-      descripcion: 'El mejor café artesanal con ambiente vintage.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 4.7,
-      comentarios: 29
-    },
-    {
-      nombre: 'Bahía Serena',
-      descripcion: 'Playas tranquilas, arena blanca y aguas cristalinas.',
-      imagen: 'loginimagen.jpg',
-      valoracion: 5,
-      comentarios: 51
-    }
-  ];
+  constructor(private apiService: ApiService, private router: Router) { }
 
-  // Obtener las estrellas según la valoración
+  ngOnInit(): void {
+    this.apiService.get<TendenciasResponse>(API_URLS.Mid.Api_midtendencias).subscribe({
+      next: (response) => {
+        this.sitios = response.resultado.map(sitio => {
+          let imagen = 'assets/default.png'; // Imagen por defecto
+          try {
+            const contenido = sitio.Fotositio?.trim();
+            let fotos: string[] = [];
+            if (contenido?.startsWith('"[')) {
+              fotos = JSON.parse(JSON.parse(contenido));
+            } else if (contenido?.startsWith('[')) {
+              fotos = JSON.parse(contenido);
+            } else if (contenido?.startsWith('data:image')) {
+              fotos = [contenido];
+            }
+            if (fotos.length > 0 && fotos[0].trim() !== '') {
+              imagen = fotos[0];
+            }
+          } catch (error) {}
+
+          return {
+            id: sitio.Id_Sitio,
+            nombre: sitio.Nombre,
+            descripcion: sitio.Descripcion,
+            imagen: imagen,
+            valoracion: Math.round(sitio.Ponderacion * 10) / 10,
+            comentarios: sitio.Cantidad_comentarios
+          };
+        }).sort((a, b) => b.valoracion - a.valoracion);
+
+        this.cargando = false; // Oculta el spinner cuando la petición se completa
+      },
+      error: (err) => {
+        console.error('Error al cargar tendencias:', err);
+        this.cargando = false; // Oculta el spinner en caso de error
+      }
+    });
+  }
+
+  expandirDescripcion(sitio: any): void {
+    sitio.descripcionExpandida = !sitio.descripcionExpandida;
+  }
+
   getEstrellasArray(puntaje: number): string[] {
     const estrellas = [];
     const llenas = Math.floor(puntaje);
@@ -118,8 +119,11 @@ export class TendenciasComponent {
     return estrellas;
   }
 
-  // Obtener los sitios que deben mostrarse en base a la variable 'sitiosAMostrar'
   getSitiosAMostrar() {
     return this.sitios.slice(0, this.sitiosAMostrar);
+  }
+
+  verDetalle(id: string | number): void {
+    this.router.navigate(['/info-sitio', id]);
   }
 }

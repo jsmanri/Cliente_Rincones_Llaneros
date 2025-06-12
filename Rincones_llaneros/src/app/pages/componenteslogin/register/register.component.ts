@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ApiService } from '../../../../services/api.services';
+import { ApiService } from '../../../../services/api.service';
 import { API_URLS } from '../../../../config/api-config';
 
 // Angular Material Modules

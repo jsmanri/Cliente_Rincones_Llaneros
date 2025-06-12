@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rincones Llaneros</title>
+</head>
+<body>
+  <header class="header">
+    <div class="menu container">
+      <label for="menu"></label>
+    </div>
+    <div class="header-content container">
+      <h1>Rincones Llaneros</h1>
+      <p>Descubre los destinos más increíbles de los Llanos Colombianos.</p>
+    </div>
+  </header>
+
+  <section class="llano">
+    <div class="llano-content-container">
+      <h2>Destinos destacados</h2>
+      <p class="txt-p">Explora nuestras recomendaciones especiales para ti.</p>
+
+      <div class="llanos-group">
+
+        <!-- Bloque 1 -->
+        <div class="llano">
+          <div class="collage-container">
+            <div class="collage">
+              <img src="rio.jpg" alt="Río Casanare">
+              <img src="R.jpg" alt="Río Casanare">
+              <img src="rio2.jpg" alt="Río Casanare">
+              <img src="rio3.jpg" alt="Río Casanare">
+            </div>
+          </div>
+          <div class="text-container">
+            <h3>Río Casanare</h3>
+            <p>Unos hermosos ríos para poder refrescarse.</p>
+          </div>
+        </div>
+      
+        <!-- Bloque 2 -->
+        <div class="llano">
+          <div class="collage-container">
+            <div class="collage">
+              <img src="comida.jpg" alt="Comida Llanera">
+              <img src="comida2.jpg" alt="Comida Llanera">
+              <img src="comida3.jpg" alt="Comida Llanera">
+              <img src="comida4.jpg" alt="Comida Llanera">
+            </div>
+          </div>
+          <div class="text-container">
+            <h3>Comidas Típicas</h3>
+            <p>Puedes disfrutar de la gastronomía llanera.</p>
+          </div>
+        </div>
+      
+        <!-- Bloque 3 -->
+        <div class="llano">
+          <div class="collage-container">
+            <div class="collage">
+              <img src="llanos.jpg" alt="Hato El Cedral">
+              <img src="llanos2.jpg" alt="Hato El Cedral">
+              <img src="Casanare-3.jpg" alt="Hato El Cedral">
+              <img src="elemento.jpg" alt="Hato El Cedral">
+            </div>
+          </div>
+          <div class="text-container">
+            <h3>Hato El Cedral</h3>
+            <p>Una experiencia única para conectarte con la fauna y flora de la región.</p>
+          </div>
+        </div>
+      
+      </div>
+      
+      
+      
+      
+
+      <button class="btn-1" (click)="goToPush()">Explorar más </button>
+    </div>
+  </section>
+
+<section class="testimonios">
+  <h2>Lo que dicen nuestros visitantes</h2>
+  <div class="carrusel-testimonios">
+    <div class="testimonio" *ngFor="let testimonio of testimonios; let i = index" [class.active]="i === currentIndexTestimonios">
+      <img [src]="testimonio.foto" alt="Foto de {{testimonio.nombre}}" class="foto-testimonio">
+      <p class="mensaje">"{{testimonio.mensaje}}"</p>
+      <span class="autor">- {{testimonio.nombre}}, {{testimonio.ciudad}}</span>
+    </div>
+  </div>
+</section>
+
+
+
+   
+  <h3>Eventos mas destacados</h3>
+  <a>Disfruta de los eventos mejor calificados por el publico</a>
+  <div class="carousel-container">
+    <div class="carousel-slide">
+      <img [src]="images[currentIndex].src" alt="{{ images[currentIndex].title }}">
+      <div class="caption">
+        <h3>{{ images[currentIndex].title }}</h3>
+        <p>{{ images[currentIndex].description }}</p>
+        <button class="btn-1" (click)="goToPushEventos()">Explorar más eventos</button>
+      </div>
+
+    </div>
+    
+  
+    Botones de navegación
+    <button class="prev-btn" (click)="prev()">&#10094;</button>
+    <button class="next-btn" (click)="next()">&#10095;</button>
+
+
+  </div> 
+ 
+
+
+
+  <section class="general">
+    <div class="general-1">
+      <h2>¿Por qué visitar los Llanos?</h2>
+      <p>Los Llanos Orientales son el destino perfecto para quienes buscan naturaleza, cultura y aventura en un solo lugar.</p>
+      <a href="#" class="btn-1">Ver más</a>
+    </div>
+  </section>
+
+  <section class="blog-container">
+
+
+    <div class="blog-content">
+      <div class="blog-1">
+        <img src="atardecer.jpg" alt="Atardecer llanero"/>
+        <h3>Un atardecer inolvidable</h3>
+        <p>Descubre por qué los atardeceres llaneros son de los más hermosos del mundo.</p>
+      </div>
+    </div>
+    <a href="#" class="btn-1">Leer más</a>
+  </section>
+
+
+
+<mat-toolbar color="primary" class="informatbar">
+  <span class="contact-info">
+    <p style="color: white;">Calle 26A #14-63 Piso 1, Yopal Casanare Colombia</p>
+    <p style="color: white;">Horario de atención: Lunes a domingo - 6:00 am a 10:00 pm</p>
+    <p style="color: white;">Dependencias Administrativas: (+57) 3114368376</p>
+  </span>
+  <span class="spacer"></span>
+  <span class="social-media">
+    <h2 class="social-media">Síguenos</h2>
+    <div class="social-icons">
+      <i class="fab fa-facebook "></i>
+      <i class="fab fa-instagram "></i>
+      <i class="fab fa-linkedin "></i>
+      <i class="fab fa-github "></i>
+      <i class="fab fa-google "></i>
+    </div>
+    <p style="color: white;">RinconesLlaneros&#64;gmail.com</p>
+  </span>
+
+</mat-toolbar>
+</body>
+</html>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../../services/api.services';
+import { ApiService } from '../../../../services/api.service';
 import { API_URLS } from '../../../../config/api-config';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

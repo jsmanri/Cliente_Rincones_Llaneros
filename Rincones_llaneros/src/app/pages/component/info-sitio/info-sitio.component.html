@@ -1,0 +1,127 @@
+<div class="contenedor">
+  <h2 class="titulo">{{ sitio?.nombre }}</h2>
+</div>
+
+<!-- Spinner de carga -->
+<div *ngIf="cargando" class="spinner-container">
+  <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<mat-card class="card-completa">
+  <div class="info-completa">
+    <!-- Carrusel -->
+    <div class="carousel">
+      <img
+        *ngFor="let img of sitio?.imagenes; let i = index"
+        [src]="img"
+        [class.active]="i === imagenActual"
+        [class.inactive]="i !== imagenActual"
+        alt="Imagen del sitio"
+      />
+      <button class="btn izquierda" (click)="anteriorImagen()">&#10094;</button>
+      <button class="btn derecha" (click)="siguienteImagen()">&#10095;</button>
+    </div>
+
+    <mat-card class="descripcion-card">
+      <mat-card-header>
+        <mat-card-title>Descripción</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ sitio?.descripcion }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Secciones izquierda y derecha -->
+    <div class="info-secciones">
+      <div class="info">
+        <h3>Puntaje e información</h3>
+        <div class="valoracion">
+          <ng-container *ngFor="let estrella of getEstrellasArray(sitio?.valoracion)">
+            <mat-icon>{{ estrella }}</mat-icon>
+          </ng-container>
+          <span class="puntos">({{ sitio?.valoracion }})</span>
+        </div>
+        <p><mat-icon>access_time</mat-icon> {{ sitio?.horario }}</p>
+        <p><mat-icon>phone</mat-icon> {{ sitio?.telefono }}</p>
+        <p><mat-icon>navigation</mat-icon> LAT: {{ sitio?.lat }}, LNG: {{ sitio?.lng }}</p>
+        <p><mat-icon>location_on</mat-icon>{{ sitio?.direccion }}</p>
+        <p>
+          <mat-icon>directions_car</mat-icon> Recomendaciones de transporte {{ sitio?.transporte?.recomendacion }}
+          <button mat-button (click)="abrirModalTransporte()">Ver más</button>
+        </p>
+      </div>
+      <div class="galeria">
+        <h3>Imágenes</h3>
+        <div class="imagenes">
+          <img
+            *ngFor="let img of sitio?.imagenes"
+            [src]="img"
+            alt="Imagen adicional"
+            (click)="abrirImagen(img)"
+            style="cursor: pointer"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Comentar (Solo si el usuario está autenticado) -->
+    <div *ngIf="usuarioAutenticado; else noAutenticado" class="nuevo-comentario">
+      <h3>Agregar comentario</h3>
+      <mat-form-field appearance="outline" class="campo-comentario">
+        <mat-label>Tu comentario</mat-label>
+        <textarea matInput [(ngModel)]="nuevoComentario.texto" rows="3"></textarea>
+      </mat-form-field>
+
+      <div class="valoracion-nueva">
+        <span>Tu puntuación:</span>
+        <ng-container *ngFor="let estrella of [1, 2, 3, 4, 5]">
+          <mat-icon
+            (click)="seleccionarEstrellas(estrella)"
+            [ngClass]="{ activa: estrella <= nuevoComentario.valoracion }"
+          >
+            {{ estrella <= nuevoComentario.valoracion ? 'star' : 'star_border' }}
+          </mat-icon>
+        </ng-container>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="enviarComentario()">Enviar</button>
+    </div>
+
+    <!-- Mensaje para usuarios no autenticados -->
+    <ng-template #noAutenticado>
+      <div class="mensaje-autenticacion">
+        <p>Debes iniciar sesión para agregar comentarios.</p>
+        <button mat-raised-button color="accent" (click)="iniciarSesion()">Iniciar sesión</button>
+      </div>
+    </ng-template>
+
+    <!-- Comentarios -->
+    <div class="comentarios">
+      <h3>Comentarios ({{ sitio?.comentarios?.length || 0 }})</h3>
+      <div *ngFor="let comentario of sitio?.comentarios" class="comentario">
+        <div class="comentario-header">
+          <strong>{{ comentario.Autor }}</strong>
+          <ng-container *ngFor="let estrella of getEstrellasArray(comentario.calificacion)">
+            <mat-icon class="estrella-comentario">{{ estrella }}</mat-icon>
+          </ng-container>
+        </div>
+        <p>{{ comentario.texto }}</p>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+<!-- Modal de Transporte -->
+<div class="modal" [class.visible]="modalTransporteVisible" (click)="cerrarModalTransporte()">
+  <div class="modal-contenido" (click)="$event.stopPropagation()">
+    <h3>Opciones de transporte</h3>
+    <p>Más información en: <a href="https://taxialife.com/">Sitio web Taxialife</a></p>
+    <p>Más información en: <a href="https://transyopo.blogspot.com/">Sitio web Transyopo</a></p>
+    <button mat-raised-button color="primary" (click)="cerrarModalTransporte()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal de Imágenes -->
+<div class="modal" [class.visible]="modalVisible" (click)="cerrarModal()">
+  <img [src]="imagenSeleccionada" class="imagen-completa" />
+</div>

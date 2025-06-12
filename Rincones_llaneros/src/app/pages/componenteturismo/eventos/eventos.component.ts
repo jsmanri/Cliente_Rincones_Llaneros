@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { ApiService } from '../../../../services/api.services';
+import { ApiService } from '../../../../services/api.service';
 import { API_URLS } from '../../../../config/api-config';
 
 interface SitioTuristico {

@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MapaComponent } from '../mapa/mapa.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ApiService } from '../../../../services/api.services';
+import { ApiService } from '../../../../services/api.service';
 import { API_URLS } from '../../../../config/api-config';
 
 @Component({
@@ -36,6 +36,10 @@ export class RegistroComponent implements OnInit {
   imagenesPreview: string[] = [];
   imagenesBase64: string[] = [];
   categorias: any[] = [];
+  municipio: any[] = [];
+  imagenPerfil: File | null = null;
+  imagenPerfilPreview: string | null = null;
+
 
   constructor(
     private fb: FormBuilder,
@@ -46,8 +50,9 @@ export class RegistroComponent implements OnInit {
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
       horario: ['', Validators.required],
-      descripcion: ['', Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       categoria: [null, Validators.required], // ← se guarda el ID directamente
+      municipio: [null, Validators.required], // ← se guarda el ID directamente
       imagenes: [null],
       latitud: [''],
       longitud: ['']
@@ -68,6 +73,19 @@ export class RegistroComponent implements OnInit {
     },
     error: (err) => {
       console.error('Error al cargar categorías:', err);
+    }
+  });
+    this.apiService.get<any>(API_URLS.CRUD.Api_crudMunicipios).subscribe({
+    next: (data) => {
+      if (data && Array.isArray(data["municipios consultados"])) {
+        this.municipio = data["municipios consultados"];
+      } else {
+        this.municipio = [];
+        console.warn('La respuesta no contiene un arreglo de municipios:', data);
+      }
+    },
+    error: (err) => {
+      console.error('Error al cargar los municipios:', err);
     }
   });
   }
@@ -149,7 +167,8 @@ export class RegistroComponent implements OnInit {
         Longitud: Number(this.sitioForm.value.longitud),
         FotoSitio: JSON.stringify(this.imagenesBase64),
         IdCategoria: { Id: this.sitioForm.value.categoria },
-        IdUsuario: { Id: 4 } // puedes ajustar el ID del usuario según tu lógica
+        IdMunicipio: { Id: this.sitioForm.value.municipio },
+        IdUsuario: { Id: 1 } // puedes ajustar el ID del usuario según tu lógica
       };
 
       console.log('Datos del sitio (para enviar al backend):', datosSitio);
@@ -209,4 +228,21 @@ export class RegistroComponent implements OnInit {
       dialogRef.close();
     });
   }
+  onPerfilSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.imagenPerfil = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagenPerfilPreview = reader.result as string;
+    };
+    reader.readAsDataURL(this.imagenPerfil);
+  }
+}
+
+eliminarImagenPerfil(): void {
+  this.imagenPerfil = null;
+  this.imagenPerfilPreview = null;
+}
 }

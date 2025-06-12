@@ -1,0 +1,483 @@
+.perfil-container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.foto-perfil img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #4267B2; /* azul Facebook */
+  box-shadow: 0 0 5px rgba(0,0,0,0.15);
+}
+
+.info-basica {
+  margin-left: 20px;
+}
+
+.info-basica h1 {
+  margin: 0 0 10px 0;
+  font-size: 28px;
+  color: #4267B2;
+}
+
+.info-basica p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.tabs button.activo,
+.tabs button:hover {
+  color: #4267B2;
+  border-bottom-color: #4267B2;
+}
+
+.contenido-tab h2 {
+  color: #4267B2;
+  margin-bottom: 10px;
+}
+
+.contenido-tab ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.contenido-tab ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  color: #333;
+}
+
+.publicacion-card {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  margin: 20px 0;
+  box-sizing: border-box;
+}
+
+.imagen-grande img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain; /* Cambiado a contain para que la imagen se vea completa */
+  border-radius: 10px;
+  background-color: #f0f0f0; /* Fondo suave para espacio vacío */
+}
+
+.contenido-principal {
+  padding: 10px 0;
+}
+
+.btn-mas {
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-mas:hover {
+  background-color: #1c3aa9;
+}
+
+.detalles-adicionales {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.editar-publicacion-container {
+  background-color: #f9fafb;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(100, 116, 139, 0.1);
+  margin-bottom: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.editar-publicacion-container h3 {
+  margin-top: 0;
+  color: #1e40af;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.editar-publicacion-container label {
+  display: block;
+  margin: 12px 0 6px 0;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.editar-publicacion-container input[type="text"],
+.editar-publicacion-container textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #334155;
+  background-color: #f8fafc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  resize: vertical;
+}
+
+.editar-publicacion-container input[type="text"]::placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.editar-publicacion-container input[type="text"]:focus,
+.editar-publicacion-container textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background-color: #f3f5f6;
+  box-shadow: 0 0 10px 2px rgba(37, 99, 235, 0.2);
+}
+
+.editar-publicacion-container input[type="file"] {
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2563eb;
+  border: 2px dashed #93c5fd;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #eff6ff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.editar-publicacion-container input[type="file"]:hover {
+  background-color: #dbeafe;
+  border-color: #3b82f6;
+}
+
+.preview-imagen-edicion img {
+  max-width: 220px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.preview-imagen-edicion img:hover {
+  transform: scale(1.05);
+}
+
+.botones-edicion {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.btn-guardar,
+.btn-cancelar {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-guardar {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-guardar:hover {
+  background-color: #1e40af;
+}
+
+.btn-cancelar {
+  background-color: #e0e7ff;
+  color: #1e40af;
+}
+
+.btn-cancelar:hover {
+  background-color: #c7d2fe;
+}
+
+.editar-publicacion-container textarea {
+  min-height: 100px;
+  width: 95%;
+}
+
+.menu-opciones {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.btn-menu {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
+
+.menu-desplegable {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 100;
+}
+
+.menu-desplegable button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.menu-desplegable button:hover {
+  background-color: #f0f0f0;
+}
+
+.botones-edicion {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn-guardar, .btn-cancelar, .btn-editar {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-guardar {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-cancelar {
+  background-color: #e11d48;
+  color: white;
+}
+
+.btn-editar {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-publicar {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.card-publicar {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 320px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.opciones-publicar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.btn-opcion {
+  flex: 1;
+  margin: 0 5px;
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-opcion:hover {
+  background-color: #138496;
+}
+
+.editar-vendedor-form {
+  background-color: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.editar-vendedor-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.editar-vendedor-form input[type="text"],
+.editar-vendedor-form input[type="email"],
+.editar-vendedor-form input[type="file"] {
+  width: 100%;
+  padding: 12px 5px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editar-vendedor-form input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.editar-vendedor-form input[type="file"] {
+  padding: 5px;
+  background-color: #eff6ff;
+  border: 2px dashed #93c5fd;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.preview-imagen-edicion img {
+  margin-top: 15px;
+  max-width: 180px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Contenedor imágenes con espacio y responsive */
+.contenedor-imagenes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Imagenes de publicaciones más grandes y visibles */
+.imagen-publicacion {
+  width: 100%;
+  height: 450px; /* altura fija */
+  object-fit: contain; /* cambiar a contain para ver la imagen completa */
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  background-color: #f0f0f0; /* fondo para espacio vacío */
+}
+
+.slider-imagenes {
+  display: flex;
+  flex-direction: column; /* Cambiar a columna para poner elementos en vertical */
+  align-items: center; /* Centra horizontalmente */
+  gap: 10px;
+  padding: 10px 0;
+}
+
+
+
+/* Contenedor para los botones, para alinearlos en fila abajo */
+.slider-imagenes .botones-navegacion {
+  display: flex;
+  gap: 20px;
+}
+
+.slider-imagenes button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.slider-imagenes button:hover {
+  background-color: #1976d2;
+}
+
+.imagenes-evento {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* para que sean responsive */
+}
+
+.imagenes-evento img {
+  width: calc((100% - 20px) / 3); /* 3 imágenes con 10px de gap entre ellas */
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+}
