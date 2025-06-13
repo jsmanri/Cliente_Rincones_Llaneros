@@ -89,6 +89,7 @@
   padding: 16px;
   margin: 20px 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .imagen-grande img {
@@ -480,4 +481,15 @@
   object-fit: cover;
   border-radius: 8px;
   background-color: #f0f0f0;
+}
+
+.descripcion-evento {
+  white-space: normal;        /* Permite saltos de línea */
+  overflow: visible;          /* Evita recortes */
+  text-overflow: unset;       /* Desactiva los '...' */
+  word-wrap: break-word;      /* Rompe palabras largas */
+  max-height: none;           /* Elimina cualquier límite de altura */
+  display: block;             /* Comportamiento de bloque estándar */
+  margin: 10px 0;             /* Espaciado visual */
+  line-height: 1.5;           /* Mejor lectura */
 }

@@ -230,15 +230,12 @@
     alt="Imagen del evento" 
     class="imagen-publicacion"
   />
-
-  <div class="botones-navegacion">
+     <div class="botones-navegacion">
     <button (click)="cambiarImagenEvento(evento, -1)">&#8592; Anterior</button>
     <button (click)="cambiarImagenEvento(evento, 1)">Siguiente &#8594;</button>
-  </div>
-</div>
-
-
-      <p>{{ evento.DescripcionEvento }}</p>
+     </div>
+     </div>
+      <p class="descripcion-evento">{{ evento.DescripcionEvento }}</p>
       <p><strong>Fecha:</strong> {{ evento.FechaEvento | date:'longDate' }}</p>
       <p><strong>Ubicación:</strong> {{ evento.Ubicacion }}</p>
     </ng-template>
@@ -249,12 +246,5 @@
 
 
 
-  <!-- TAB DE INFORMACIÓN -->
-  <div *ngIf="tabActivo === 'info'">
-    <h2>Información adicional</h2>
-    <p><strong>Cédula:</strong> {{ vendedor.Cedula }}</p>
-    <p><strong>Fecha creación:</strong> {{ vendedor.FechaCreacion | date:'medium' }}</p>
-    <p><strong>Activo:</strong> {{ vendedor.Activo ? 'Sí' : 'No' }}</p>
-    
-  </div>
+
 </div>
