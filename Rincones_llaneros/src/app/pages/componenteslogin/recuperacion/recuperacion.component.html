@@ -3,49 +3,118 @@
     <h2 class="title">Recuperar contraseña</h2>
     <p class="description">{{ subtitulo }}</p>
 
-    <form *ngIf="paso === 1" [formGroup]="emailForm" (ngSubmit)="enviarCodigo()">
+    <form
+      *ngIf="paso === 1"
+      [formGroup]="emailForm"
+      (ngSubmit)="enviarCodigo()"
+    >
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Correo electrónico</mat-label>
-        <input matInput type="email" formControlName="correo" required>
+        <input matInput type="email" formControlName="correo" required />
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="emailForm.invalid">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="emailForm.invalid"
+      >
         Enviar código
       </button>
-      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <!-- Paso 2: Confirmar código -->
-    <form *ngIf="paso === 2" [formGroup]="codigoForm" (ngSubmit)="verificarCodigo()">
+    <form
+      *ngIf="paso === 2"
+      [formGroup]="codigoForm"
+      (ngSubmit)="verificarCodigo()"
+    >
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Código recibido</mat-label>
-        <input matInput formControlName="codigo" required>
+        <input matInput formControlName="codigo" required />
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="codigoForm.invalid">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="codigoForm.invalid"
+      >
         Verificar código
       </button>
-      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <!-- Paso 3: Cambiar contraseña -->
-    <form *ngIf="paso === 3" [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()">
+    <form
+      *ngIf="paso === 3"
+      [formGroup]="contrasenaForm"
+      (ngSubmit)="cambiarContrasena()"
+    >
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Nueva contraseña</mat-label>
-        <input matInput type="password" formControlName="nuevaContrasena" required>
+        <input
+          matInput
+          [attr.type]="mostrarNuevaContrasena ? 'text' : 'password'"
+          formControlName="nuevaContrasena"
+          required
+          maxlength="10"
+        />
+        <mat-icon
+          matSuffix
+          (click)="mostrarNuevaContrasena = !mostrarNuevaContrasena"
+          style="cursor: pointer"
+        >
+          {{ mostrarNuevaContrasena ? "visibility_off" : "visibility" }}
+        </mat-icon>
+        <mat-error
+          *ngIf="
+            contrasenaForm.get('nuevaContrasena')?.touched && getPasswordError()
+          "
+        >
+          {{ getPasswordError() }}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Confirmar contraseña</mat-label>
-        <input matInput type="password" formControlName="confirmarContrasena" required>
+        <input
+          matInput
+          [attr.type]="mostrarConfirmarContrasena ? 'text' : 'password'"
+          formControlName="confirmarContrasena"
+          required
+          maxlength="10"
+        />
+        <mat-icon
+          matSuffix
+          (click)="mostrarConfirmarContrasena = !mostrarConfirmarContrasena"
+          style="cursor: pointer"
+        >
+          {{ mostrarConfirmarContrasena ? "visibility_off" : "visibility" }}
+        </mat-icon>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="contrasenaForm.invalid">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="contrasenaForm.invalid"
+      >
         Cambiar contraseña
       </button>
-      <div *ngIf="mensajeError" class="error">{{ mensajeError }}</div>
     </form>
 
     <p class="volver-message">
-      <a (click)="volverALogin()" class="volver-link">Volver al inicio de sesión</a>
+      <a (click)="volverALogin()" class="volver-link"
+        >Volver al inicio de sesión</a
+      >
     </p>
+
+    <div class="modal-overlay" *ngIf="mostrarModal">
+      <div class="modal-content">
+        <h3 [ngClass]="modalClase">{{ modalTitulo }}</h3>
+        <p>{{ modalMensaje }}</p>
+        <button mat-button color="primary" (click)="cerrarModal()">
+          Cerrar
+        </button>
+      </div>
+    </div>
   </mat-card>
 </div>

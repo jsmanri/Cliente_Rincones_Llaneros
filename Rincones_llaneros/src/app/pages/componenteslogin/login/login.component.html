@@ -9,7 +9,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <!-- Usuario o correo -->
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Usuario o correo</mat-label>
+        <mat-label>Correo</mat-label>
         <input
           matInput
           placeholder="Ingrese su usuario"
@@ -23,7 +23,7 @@
           Formato de correo inválido
         </mat-error>
         <mat-error *ngIf="loginForm.get('correo')?.hasError('serverError')">
-            {{ loginForm.get('correo')?.getError('serverError') }}
+          {{ loginForm.get("correo")?.getError("serverError") }}
         </mat-error>
       </mat-form-field>
 
@@ -44,14 +44,14 @@
           (click)="hidePassword = !hidePassword"
         >
           <mat-icon>{{
-            hidePassword ? 'visibility_off' : 'visibility'
+            hidePassword ? "visibility_off" : "visibility"
           }}</mat-icon>
         </button>
         <mat-error *ngIf="loginForm.get('contrasena')?.hasError('required')">
           La contraseña es obligatoria
         </mat-error>
         <mat-error *ngIf="loginForm.get('contrasena')?.hasError('serverError')">
-            {{ loginForm.get('contrasena')?.getError('serverError') }}
+          {{ loginForm.get("contrasena")?.getError("serverError") }}
         </mat-error>
       </mat-form-field>
 
@@ -77,4 +77,24 @@
       </button>
     </div>
   </mat-card>
+
+  <div
+    class="modal-backdrop"
+    *ngIf="showInactiveModal"
+    (click)="showInactiveModal = false"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2 style="color: red">Usuario Inactivo</h2>
+      <p>
+        Tu cuenta está inactiva. Por favor, comunícate con el administrador.
+      </p>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="showInactiveModal = false"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
 </div>
