@@ -58,39 +58,51 @@ export class LoginComponent {
     return this.loginForm.get('contrasena');
   }
 
-  login() {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-
-    const payload = this.loginForm.value;
-
-    this.apiService.post(API_URLS.Mid.Api_Sesion, payload).subscribe(
-      (response: any) => {
-        console.log('Respuesta completa del API Mid:', response);
-        if (response.error) {
-          this.setServerErrors(response.error);
-        } else if (response.id_usuario && response.id_rol) {
-          if (!response.activo) {
-            this.showInactiveModal = true;
-            return;
-          }
-          // Aquí puedes almacenar la sesión o redirigir
-          this.router.navigate(['/home']);
-        } else {
-          this.showMessage('Hubo un problema inesperado. Intenta más tarde.');
-        }
-      },
-      (error) => {
-        if (error.error && error.error.error) {
-          this.setServerErrors(error.error.error);
-        } else {
-          this.showMessage('No se pudo conectar al servidor.');
-        }
-      }
-    );
+login() {
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const payload = this.loginForm.value;
+
+  this.apiService.post(API_URLS.Mid.Api_Sesion, payload).subscribe(
+    (response: any) => {
+      console.log('Respuesta completa del API Mid:', response);
+
+      if (response.error) {
+        this.setServerErrors(response.error);
+      } else if (response.id_usuario && response.id_rol) {
+        localStorage.setItem('usuarioId', response.id_usuario.toString());
+        localStorage.setItem('usuarioRol', response.id_rol.toString()); // 🔹 Guardar el ID del rol
+
+        this.redirigirSegunRol(response.id_rol, response.id_usuario); // 🔹 Redirigir según el ID del rol
+      } else {
+        this.showMessage('Hubo un problema inesperado. Intenta más tarde.');
+      }
+    },
+    (error) => {
+      console.error('Error en la solicitud:', error);
+      this.showMessage('No se pudo conectar al servidor.');
+    }
+  );
+}
+
+redirigirSegunRol(idRol: number, idUsuario: number) {
+  switch (idRol) {
+    case 1: // Vendedor
+      this.router.navigate([`/home/vendedor/${idUsuario}`]);
+      break;
+    case 2: // Cliente
+      this.router.navigate([`/home/cliente/${idUsuario}`]);
+      break;
+    case 3: // Administrador
+      this.router.navigate(['/usuadmin']);
+      break;
+    default:
+      this.router.navigate(['/home']); // Si el rol no es válido, ir a home por defecto
+  }
+}
 
   private showMessage(message: string): void {
     this.snackBar.open(message, 'Cerrar', {

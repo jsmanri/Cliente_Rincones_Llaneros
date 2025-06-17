@@ -145,6 +145,16 @@
   text-decoration: none;
   transition: background-color 0.2s ease-in-out;
 }
+.perfil-foto {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 🔹 Convierte la imagen en un círculo */
+  object-fit: cover; /* 🔹 Ajusta la imagen dentro del círculo sin deformarla */
+  overflow: hidden; /* 🔹 Evita que la imagen se salga del contenedor */
+  border: 2px solid white; /* 🔹 Borde opcional para destacar la imagen */
+}
+
+
 
 .perfil-opcion:hover {
   background-color: rgba(255, 255, 255, 0.1);

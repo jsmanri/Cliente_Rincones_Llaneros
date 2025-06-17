@@ -1,61 +1,70 @@
 <mat-sidenav-container class="main-container">
-  <!-- SIDENAV PERFIL (DERECHO) -->
-  <mat-sidenav #perfilSidenav class="perfil-sidenav" mode="over" position="end" >
-    <div class="perfil-content">
-      <a mat-list-item (click)="perfilSidenav.close()">
-        <span class="mat-line" style="color: white;">CONFIGURACION</span>
-      </a>
-      <a mat-list-item (click)="perfilSidenav.close()">
-        <span class="mat-line" style="color: white;">CERRAR SESION</span>
-      </a>
-    </div>
-  </mat-sidenav>
-
   <!-- SIDENAV PRINCIPAL (RESPONSIVE MOBILE) -->
-<mat-sidenav #sidenav class="sidenav" mode="over" position="start">
-    
+  <mat-sidenav #sidenav class="sidenav" mode="over" position="start">
     <mat-nav-list>
-      <a mat-list-item routerLink="/home" (click)="sidenav.close()">
+      <a *ngIf="puedeMostrarVista('/home')" mat-list-item routerLink="/home" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">INICIO</span>
       </a>
-      <a mat-list-item routerLink="/home/Buscar" (click)="sidenav.close()">
-        <span routerLink="/home/buscar" class="mat-line" style="color: white;">BUSCAR</span>
+      <a *ngIf="puedeMostrarVista('/home/buscar')" mat-list-item routerLink="/home/buscar" (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">BUSCAR</span>
       </a>
-      <a mat-list-item routerLink="/home/tendencias" (click)="sidenav.close()">
+      <a *ngIf="puedeMostrarVista('/home/tendencias')" mat-list-item routerLink="/home/tendencias" (click)="sidenav.close()">
         <span class="mat-line" style="color: white;">TENDENCIAS</span>
       </a>
-      <a mat-list-item routerLink="/home/vendedor" (click)="sidenav.close()">
-        <span routerLink="/home/vendedor" class="mat-line" style="color: white;">CONFIGURACION</span>
+      <a *ngIf="puedeMostrarVista('/home/registroevento')" mat-list-item routerLink="/home/registroevento" (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">REGISTRAR EVENTO</span>
       </a>
-      <a mat-list-item routerLink="/login" (click)="sidenav.close()">
-        <span routerLink="/login" class="mat-line" style="color: white;">CERRAR SESION</span>
+      <a *ngIf="puedeMostrarVista('/home/eventos')" mat-list-item routerLink="/home/eventos" (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">EVENTOS</span>
+      </a>
+      <a *ngIf="puedeMostrarVista('/usuadmin')" mat-list-item routerLink="/usuadmin" (click)="sidenav.close()">
+        <span class="mat-line" style="color: white;">ADMINISTRACIÓN</span>
+      </a>
+      <a mat-list-item (click)="verPerfil()">
+        <span class="mat-line" style="color: white;">CONFIGURACIÓN</span>
+      </a>
+      <a mat-list-item (click)="logout()">
+        <span class="mat-line" style="color: white;">CERRAR SESIÓN</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
 
-  <!-- TOOLBAR PRINCIPAL -->
-  <mat-toolbar color="primary" class="toolbar">
-    <img class="logo" routerLink="/home" src="logo.png" alt="Logo" />
-
-    <div class="botones desktop-only">
-      <button mat-raised-button class="nav-btn" routerLink="/home">INICIO</button>
-      <button mat-raised-button routerLink="/home/Buscar" class="nav-btn">BUSCAR</button>
-      <button mat-raised-button routerLink="/home/tendencias" class="nav-btn">TENDENCIAS</button>
+  <!-- SIDENAV PERFIL (DERECHO) -->
+  <mat-sidenav #perfilSidenav class="perfil-sidenav" mode="over" position="end">
+    <div class="perfil-content">
+      <a mat-list-item (click)="verPerfil()">
+        <span class="mat-line" style="color: white;">CONFIGURACIÓN</span>
+      </a>
+      <a mat-list-item (click)="logout()">
+        <span class="mat-line" style="color: white;">CERRAR SESIÓN</span>
+      </a>
     </div>
+  </mat-sidenav>
 
-    <span class="spacer"></span>
+  <!-- TOOLBAR PRINCIPAL -->
+<mat-toolbar color="primary" class="toolbar">
+  <img class="logo" routerLink="/home" src="logo.png" alt="Logo" />
 
-    <!-- BARRA DE BÚSQUEDA DESKTOP --> 
+  <div class="botones desktop-only">
+    <button mat-raised-button class="nav-btn" routerLink="/home">INICIO</button>
+    <button mat-raised-button routerLink="/home/buscar" class="nav-btn">BUSCAR</button>
+    <button mat-raised-button routerLink="/home/tendencias" class="nav-btn">TENDENCIAS</button>
+  </div>
 
-    <button mat-icon-button (click)="perfilSidenav.toggle()" class="perfil-btn desktop-only">
-      <mat-icon class="perfil-icono">account_circle</mat-icon>
-    </button>
+  <span class="spacer"></span>
 
-    <!-- HAMBURGUER -->
-    <button mat-icon-button (click)="sidenav.toggle()" class="hamburger">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar>
+  <!-- PERFIL DEL USUARIO SOLO EN ESCRITORIO -->
+<div *ngIf="usuarioAutenticado" class="perfil-info desktop-only" (click)="perfilSidenav.toggle()">
+  <img *ngIf="usuario.fotoPerfil" [src]="usuario.fotoPerfil" class="perfil-foto" alt="Foto de perfil" />
+  <span class="nombre-usuario">{{ usuario.nombre }}</span>
+</div>
+
+  <!-- HAMBURGUER SOLO EN MÓVIL -->
+  <button mat-icon-button (click)="sidenav.toggle()" class="hamburger">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
 
   <router-outlet></router-outlet>
 </mat-sidenav-container>

@@ -156,42 +156,44 @@ export class RegistroComponent implements OnInit {
     this.registrarSitio();
   }
 
-  registrarSitio(): void {
-    if (this.sitioForm.valid && this.politicasAceptadas) {
-      const datosSitio = {
-        NombreSitioTuristico: this.sitioForm.value.nombre,
-        DescripcionSitioTuristico: this.sitioForm.value.descripcion,
-        Ubicacion: this.sitioForm.value.direccion,
-        Horario: this.sitioForm.value.horario,
-        Latitud: Number(this.sitioForm.value.latitud),
-        Longitud: Number(this.sitioForm.value.longitud),
-        FotoSitio: JSON.stringify(this.imagenesBase64),
-        IdCategoria: { Id: this.sitioForm.value.categoria },
-        IdMunicipio: { Id: this.sitioForm.value.municipio },
-        IdUsuario: { Id: 1 } // puedes ajustar el ID del usuario según tu lógica
-      };
+registrarSitio(): void {
+  if (this.sitioForm.valid && this.politicasAceptadas) {
+    // 🔹 Obtener el ID del usuario con sesión iniciada
+    const userId = Number(localStorage.getItem('usuarioId'));
 
-      console.log('Datos del sitio (para enviar al backend):', datosSitio);
+    if (!userId) {
+      console.error('No se encontró un ID válido en localStorage.');
+      return;
+    }
 
+    const datosSitio = {
+      NombreSitioTuristico: this.sitioForm.value.nombre,
+      DescripcionSitioTuristico: this.sitioForm.value.descripcion,
+      Ubicacion: this.sitioForm.value.direccion,
+      Horario: this.sitioForm.value.horario,
+      Latitud: Number(this.sitioForm.value.latitud),
+      Longitud: Number(this.sitioForm.value.longitud),
+      FotoSitio: JSON.stringify(this.imagenesBase64),
+      IdCategoria: { Id: this.sitioForm.value.categoria },
+      IdMunicipio: { Id: this.sitioForm.value.municipio },
+      IdUsuario: { Id: userId } // 🔹 Ahora usa el ID del usuario registrado
+    };
 
-      this.apiService.post<any>(API_URLS.CRUD.Api_crudRegistrarSitio, datosSitio).subscribe({
+    console.log('Datos del sitio (para enviar al backend):', datosSitio);
+
+    this.apiService.post<any>(API_URLS.CRUD.Api_crudRegistrarSitio, datosSitio).subscribe({
       next: (respuesta) => {
-      console.log('Registro exitoso:', respuesta);
-      this.registroExitoso = true;
-      this.resetFormulario();
-      setTimeout(() => this.registroExitoso = false, 5000);
+        console.log('Registro exitoso:', respuesta);
+        this.registroExitoso = true;
+        this.resetFormulario();
+        setTimeout(() => this.registroExitoso = false, 5000);
       },
       error: (error) => {
-      console.error('Error al registrar sitio turístico:', error);
+        console.error('Error al registrar sitio turístico:', error);
       }
-      });
-
-
-      this.registroExitoso = true;
-      this.resetFormulario();
-      setTimeout(() => this.registroExitoso = false, 5000);
-    }
+    });
   }
+}
 
 
   resetFormulario(): void {

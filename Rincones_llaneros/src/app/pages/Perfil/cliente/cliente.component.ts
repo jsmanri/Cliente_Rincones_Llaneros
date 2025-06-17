@@ -31,44 +31,50 @@ export class ClienteComponent implements OnInit {
 
   constructor(private servicio: ClienteService) {}
 
-  ngOnInit(): void {
-    const idCliente = 3;
+ngOnInit(): void {
+  // 🔹 Obtener el ID del usuario y asegurarse de que es un número
+  const idUsuario = Number(localStorage.getItem('usuarioId'));
 
-    this.servicio.obtenerClientePorId(idCliente).subscribe({
-      next: (cliente) => {
-        console.log('Cliente con id 3:', cliente);
-        if (cliente) {
-
-          // 🔁 Asegurarse de parsear la imagen si viene como string
-          if (cliente.FotoPerfil && typeof cliente.FotoPerfil === 'string') {
-            try {
-              cliente.FotoPerfil = JSON.parse(cliente.FotoPerfil);
-            } catch {
-              cliente.FotoPerfil = null; // No foto por defecto
-            }
-          }
-
-          this.usuario = {
-            nombre: cliente.Nombre,
-            rol: { nombre: 'cliente' },
-            correo: cliente.Correo,
-            cedula: cliente.Cedula,
-            numeroTelefono: cliente.NumeroTelefono,
-            fotoPerfil: cliente.FotoPerfil || null,
-            fotoPreview: cliente.FotoPerfil?.url || null,
-            activo: cliente.Activo,
-            idCredencialesCredenciales: {
-              id: cliente.IdCredencialesCredenciales?.Id || null,
-              usuario: cliente.IdCredencialesCredenciales?.Usuario || ''
-            }
-          };
-        }
-      },
-      error: (err) => {
-        console.error('Error al obtener cliente:', err);
-      }
-    });
+  if (!idUsuario) {
+    console.error('No se encontró un ID válido en localStorage.');
+    return;
   }
+
+  // 🔹 Buscar el usuario según el ID obtenido
+  this.servicio.obtenerClientePorId(idUsuario).subscribe({
+    next: (usuario) => {
+      if (usuario) {
+        // 🔁 Asegurar que la imagen de perfil se parsea si viene como string
+        if (usuario.FotoPerfil && typeof usuario.FotoPerfil === 'string') {
+          try {
+            usuario.FotoPerfil = JSON.parse(usuario.FotoPerfil);
+          } catch {
+            usuario.FotoPerfil = 'assets/profile.png'; // 🔹 Imagen por defecto en caso de error
+          }
+        }
+
+        // 🔹 Asignar los datos al objeto `usuario`
+        this.usuario = {
+          nombre: usuario.Nombre,
+          rol: { nombre: 'cliente' },
+          correo: usuario.Correo,
+          cedula: usuario.Cedula,
+          numeroTelefono: usuario.NumeroTelefono,
+          fotoPerfil: usuario.FotoPerfil || 'assets/profile.png',
+          fotoPreview: usuario.FotoPerfil?.url || null,
+          activo: usuario.Activo,
+          idCredencialesCredenciales: {
+            id: usuario.IdCredencialesCredenciales?.Id || null,
+            usuario: usuario.IdCredencialesCredenciales?.Usuario || ''
+          }
+        };
+      }
+    },
+    error: (err) => {
+      console.error('Error al obtener los datos del usuario:', err);
+    }
+  });
+}
 
   cambiarFoto(event: any) {
   const archivo = event.target.files[0];
@@ -91,12 +97,6 @@ export class ClienteComponent implements OnInit {
   lector.readAsDataURL(archivo);
   event.target.value = null;
 }
-
-
-
-
-
-
 
 
 

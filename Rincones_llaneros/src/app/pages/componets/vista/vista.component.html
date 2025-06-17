@@ -80,20 +80,6 @@
       <button class="btn-1" (click)="goToPush()">Explorar más </button>
     </div>
   </section>
-
-<section class="testimonios">
-  <h2>Lo que dicen nuestros visitantes</h2>
-  <div class="carrusel-testimonios">
-    <div class="testimonio" *ngFor="let testimonio of testimonios; let i = index" [class.active]="i === currentIndexTestimonios">
-      <img [src]="testimonio.foto" alt="Foto de {{testimonio.nombre}}" class="foto-testimonio">
-      <p class="mensaje">"{{testimonio.mensaje}}"</p>
-      <span class="autor">- {{testimonio.nombre}}, {{testimonio.ciudad}}</span>
-    </div>
-  </div>
-</section>
-
-
-
    
   <h3>Eventos mas destacados</h3>
   <a>Disfruta de los eventos mejor calificados por el publico</a>
@@ -118,27 +104,6 @@
  
 
 
-
-  <section class="general">
-    <div class="general-1">
-      <h2>¿Por qué visitar los Llanos?</h2>
-      <p>Los Llanos Orientales son el destino perfecto para quienes buscan naturaleza, cultura y aventura en un solo lugar.</p>
-      <a href="#" class="btn-1">Ver más</a>
-    </div>
-  </section>
-
-  <section class="blog-container">
-
-
-    <div class="blog-content">
-      <div class="blog-1">
-        <img src="atardecer.jpg" alt="Atardecer llanero"/>
-        <h3>Un atardecer inolvidable</h3>
-        <p>Descubre por qué los atardeceres llaneros son de los más hermosos del mundo.</p>
-      </div>
-    </div>
-    <a href="#" class="btn-1">Leer más</a>
-  </section>
 
 
 

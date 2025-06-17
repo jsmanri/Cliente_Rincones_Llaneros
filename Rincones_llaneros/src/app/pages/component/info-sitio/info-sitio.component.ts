@@ -59,55 +59,56 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router, private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    // Verificar si el usuario está autenticado (puedes cambiar esto según tu lógica de autenticación)
-    this.usuarioAutenticado = !!localStorage.getItem('usuario'); // Ejemplo usando localStorage
+ngOnInit(): void {
+  // Verificar si el usuario ha iniciado sesión
+  this.usuarioAutenticado = !!localStorage.getItem('usuarioId'); // 🔹 Cambiar a 'usuarioId'
 
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.apiService.get<any>(`${API_URLS.Mid.Api_Infositio}/${id}`).subscribe({
-        next: (response) => {
-          const datos = response.resultado;
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    this.apiService.get<any>(`${API_URLS.Mid.Api_Infositio}/${id}`).subscribe({
+      next: (response) => {
+        const datos = response.resultado;
 
-          let imagenes: string[] = [];
-          try {
-            const contenido = datos.Fotositio?.trim();
-            if (contenido?.startsWith('"[')) {
-              imagenes = JSON.parse(JSON.parse(contenido));
-            } else if (contenido?.startsWith('[')) {
-              imagenes = JSON.parse(contenido);
-            } else if (contenido?.startsWith('data:image')) {
-              imagenes = [contenido];
-            }
-          } catch (e) {
-            console.warn('Error al procesar Fotositio:', datos.Fotositio);
+        let imagenes: string[] = [];
+        try {
+          const contenido = datos.Fotositio?.trim();
+          if (contenido?.startsWith('"[')) {
+            imagenes = JSON.parse(JSON.parse(contenido));
+          } else if (contenido?.startsWith('[')) {
+            imagenes = JSON.parse(contenido);
+          } else if (contenido?.startsWith('data:image')) {
+            imagenes = [contenido];
           }
-
-          this.sitio = {
-            id: datos.Id_Sitio,
-            nombre: datos.Nombre,
-            descripcion: datos.Descripcion,
-            valoracion: Math.round(datos.Ponderacion * 10) / 10,
-            comentarios: datos.Comentarios || [],
-            imagenes: imagenes,
-            lat: datos.Latitud,
-            lng: datos.Longitud,
-            direccion: datos.Ubicacion,
-            horario: datos.Horario,
-            telefono: datos.Telefono,
-            transporte: datos.Transporte || {}
-          };
-
-          this.cargando = false; // Oculta el spinner cuando la petición se completa
-        },
-        error: (err) => {
-          console.error('Error al cargar el sitio:', err);
-          this.cargando = false; // Oculta el spinner en caso de error
+        } catch (e) {
+          console.warn('Error al procesar Fotositio:', datos.Fotositio);
         }
-      });
-    }
-    this.iniciarCarruselAutomatico();
+
+        this.sitio = {
+          id: datos.Id_Sitio,
+          nombre: datos.Nombre,
+          descripcion: datos.Descripcion,
+          valoracion: Math.round(datos.Ponderacion * 10) / 10,
+          comentarios: datos.Comentarios || [],
+          imagenes: imagenes,
+          lat: datos.Latitud,
+          lng: datos.Longitud,
+          direccion: datos.Ubicacion,
+          horario: datos.Horario,
+          telefono: datos.Telefono,
+          transporte: datos.Transporte || {}
+        };
+
+        this.cargando = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar el sitio:', err);
+        this.cargando = false;
+      }
+    });
   }
+  this.iniciarCarruselAutomatico();
+}
+
 
   ngOnDestroy(): void {
     clearInterval(this.intervaloCarrusel);
@@ -123,47 +124,51 @@ export class InfoSitioComponent implements OnInit, OnDestroy {
     this.nuevoComentario.valoracion = valor;
   }
 
-  enviarComentario() {
-    if (!this.usuarioAutenticado) {
-      alert('Debes iniciar sesión para agregar comentarios.');
-      return;
-    }
+ enviarComentario() {
+  if (!this.usuarioAutenticado) {
+    alert('Debes iniciar sesión para agregar comentarios.');
+    return;
+  }
 
-    if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
-      alert('Por favor, escribe un comentario y selecciona una puntuación.');
-      return;
-    }
+  if (!this.nuevoComentario.texto || this.nuevoComentario.valoracion === 0) {
+    alert('Por favor, escribe un comentario y selecciona una puntuación.');
+    return;
+  }
 
-    const comentario = {
-      IdSitio: this.sitio.id,
-      Autor: { Id: 4 }, // Puedes cambiar esto por el nombre real si hay autenticación
-      Texto: this.nuevoComentario.texto,
-      Calificacion: this.nuevoComentario.valoracion
+  const comentario = {
+  IdSitiosTuristicos: { Id: this.sitio.id }, // 🔹 Ahora se envía correctamente como objeto
+  IdUsuario: { Id: Number(localStorage.getItem('usuarioId')) }, // 🔹 Usuario autenticado
+  Comentario: this.nuevoComentario.texto,
+  Calificacion: String(this.nuevoComentario.valoracion), // 🔹 Convertido a string
+  Activo: true // 🔹 Asegura que el comentario sea marcado como activo
+};
+
+console.log('📌 Enviando comentario al CRUD:', comentario); // 📌 Verifica la estructura antes de enviar
+
+this.apiService.post<any>(API_URLS.CRUD.Api_Comentarios, comentario).subscribe({
+  next: (response) => {
+    console.log('✅ Respuesta del CRUD:', response); // 📌 Verifica que el backend lo acepte correctamente
+
+    // 📌 Agregar el comentario visualmente
+    const nuevo = {
+      autor: comentario.IdUsuario.Id,
+      texto: comentario.Comentario,
+      calificacion: comentario.Calificacion
     };
 
-    this.apiService.post<any>('http://localhost:8080/v1/Comentarios', comentario).subscribe({
-      next: (response) => {
-        const nuevo = {
-          autor: comentario.Autor,
-          texto: comentario.Texto,
-          calificacion: comentario.Calificacion
-        };
+    this.sitio.comentarios.push(nuevo); 
 
-        this.sitio.comentarios.push(nuevo);
-
-        if (response?.nuevaPonderacion) {
-          this.sitio.valoracion = Math.round(response.nuevaPonderacion * 10) / 10;
-        }
-
-        this.nuevoComentario = { texto: '', valoracion: 0 };
-        alert('Comentario enviado con éxito');
-      },
-      error: (err) => {
-        console.error('Error al enviar el comentario:', err);
-        alert('Ocurrió un error al enviar el comentario');
-      }
-    });
+    this.nuevoComentario = { texto: '', valoracion: 0 };
+    alert('Comentario enviado con éxito');
+  },
+  error: (err) => {
+    console.error('❌ Error al enviar comentario al CRUD:', err);
+    alert('Hubo un error al guardar el comentario');
   }
+});
+
+}
+
 
   iniciarSesion() {
     this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión

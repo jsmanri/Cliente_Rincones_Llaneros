@@ -15,7 +15,8 @@ export const API_URLS ={
         Api_crudMunicipios:'http://localhost:8080/v1/Municipios',
         Api_crudRol: 'http://localhost:8080/v1/Roles',
         Api_crudEventos: 'http://localhost:8080/v1/Eventos',
-        Api_crudSitios: 'http://localhost:8080/v1/Sitios_Turisticos'
+        Api_crudSitios: 'http://localhost:8080/v1/Sitios_Turisticos',
+        Api_Comentarios: 'http://localhost:8080/v1/Comentarios'
 
     }
 }

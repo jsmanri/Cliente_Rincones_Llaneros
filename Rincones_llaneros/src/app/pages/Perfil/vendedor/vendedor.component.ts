@@ -24,48 +24,64 @@ export class VendedorComponent implements OnInit {
 
   constructor(private VendedorService: VendedorService, private route: ActivatedRoute, private clienteService: ClienteService, private router: Router) {}
 
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.VendedorService.obtenerVendedorPorId(id).subscribe(vendedor => {
-      // Ya no se maneja la fotoPerfil ni preview
-      this.vendedor = vendedor;
+ngOnInit(): void {
+  // 🔹 Obtener el ID del usuario desde localStorage si existe
+  let idUsuario = localStorage.getItem('usuarioId');
 
-      // Obtener sitios turísticos
-      this.VendedorService.obtenerPublicaciones(this.vendedor.Id).subscribe(publicaciones => {
-    this.publicaciones = publicaciones.map((publicacion: any) => {
-      let fotos: string[] = [];
-      try {
-        fotos = JSON.parse(publicacion.FotoSitio);
-      } catch (e) {
-        console.error('Error al parsear FotoSitio:', e);
-      }
-      return {
-        ...publicacion,
-        Fotos: fotos,
-        indiceImagenActual: 0  // <--- Agrega este índice inicial
-      };
-    });
-  });
+  // 🔹 Si no hay ID en localStorage, obtenerlo desde la URL
+  if (!idUsuario) {
+    idUsuario = this.route.snapshot.paramMap.get('id');
+  }
 
-      // Obtener eventos
-      this.VendedorService.obtenerEventos(this.vendedor.Id).subscribe(eventos => {
-        this.eventos = eventos.map((evento: any) => {
-          let fotos: string[] = [];
-          if (evento.FotosEvento) {
-            try {
-              fotos = JSON.parse(evento.FotosEvento);
-            } catch (e) {
-              console.error('Error al parsear FotoEvento:', e);
-            }
-          }
-          return {
-            ...evento,
-            Fotos: fotos
-          };
-        });
+  // 🔹 Convertir ID a número para que coincida con lo que espera la API
+  const id = Number(idUsuario);
+
+  if (!id) {
+    console.error('No se encontró un ID válido.');
+    return;
+  }
+
+  // 🔹 Buscar al vendedor según el ID obtenido
+  this.VendedorService.obtenerVendedorPorId(id).subscribe(vendedor => {
+    this.vendedor = vendedor;
+
+    // Obtener sitios turísticos
+    this.VendedorService.obtenerPublicaciones(this.vendedor.Id).subscribe(publicaciones => {
+      this.publicaciones = publicaciones.map((publicacion: any) => {
+        let fotos: string[] = [];
+        try {
+          fotos = JSON.parse(publicacion.FotoSitio);
+        } catch (e) {
+          console.error('Error al parsear FotoSitio:', e);
+        }
+        return {
+          ...publicacion,
+          Fotos: fotos,
+          indiceImagenActual: 0
+        };
       });
     });
-  }
+
+    // Obtener eventos
+    this.VendedorService.obtenerEventos(this.vendedor.Id).subscribe(eventos => {
+      this.eventos = eventos.map((evento: any) => {
+        let fotos: string[] = [];
+        if (evento.FotosEvento) {
+          try {
+            fotos = JSON.parse(evento.FotosEvento);
+          } catch (e) {
+            console.error('Error al parsear FotoEvento:', e);
+          }
+        }
+        return {
+          ...evento,
+          Fotos: fotos
+        };
+      });
+    });
+  });
+}
+
 
   guardarCambios(sitio: any) {
     this.VendedorService.updateSitioTuristico(sitio.Id, sitio).subscribe({
@@ -329,12 +345,12 @@ siguienteImagen(sitio: any) {
 
 publicarSitio() {
   this.mostrarCardPublicar = false;
-  this.router.navigate(['/crear-sitio']); // Ajusta la ruta según tu configuración
+  this.router.navigate(['/home/registrositio']); // Ajusta la ruta según tu configuración
 }
 
 publicarEvento() {
   this.mostrarCardPublicar = false;
-  this.router.navigate(['/crear-evento']); // Ajusta la ruta según tu configuración
+  this.router.navigate(['/home/registroeven']); // Ajusta la ruta según tu configuración
 }
 
 

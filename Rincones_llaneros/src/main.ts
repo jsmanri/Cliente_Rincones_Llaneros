@@ -65,7 +65,7 @@ bootstrapApplication(AppComponent,{
                   path: 'registrositio', component: RegistroComponent
                 },
                 {
-                  path: 'Buscar', component: BuscarComponent
+                  path: 'buscar', component: BuscarComponent
                 },
                 { 
                   path: 'vendedor/:id', component: VendedorComponent
@@ -75,6 +75,9 @@ bootstrapApplication(AppComponent,{
                 },
                 {
                   path: 'info-sitio/:id', component: InfoSitioComponent
+                },
+                {
+                 path: 'registroeven', component: EventosComponent
                 }
               ]
               },
@@ -82,7 +85,6 @@ bootstrapApplication(AppComponent,{
              { path: 'register', component: RegisterComponent },
              { path: 'politica', component: PoliticaComponent },
              { path: 'recuperacion', component: RecuperacionComponent},
-             { path: 'registroeven', component: EventosComponent},
              { path: 'usuadmin', component: UsuariosadminComponent},
              { path: 'adminmapa', component: MapaComponent},
              { path: 'vista', component: VistaComponent },

@@ -56,6 +56,15 @@ export class EventosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // 🔹 Obtener el ID del usuario desde `localStorage`
+    const idUsuario = Number(localStorage.getItem('usuarioId'));
+
+    if (!idUsuario) {
+      console.error('No se encontró el ID del usuario en localStorage.');
+      return;
+    }
+
+    this.userId = idUsuario;
     this.cargarSitiosTuristicos();
   }
 
@@ -151,12 +160,12 @@ export class EventosComponent implements OnInit {
     if (fileInput) fileInput.files = dataTransfer.files;
   }
 
-  onSubmit(): void {
+onSubmit(): void {
     if (this.eventoForm.valid) {
       const datos = this.eventoForm.value;
 
       const payload = {
-        IdUsuario: { Id: this.userId },
+        IdUsuario: { Id: this.userId }, // 🔹 Se usa el ID del usuario con sesión
         IdSitioTuristico: { Id: datos.sitio },
         NombreEvento: datos.nombre,
         DescripcionEvento: datos.descripcion,
@@ -172,12 +181,6 @@ export class EventosComponent implements OnInit {
       this.apiService.post<any>(url, payload).subscribe({
         next: () => {
           this.eventoForm.reset();
-          Object.keys(this.eventoForm.controls).forEach((key) => {
-            const control = this.eventoForm.get(key);
-            control?.setErrors(null);
-            control?.markAsPristine();
-            control?.markAsUntouched();
-          });
           this.imagenesPreview = [];
           this.imagenesBase64 = [];
           this.mensajeTexto = '✅ Evento registrado exitosamente';
@@ -186,8 +189,7 @@ export class EventosComponent implements OnInit {
           setTimeout(() => (this.mensajeVisible = false), 3000);
         },
         error: () => {
-          this.mensajeTexto =
-            '❌ No se pudo registrar el evento. Inténtalo de nuevo';
+          this.mensajeTexto = '❌ No se pudo registrar el evento. Inténtalo de nuevo';
           this.mensajeExito = false;
           this.mensajeVisible = true;
           setTimeout(() => (this.mensajeVisible = false), 3000);

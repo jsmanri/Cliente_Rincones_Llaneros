@@ -2,6 +2,13 @@
   <mat-spinner></mat-spinner>
 </div>
 
+<div class="logout-container">
+  <button mat-raised-button color="warn" (click)="cerrarSesion()">
+    <mat-icon>logout</mat-icon> Cerrar Sesión
+  </button>
+</div>
+
+
 <div *ngIf="!loading" class="container">
   <!-- Contador de usuarios -->
   <div class="item">

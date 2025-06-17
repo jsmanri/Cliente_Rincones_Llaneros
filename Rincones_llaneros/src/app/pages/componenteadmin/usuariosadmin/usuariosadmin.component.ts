@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 // Chart.js
 import { NgChartsModule } from 'ng2-charts';
@@ -44,17 +45,13 @@ export class UsuariosadminComponent implements OnInit {
   selectedYear = new Date().getFullYear();
   selectedRol: string = 'vendedor';
 
-
-  // Definición de las columnas a mostrar en la tabla
   displayedColumns: string[] = ['Nombre', 'Activo'];
 
-  // Gráfica Circular - Roles
   rolesChartData: ChartData<'pie'> = {
     labels: [],
     datasets: [{ data: [], backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC'] }]
   };
 
-  // Gráfica Barras - Usuarios por Mes
   usuariosPorFechaChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [{ data: [], label: 'Usuarios Registrados', backgroundColor: '#42A5F5' }]
@@ -67,21 +64,19 @@ export class UsuariosadminComponent implements OnInit {
     }
   };
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService,private router: Router) {}
 
   ngOnInit() {
     this.loadData();
   }
 
-
   loadData(year: number = this.selectedYear) {
     this.loading = true;
-  
-    // Suponiendo que puedes enviar el año como query param, ej. ?anio=2026
+
     this.api.get<any>(`${API_URLS.Mid.Api_mid}?anio=${year}`).subscribe({
       next: (res) => {
-        //console.log('✅ Datos recibidos del MID:', res);
         this.data = res;
+        console.log('RolesCount:', this.data?.RolesCount); // <-- Para depuración
         this.loading = false;
         this.prepareCharts();
       },
@@ -92,20 +87,34 @@ export class UsuariosadminComponent implements OnInit {
     });
   }
 
-
   prepareCharts() {
-    // Preparar datos para la gráfica de roles
+    // Gráfica de Roles - normalizar nombres
     if (this.data?.RolesCount) {
-      this.rolesChartData.labels = this.data.RolesCount.map((r: any) => r.Rol);
-      this.rolesChartData.datasets[0].data = this.data.RolesCount.map((r: any) => r.Count);
+      const rolesNormalizados = this.data.RolesCount.map((r: any) => ({
+        Rol: r.Rol.trim().toLowerCase(),
+        Count: r.Count
+      }));
+
+      const rolesAgrupados: { [key: string]: number } = {};
+      for (const rol of rolesNormalizados) {
+        if (!rolesAgrupados[rol.Rol]) {
+          rolesAgrupados[rol.Rol] = 0;
+        }
+        rolesAgrupados[rol.Rol] += rol.Count;
+      }
+
+      this.rolesChartData.labels = Object.keys(rolesAgrupados).map((rol) =>
+        rol.charAt(0).toUpperCase() + rol.slice(1)
+      );
+      this.rolesChartData.datasets[0].data = Object.values(rolesAgrupados);
     }
-  
-    // Preparar datos para la gráfica de usuarios por fecha
+
+    // Gráfica de Usuarios por Mes
     if (this.data?.UsuariosPorFecha) {
       const datosFiltrados = this.data.UsuariosPorFecha
         .filter((r: any) => String(r['Año']).trim() === String(this.selectedYear))
         .sort((a: any, b: any) => parseInt(a['Mes']) - parseInt(b['Mes']));
-  
+
       if (datosFiltrados.length > 0) {
         this.usuariosPorFechaChartData.labels = datosFiltrados.map((r: any) =>
           this.nombreMes(parseInt(r['Mes']))
@@ -120,53 +129,48 @@ export class UsuariosadminComponent implements OnInit {
     }
   }
 
-  // Convertir número de mes en su nombre
   nombreMes(mes: number): string {
     const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     return meses[mes - 1] || `Mes ${mes}`;
   }
 
-  // Cambiar de año en las gráficas
   cambiarAnio(valor: number) {
-  this.selectedYear += valor;
-  this.loadData(this.selectedYear); // Pide al backend los datos del nuevo año
- }
+    this.selectedYear += valor;
+    this.loadData(this.selectedYear);
+  }
 
-  // Filtrar los usuarios según la búsqueda
   get filteredUsuarios() {
     if (!this.data?.Usuarios) return [];
     return this.data.Usuarios
-    .filter((user: any) => user.RolNombre?.toLowerCase() === this.selectedRol)
-    .filter((user: any) => 
-      user.Nombre.toLowerCase().includes(this.searchText.toLowerCase())
-    );
+      .filter((user: any) => user.RolNombre?.toLowerCase() === this.selectedRol)
+      .filter((user: any) =>
+        user.Nombre.toLowerCase().includes(this.searchText.toLowerCase())
+      );
   }
 
   cambiarRol(rol: string) {
     this.selectedRol = rol;
   }
 
-  // Cambiar el estado de "Activo" de un usuario
   toggleActivo(usuario: any) {
-    // Invertir estado
     usuario.Activo = !usuario.Activo;
-  
-    // Armar la URL con el ID del usuario
+
     const url = `${API_URLS.CRUD.Api_crudUsuarios}/${usuario.Id}`;
-  
-    // Solo enviar el campo Activo al backend
     const updatedUsuario = { Activo: usuario.Activo };
-  
-    // Hacer PATCH al backend
+
     this.api.patch(url, updatedUsuario).subscribe({
       next: () => {
-        //console.log(`Usuario ${usuario.Nombre} actualizado correctamente`);
+        // Actualización exitosa
       },
       error: (err) => {
         console.error('Error al actualizar usuario:', err);
-        // Revertir el estado si falla
-        usuario.Activo = !usuario.Activo;
+        usuario.Activo = !usuario.Activo; // revertir
       }
     });
   }
+  cerrarSesion() {
+  localStorage.removeItem('usuarioId'); // 🔹 Elimina el ID del usuario de la sesión
+  this.router.navigate(['/login']); // 🔹 Redirige al login (ajusta la ruta según tu configuración)
+}
+
 }
